@@ -145,7 +145,7 @@ contains
        end do
 
        pr(j)    = -2.0_dp * PI * psum * DR / 9.0_dp
-       ekt(j)   =  2.0_dp * PI * esum * DR / 3.0_dp + PI * gamm(j) * sigma(j)**2
+       ekt(j)   =  2.0_dp * PI * esum * DR / 3.0_dp + PI * gamm(j) * R(ncj)**2
        ektlj(j) =  2.0_dp * PI * eljsum * DR / 3.0_dp
        a1kt(j)  =  2.0_dp * PI * a1sum * DR / 3.0_dp
        chm(j)   =  2.0_dp * PI * (rmusum - rms1) * DR / 3.0_dp
@@ -288,13 +288,13 @@ contains
        chsum = 0.0_dp
        do js = 1, NSP
           nps   = npos(is, js)
-          sigx  = sigma(nps)
+          sigx  = R(ncore(nps))
           sm1   = sm1 + rho(is) * rho(js) * sigx**3
           ssm1  = ssm1 + rho(js) * sigx**3
           chsum = rho(js) * (chm(nps) + ekt(nps)) + chsum
        end do
        sm3  = sm3 + (rho(is) * qq(is)**2)**2
-       sm11 = sm11 + rho(is)**2 * (sigma(npos(is, is)))**3
+       sm11 = sm11 + rho(is)**2 * (R(ncore(npos(is, is))))**3
        eik  = exp(-rkd * R(N))
 
        ! 1. Excess chemical potentials

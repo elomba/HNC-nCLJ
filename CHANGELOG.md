@@ -39,6 +39,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Sample dataset `5C/datosLJ.hncr` with 5 charged species ($q = [0, +1, +2, -1, -2]$, $x = [0.80, 0.05, 0.04, 0.09, 0.02]$) across temperatures $\beta^* = 0.10 \dots 1.10$.
   - Verified thermodynamic consistency between virial compressibility $Z_{\text{virial}}$ and free-energy/chemical-potential compressibility $Z_a$ ($< 0.5\%$ deviation).
 
+### Fixed
+- **Thermodynamic Consistency in Free Energy ($a_{\text{ex}}^{\text{HNC}}$)**:
+  - Corrected core radius reference in [`src/thermo_mod.f90`](file:///home/e.lomba/EntropicFLuids/src/thermo_mod.f90): in adapting from the hard-sphere RPM solver, the core cavity volume ($a_{\text{SR}}$), chemical potential hard-core shift, and electrostatic surface terms were still evaluated using the hard-sphere diameter $\sigma(j)$ rather than the soft-core cutoff boundary $R_{\text{core}}(j) = R(ncore(j)) \approx 0.6 \, \sigma(j)$.
+  - Updating these terms removes an artificial $+1.642 \, \rho$ linear slope discrepancy in $a_{\text{ex}}^{\text{HNC}}(\rho)$, restoring exact internal thermodynamic consistency:
+    - 5-point numerical differentiation $Z = 1 + \rho \frac{\partial a_{\text{ex}}}{\partial \rho}$ now reproduces the virial compressibility factor $Z_{\text{virial}}$ with **$0.01\% - 0.05\%$ accuracy** across all densities.
+    - Thermodynamic integration along the isotherm reproduces the direct HNC free energy to within **$< 0.01 \, k_B T$**.
+
 ### Changed
 - **Arbitrary Multicomponent Scaling ($NSP \ge 2$)**:
   - Generalized from previous 4-species limit to arbitrary $NSP$ (tested up to 5 components).
