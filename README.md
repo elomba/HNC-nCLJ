@@ -1,6 +1,6 @@
 # HNCR-nCLJ: Hypernetted Chain Solver for Multicomponent Charged Lennard-Jones Fluids
 
-**HNCR-nCLJ** is a high-performance Fortran 2008/2018 code that solves the multicomponent Ornstein-Zernike (OZ) integral equation with the Hypernetted Chain (HNC) closure for mixtures of charged Lennard-Jones particles (soft-core ions) for up to 4 distinct species.
+**HNCR-nCLJ** is a high-performance Fortran 2008/2018 code that solves the multicomponent Ornstein-Zernike (OZ) integral equation with the Hypernetted Chain (HNC) closure for mixtures of charged Lennard-Jones particles (soft-core ions) for an arbitrary number of species (e.g. 2, 3, 4, 5+ components).
 
 The code implements **Allnatt's renormalized OZ formulation** to handle long-range Coulombic forces without divergence, coupled with the **Labík–Malijevský–Vonka** Newton-Raphson iterative procedure and the **Kinoshita–Harada** continuation strategy across temperature and density sweeps.
 
@@ -9,7 +9,7 @@ The code implements **Allnatt's renormalized OZ formulation** to handle long-ran
 ## Features
 
 - **Soft-Core Ionic Model**: Cut-and-shifted Lennard-Jones (12-6) core plus Coulombic electrostatic interactions with arbitrary per-pair parameters ($\sigma_{ij}$, $\epsilon_{ij}$, $r_{\text{cut},ij}$) and ionic valencies ($q_i$).
-- **Multicomponent Support**: Handles up to 4 species with automatic calculation of electroneutral molar fractions.
+- **Arbitrary Multicomponent Support**: Handles 2 to 5+ species with automatic, closed-form electroneutrality and stoichiometric mole fraction determination.
 - **Renormalized Integral Equations**: Allnatt's formulation subtracting Yukawa-screened Coulomb tails in both real and Fourier space.
 - **Fast & Robust Convergence**:
   - Inner **Newton-Raphson** loop on the direct correlation function over short-range grid points.
@@ -17,10 +17,12 @@ The code implements **Allnatt's renormalized OZ formulation** to handle long-ran
   - **Kinoshita–Harada continuation**: The inverted Jacobian matrix is preserved across steps, drastically speeding up thermodynamic state sweeps.
 - **Optimized Numerics**:
   - Precomputed trigonometric and bit-reversal lookup tables in Fast Sine/Cosine Transforms (FFTSIN/FFTCOS).
-  - High-performance BLAS (`DGEMV`) and LAPACK (`DGETRF`, `DGETRI`) matrix algebra.
+  - High-performance BLAS (`DGEMV`) and LAPACK (`DGETRF`, `DGETRI`) matrix algebra with auto-detection of OpenBLAS, FlexiBLAS, and Intel MKL.
 - **Thermodynamic Consistency & Structure**:
   - Internal energy (Coulomb and LJ contributions).
   - Helmholtz free energy $A / N k_B T$ via $k$-space integration.
+  - **Excess entropy** $S_{\text{ex}} / N k_B = (U_{\text{ex}} - A_{\text{ex}}) / N k_B T$.
+  - **Total entropy** $S / N k_B = S_{\text{id}} / N k_B + S_{\text{ex}} / N k_B$ including ideal-gas mixture mixing entropy.
   - Virial and free-energy compressibility factors ($Z_v$ and $Z_a$).
   - Reduced inverse isothermal compressibility $\chi_T^{-1}$.
   - Excess chemical potentials $\mu_i / k_B T$.
@@ -137,7 +139,7 @@ If no input file is passed as an argument, the program defaults to `datosLJ.hncr
 | **1** | `title` | Title / description string (up to 80 chars) |
 | **2** | `NR, DR, tdiff, pmixt, tmax, amx` | Grid points ($2^{\text{NU}}$), grid step $\Delta r$, convergence tolerance, Broyles mixing parameter, max CPU seconds, mixing error threshold |
 | **3** | `NUM, diffnr` | Number of grid points for Newton-Raphson scheme ($\le ND$), NR tolerance |
-| **4** | `NSP` | Number of species ($NSP \le 4$) |
+| **4** | `NSP` | Number of species ($NSP \ge 2$) |
 | **5** | `ssig(1:NSP, 1:NSP)` | Collision diameters $\sigma_{ij}$ matrix ($NSP \times NSP$) |
 | **6** | `eeps(1:NSP, 1:NSP)` | Lennard-Jones well depths $\epsilon_{ij}$ matrix ($NSP \times NSP$) |
 | **7** | `qq(1:NSP)` | Ionic charges $q_i$ in elementary units |
@@ -145,7 +147,7 @@ If no input file is passed as an argument, the program defaults to `datosLJ.hncr
 | **9** | `densid(1:nrho)` | Total number densities $\rho^* = (N/V)\sigma^3$ |
 | **10** | `tk(1:ntr)` | Reduced temperatures $T^* = k_B T / \epsilon$ |
 | **11** | `compsi` | Logical flag (`.true.` = compute MSA initial guess, `.false.` = read `solin.hncr`) |
-| **12** | `XXc(1:NSP-2)` | Independent mole fractions (remaining fractions determined by electroneutrality) |
+| **12** | `XXc(1:NSP-2)` | Independent mole fractions (species $1 \dots NSP-2$; remaining 2 determined by electroneutrality) |
 | **13** | `rct(1:NSP, 1:NSP)` | Interaction cutoff radii $r_{\text{cut}, ij}$ matrix ($NSP \times NSP$) |
 | **14** | `gama` | Solvent dielectric / electrostatic coupling scaling parameter |
 
@@ -156,7 +158,7 @@ If no input file is passed as an argument, the program defaults to `datosLJ.hncr
 | File | Content |
 |:---|:---|
 | `Salida.hncr` | Detailed log of iterations, residuals, and timing per thermodynamic state |
-| `Thermohncr.dat` | Thermodynamic summary table: density, temperature, pressure $Z$, energies ($U_{\text{tot}}, U_{\text{coulomb}}$), free energy $A/Nk_BT$, compressibility $\chi_T^{-1}$, chemical potentials $\mu_i$, and Bhatia-Thornton eigenvalues $\lambda_1, \lambda_2$ |
+| `Thermohncr.dat` | Thermodynamic summary table: density $\rho$, temperature $\beta^*$, pressure $Z$, energies ($U_{\text{tot}}, U_{\text{coulomb}}$), free energy $A/Nk_BT$, excess entropy $S_{\text{ex}}/Nk_B$, total entropy $S/Nk_B$, compressibility $\chi_T^{-1}$, chemical potentials $\mu_i$, and Bhatia-Thornton eigenvalues $\lambda_1, \lambda_2$ |
 | `RDFhncr.dat` | Radial distribution functions $g_{ij}(r)$ for all pairs as a function of $r$ |
 | `skhnc.dat` | Structure factors $S_{ij}(q)$, total number $S_{NN}(q)$, and concentration-concentration $S_{cc}(q)$ |
 | `lsol.hncr` | Converged short-range series function $r \cdot s_{ij}(r)$ (can be used to restart with `compsi=.false.`) |

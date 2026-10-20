@@ -28,7 +28,7 @@ contains
     real(dp), intent(in)  :: rhot_val
     real(dp), intent(out) :: scc_out
 
-    integer(ip) :: i
+    integer(ip) :: i, k, l, idx
     real(dp), dimension(nsp_val) :: x_frac
     real(dp) :: s11, s12, s22, x1, x2
 
@@ -36,7 +36,7 @@ contains
        x_frac(i) = rho_in(i) / rhot_val
     end do
 
-    if (itcc == 2) then
+    if (nsp_val == 2 .or. itcc == 2) then
        x1  = x_frac(1)
        x2  = x_frac(2)
        s11 = sk_in(1)
@@ -44,10 +44,22 @@ contains
        s12 = sk_in(2)
     else
        x1  = x_frac(1)
-       x2  = x_frac(2) + x_frac(3)
+       x2  = sum(x_frac(2:nsp_val))
        s11 = sk_in(1)
-       s12 = sk_in(2) + sk_in(4)
-       s22 = sk_in(3) + 2.0_dp * sk_in(5) + sk_in(6)
+       s12 = 0.0_dp
+       s22 = 0.0_dp
+       do k = 2, nsp_val
+          idx = (k * k - k) / 2 + 1
+          s12 = s12 + sk_in(idx)
+          do l = 2, nsp_val
+             if (k >= l) then
+                idx = (k * k - k) / 2 + l
+             else
+                idx = (l * l - l) / 2 + k
+             end if
+             s22 = s22 + sk_in(idx)
+          end do
+       end do
     end if
     scc_out = x2**2 * s11 + x1**2 * s22 - 2.0_dp * x1 * x2 * s12
   end subroutine skcc
@@ -56,10 +68,10 @@ contains
   ! Subroutine: compute_thermodynamics
   ! Calculates complete thermodynamics after convergence of the HNC equations.
   !=============================================================================
-  subroutine compute_thermodynamics(tr, rhot, rkd, pres, sek, sekc, ankt, za, xc, &
-                                    lamb1, lamb2, vrr, vcc)
+  subroutine compute_thermodynamics(tr, rhot, rkd, pres, sek, sekc, ankt, sex, stot, &
+                                    za, xc, lamb1, lamb2, vrr, vcc)
     real(dp), intent(in)  :: tr, rhot, rkd
-    real(dp), intent(out) :: pres, sek, sekc, ankt, za, xc
+    real(dp), intent(out) :: pres, sek, sekc, ankt, sex, stot, za, xc
     real(dp), intent(out) :: lamb1, lamb2, vrr, vcc
 
     integer(ip) :: i, j, k, l, ncj, ic, ics, is, js, nps
@@ -67,6 +79,7 @@ contains
     real(dp) :: ri, hij, sij, psum, eljsum, a2kt, qi, trachk, fklr, fklrii, thij, dethk
     real(dp) :: seklj, akcor, ipk, fcnr, xd, xion, cionion, Mrr0, Mcc0, Mrc0
     real(dp) :: sm1, sm11, sm3, chss, chsum, sigx, ssm1, eik, alr, asr, elr, xcsum
+    real(dp) :: tds12_eff, sid
 
     xcsum = 0.0_dp
 
@@ -197,11 +210,24 @@ contains
 
     ! Concentration fluctuations and Bhatia-Thornton eigenvalues
     xd   = XXc(1)
-    xion = XXc(2) + XXc(3)
-    cionion = 0.5_dp * (tds(2, 2) + tds(2, 3))
-    Mrr0 = 1.0_dp - rhot * (xion**2 * cionion + xd**2 * tds(1, 1) + 2.0_dp * xion * xd * tds(1, 2))
-    Mcc0 = 1.0_dp - rhot * xion * xd * (cionion + tds(1, 1) - 2.0_dp * tds(1, 2))
-    Mrc0 = rhot * sqrt(xion * xd) * (xd * tds(1, 2) - xion * cionion - (xd - xion) * tds(1, 2))
+    xion = sum(XXc(2:NSP))
+    if (NSP == 2) then
+       cionion = tds(2, 2)
+       tds12_eff = tds(1, 2)
+    else
+       cionion = 0.0_dp
+       tds12_eff = 0.0_dp
+       do k = 2, NSP
+          tds12_eff = tds12_eff + (XXc(k) / xion) * tds(1, k)
+          do l = 2, NSP
+             cionion = cionion + (XXc(k) * XXc(l) / (xion**2)) * tds(k, l)
+          end do
+       end do
+    end if
+
+    Mrr0 = 1.0_dp - rhot * (xion**2 * cionion + xd**2 * tds(1, 1) + 2.0_dp * xion * xd * tds12_eff)
+    Mcc0 = 1.0_dp - rhot * xion * xd * (cionion + tds(1, 1) - 2.0_dp * tds12_eff)
+    Mrc0 = rhot * sqrt(xion * xd) * (xd * tds12_eff - xion * cionion - (xd - xion) * tds12_eff)
 
     lamb1 = (Mrr0 + Mcc0 - sqrt((Mrr0 - Mcc0)**2 + 4.0_dp * Mrc0**2)) / 2.0_dp
     lamb2 = (Mrr0 + Mcc0 + sqrt((Mrr0 - Mcc0)**2 + 4.0_dp * Mrc0**2)) / 2.0_dp
@@ -249,10 +275,22 @@ contains
     ! 4. Excess Helmholtz free energy
     ankt = ankt + a2kt + asr + sekc + akcor + alr
 
-    ! 5. Compressibility factor from virial equation
+    ! 5. Excess and total entropy
+    sex = sek - ankt
+
+    ! Ideal gas mixture entropy: s_id / (N * k_B) = 2.5 - ln(rho) - sum(x_i * ln(x_i))
+    sid = 2.5_dp - log(rhot)
+    do is = 1, NSP
+       if (XXc(is) > 1.0d-12) then
+          sid = sid - XXc(is) * log(XXc(is))
+       end if
+    end do
+    stot = sid + sex
+
+    ! 6. Compressibility factor from virial equation
     pres = 1.0_dp + psum + sekc / 3.0_dp
 
-    ! 6. Compressibility factor from free energy and chemical potential
+    ! 7. Compressibility factor from free energy and chemical potential
     za = 1.0_dp + chss / rhot - ankt
   end subroutine compute_thermodynamics
 

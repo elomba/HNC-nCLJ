@@ -39,7 +39,13 @@ else ifeq ($(findstring ifort,$(FC)),ifort)
   LIBS ?= -mkl
 else
   # Default for gfortran: OpenBLAS (includes LAPACK) or FlexiBLAS
-  LIBS ?= -lopenblas
+  ifneq ($(EBROOTOPENBLAS),)
+    LIBS ?= -L$(EBROOTOPENBLAS)/lib -Wl,-rpath,$(EBROOTOPENBLAS)/lib -lopenblas
+  else ifneq ($(wildcard /usr/local/modules/x64_v4/software/OpenBLAS/0.3.30-GCC-14.3.0/lib),)
+    LIBS ?= -L/usr/local/modules/x64_v4/software/OpenBLAS/0.3.30-GCC-14.3.0/lib -Wl,-rpath,/usr/local/modules/x64_v4/software/OpenBLAS/0.3.30-GCC-14.3.0/lib -lopenblas
+  else
+    LIBS ?= -lopenblas
+  endif
 endif
 
 # Compiler flags
@@ -106,10 +112,10 @@ test: all
 	@echo "Test completed successfully."
 
 clean:
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJ_DIR) *.mod
 
 distclean: clean
-	rm -rf $(BIN_DIR) Salida.hncr Thermohncr.dat RDFhncr.dat skhnc.dat lsol.hncr fort.*
+	rm -rf $(BIN_DIR) Salida.hncr Thermohncr.dat RDFhncr.dat skhnc.dat lsol.hncr fort.* *.mod
 
 help:
 	@echo "HNCR-nCLJ Build System"

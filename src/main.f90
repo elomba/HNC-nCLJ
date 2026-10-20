@@ -28,6 +28,7 @@ program main
   character(len=256) :: input_file
   character(len=80)  :: title
   character(len=1)   :: tit
+  character(len=10)  :: mu_header
 
   integer(ip) :: nr_input, num_input
   real(dp)    :: dr_input, tdiff, pmixt, tmax, amx, diffnr, gama
@@ -35,7 +36,8 @@ program main
   integer(ip) :: nrho, ntr, idn, itr, i, j, k, l, lx, inr, nrmax, ni
   integer(ip) :: mx, nx, in1, in2, ncmin, ntt, kwit, total_broyles
   real(dp)    :: rhot, rkx, tr, rkd, xp, xm, dri, tri, rr, final_err
-  real(dp)    :: pres, sek, sekc, ankt, za, xc, lamb1, lamb2, vrr, vcc
+  real(dp)    :: pres, sek, sekc, ankt, sex, stot, za, xc, lamb1, lamb2, vrr, vcc
+  real(dp)    :: sx, sq
   real(dp)    :: t_start, t_end, t_step, sksum, scccon
 
   ! Command-line argument handling
@@ -56,8 +58,8 @@ program main
   read(9, *) num_input, diffnr
   read(9, *) NSP
 
-  if (NSP > 4) then
-     write(*, '(A, I4)') ' *** Error: Number of species exceeds maximum supported (4): ', NSP
+  if (NSP > 10) then
+     write(*, '(A, I4)') ' *** Error: Number of species exceeds maximum supported (10): ', NSP
      stop
   end if
 
@@ -87,9 +89,9 @@ program main
   read(9, *) (tk(j), j = 1, ntr)
   read(9, *) compsi
 
-  if (NSP <= 3) then
+  if (NSP == 2) then
      read(9, *) XXc(1)
-  else if (NSP == 4) then
+  else
      read(9, *) XXc(1:NSP-2)
   end if
 
@@ -108,16 +110,19 @@ program main
      end do
   end do
 
-  ! Determine remaining mole fractions to guarantee electrosolenoidal neutrality
+  ! Determine remaining mole fractions to guarantee electroneutrality
   if (NSP == 2) then
      XXc(1) = 1.0_dp / (1.0_dp - qq(1) / qq(2))
      XXc(2) = 1.0_dp - XXc(1)
-  else if (NSP == 3) then
-     XXc(3) = (qq(2) * (XXc(1) - 1.0_dp) - qq(1) * XXc(1)) / (qq(3) - qq(2))
-     XXc(2) = 1.0_dp - XXc(1) - XXc(3)
-  else if (NSP == 4) then
-     XXc(3) = (qq(3) * (XXc(1) + XXc(2) - 1.0_dp) - XXc(1) * qq(1) - XXc(2) * qq(2)) / (qq(4) - qq(3))
-     XXc(4) = 1.0_dp - XXc(1) - XXc(2) - XXc(3)
+  else
+     if (abs(qq(NSP) - qq(NSP-1)) < 1.0d-12) then
+        write(*, '(A)') ' *** Error: Charges of species NSP-1 and NSP must differ for electroneutrality ***'
+        stop
+     end if
+     sx = sum(XXc(1:NSP-2))
+     sq = sum(XXc(1:NSP-2) * qq(1:NSP-2))
+     XXc(NSP)   = (qq(NSP-1) * (sx - 1.0_dp) - sq) / (qq(NSP) - qq(NSP-1))
+     XXc(NSP-1) = 1.0_dp - sx - XXc(NSP)
   end if
 
   ! Initialize correlation functions
@@ -174,16 +179,16 @@ program main
   write(8, 99004) tdiff, pmixt, NR, DR, NUM, diffnr
   write(*, 99004) tdiff, pmixt, NR, DR, NUM, diffnr
 
-  if (NSP == 2) then
-     write(8, 99023) (j, j = 1, NSP)
-     write(8, 99024)
-  else if (NSP == 3) then
-     write(8, 99025) (j, j = 1, NSP)
-     write(8, 99026)
-  else if (NSP == 4) then
-     write(8, 99013) (j, j = 1, NSP)
-     write(8, 99014)
-  end if
+  write(8, '("#  Thermodynamics:")')
+  write(8, '("# -----------------")')
+  write(8, '("# ", 4A8, 7A10)', advance='no') &
+       'x(1)', 'rho', 'beta*', 'z', 'u/nkt', 'u_c/nkt', 'a/nkt', 's_ex/nk', 's/nk', 'z(a)', 'xc'
+  do j = 1, NSP
+     write(mu_header, '("mu/kt(", I0, ")")') j
+     write(8, '(A10)', advance='no') adjustr(mu_header)
+  end do
+  write(8, '(4A10)') 'lamb1', 'lamb2', 'vrr', 'vcc'
+  write(8, '("#", 180("*"))')
 
   ! Initial solution
   if (compsi) then
@@ -233,7 +238,10 @@ program main
      rhot = densid(idn)
      rho(1:NSP) = rhot * XXc(1:NSP)
 
-     write(*, 99018) rho(1:NSP)
+     write(*, '(/, A)') ' Calculating for :'
+     do j = 1, NSP
+        write(*, '(" rho(", I0, ") = ", F10.6)') j, rho(j)
+     end do
      write(*, 99022) PI * sum(rho(1:NSP) * sigma(1:NSP)**3)
 
      rkx = sum(rho(1:NSP) * qq(1:NSP)**2)
@@ -269,13 +277,15 @@ program main
         end if
 
         ! Calculate thermodynamics
-        call compute_thermodynamics(tr, rhot, rkd, pres, sek, sekc, ankt, za, xc, &
+        call compute_thermodynamics(tr, rhot, rkd, pres, sek, sekc, ankt, sex, stot, za, xc, &
                                     lamb1, lamb2, vrr, vcc)
 
         call cpu_time(t_step)
         write(3, 99009) ntt, total_broyles, t_step - t_start
-        write(8, 99015) XXc(1), rhot, 1.0_dp / tr, pres, sek, sekc, ankt, za, xc, &
-                        (chemp(j), j = 1, NSP), lamb1, lamb2, vrr, vcc
+        write(8, '(2x, 4(f8.4), *(f10.4))') &
+             XXc(1), rhot, 1.0_dp / tr, pres, &
+             sek, sekc, ankt, sex, stot, za, xc, &
+             (chemp(j), j = 1, NSP), lamb1, lamb2, vrr, vcc
 
      end do temperature_loop
   end do density_loop
@@ -332,34 +342,19 @@ program main
 
   ! Format strings
 99001 format(/2x, 'broyles it.   n-r it      error      time'/1x, 50('='))
-99003 format(/, '#      program HNCR_nCLJ: '/"#   ", a80, /"#  ", 60('*') &
-             /6('#   qq(', i1, ') = ', f9.4, ' sigma(', i1, ') = ', f7.4, &
-                ' Xc(', i1, ') = ', f8.5 /:))
+99003 format(/, '#      program HNCR_nCLJ: '/"#   ", a, /"#  ", 60('*') &
+             / *( '#   qq(', i1, ') = ', f9.4, ' sigma(', i1, ') = ', f7.4, &
+                ' Xc(', i1, ') = ', f8.5 /: ))
 99004 format('# tdiff = ', f10.7, ' pmixt = ', f6.3, ' nr = ', i5, ' dr = ', f7.4, &
              ' num = ', i3, ' diffnr = ', f10.7//)
 99009 format(/1x, ' * end of computation after ', i4, ' n-r iter.', &
              ' and ', i3, ' broyles iter.'/4x, 'cpu time :', f7.2, ' sec.'/)
 99012 format(/2x, 'computing for beta* = ', f9.4, 5x, 'rho (tot) = ', f8.5/1x, 60('-'))
-99013 format("#  ", 'Thermodynamics:'/"# ", 17('-')/"#   ", 'time', 3x, 'rho', 2x, &
-             '  beta* ', 4x, 'z', 5x, 'u/nkt', 3x, 'u_c/nkt', 3x, 'a/nkt', 5x, 'z(a)', 6x, 'xc', &
-             4x, 4('mu/kt(', i1, ')', 2x))
-99014 format("# ", 108('*'))
-99015 format(1x, f6.2, 1x, 3(f7.4, 1x), 7(f8.4, 1x), 1x, 6(f8.4, 2x))
 99016 format(/' *** Reading initial solution from disk ***.'/)
 99017 format(/'  ** Interpolating S(I,J) to match input dr **'/)
-99018 format(/ " Calculating for : ", // " rho(1) = ", f10.6, &
-             /, " rho(2) = ", f10.6, /, " rho(3) = ", f10.6, /, " rho(4) = ", f10.6)
-99020 format(1x, f9.5, 3x, 10(1x, f11.5))
-99021 format(f10.5, 4x, 10(f12.5, 1x))
+99020 format(1x, f9.5, 3x, *(1x, f11.5))
+99021 format(f10.5, 4x, *(f12.5, 1x))
 99022 format(" eta    = ", f10.6/)
-99023 format("#  ", 'Thermodynamics:'/2x, 17('-')/"#   ", 'x(1)', 3x, 'rho', 2x, &
-             '  beta* ', 5x, 'z', 5x, 'u/nkt', 3x, 'u_c/nkt', 3x, 'a/nkt', 5x, 'z(a)', 4x, 'xc', &
-             5x, 2('mu/kt(', i1, ')', 2x))
-99024 format("#", 88('*'))
-99025 format("#  ", 'Thermodynamics:'/"# ", 17('-')/"#   ", 'x(1)', 3x, 'rho', 2x, &
-             '  beta* ', 5x, 'z', 5x, 'u/nkt', 3x, 'u_c/nkt', 3x, 'a/nkt', 5x, 'z(a)', 4x, 'xc', &
-             5x, 3('mu/kt(', i1, ')', 2x))
-99026 format("#", 98('*'))
-99031 format(2(f8.5, 1x), i5, 1x, 11(f14.9))
+99031 format(2(f8.5, 1x), i5, 1x, *(f14.9, 1x))
 
 end program main

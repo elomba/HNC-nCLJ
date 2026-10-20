@@ -193,9 +193,9 @@ contains
     real(dp), dimension(*), intent(inout) :: ai
 
     integer(ip) :: i, j, k, km1, kp1, l
-    integer(ip), dimension(100) :: r_stat
-    real(dp), dimension(6, 6)   :: a_mat
-    real(dp), dimension(100)    :: p, q
+    integer(ip), dimension(128)  :: r_stat
+    real(dp), dimension(32, 32)  :: a_mat
+    real(dp), dimension(128)     :: p, q
     real(dp) :: big, pivot1, test
     real(dp), parameter :: epsiln = 1.0_dp - 20 ! 1.0d-20
 

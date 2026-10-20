@@ -8,7 +8,7 @@ module params_mod
   public
 
   ! Dimension parameters set at runtime from input file
-  integer(ip) :: NSP       ! Number of species (NSP <= 4)
+  integer(ip) :: NSP       ! Number of species (supported: 2 to 5+)
   integer(ip) :: NUM       ! Number of grid points for Newton-Raphson scheme
   integer(ip) :: NIT       ! Number of distinct interaction pairs = (NSP*NSP + NSP)/2
   integer(ip) :: ND        ! Dimension of Newton-Raphson Jacobian system = NIT * NUM

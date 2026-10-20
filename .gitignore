@@ -22,3 +22,5 @@ fort.*
 # Keep reference baseline and example files
 !baseline_results/
 !examples/
+!5C/datosLJ.hncr
+!5C/Thermohncr.dat
