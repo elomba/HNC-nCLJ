@@ -26,6 +26,8 @@ fort.*
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+log.lammps
+
 
 # Keep reference baseline, doc, and example files
 !baseline_results/
@@ -34,3 +36,7 @@ fort.*
 !5C/Thermohncr.dat
 !doc/*.tex
 !doc/*.pdf
+
+# Local simulation runs (not sent to github)
+lammps_study/
+
