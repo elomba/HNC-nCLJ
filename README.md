@@ -204,4 +204,5 @@ If no input file is passed as an argument, the program defaults to `datosLJ.hncr
 ---
 
 ## License
-Academic / Open Source. See included files for original notices.
+
+This project is licensed under the GNU General Public License v3.0 (GPLv3) - see the [LICENSE](file:///home/e.lomba/EntropicFLuids/LICENSE) file for details.

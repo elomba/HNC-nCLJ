@@ -7,9 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [Unreleased]
+## [V1.0] - 2026-10-20
 
 ### Added
+- **Licensing**:
+  - Adopted GNU General Public License v3.0 (GPLv3), aligned with `~/trj_analysis`.
+- **Modern Modular Architecture**:
+  - Ported legacy monolithic `HNCR-nCLJ.f90` to modern Fortran 2008/2018.
+  - Split into 10 cohesive modules under `src/`:
+    - `types_mod.f90`: Standard floating-point precisions and physical constants.
+    - `params_mod.f90`: Runtime problem dimensions and parameters.
+    - `grid_mod.f90`: Dynamic radial ($r$) and reciprocal ($q$) grid infrastructure.
+    - `fft_mod.f90`: Fast Sine/Cosine transforms with precomputed bit-reversal lookup tables.
+    - `arrays_mod.f90`: Dynamic heap-allocated arrays for correlations and Jacobians.
+    - `linalg_mod.f90`: BLAS (`DGEMV`) and LAPACK (`DGETRF`, `DGETRI`) linear algebra wrappers.
+    - `potentials_mod.f90`: Cut-and-shifted Lennard-Jones potential, virials, and Debye screening.
+    - `initial_guess_mod.f90`: Analytical MSA for charged spheres and Percus--Yevick HS initializations.
+    - `thermo_mod.f90`: Internal energy, Helmholtz free energy, chemical potentials, and structure factors.
+    - `hnc_solver_mod.f90`: Coupled Broyles mixing and Newton-Raphson nonlinear solver with Kinoshita-Harada continuation.
+    - `main.f90`: Command-line interface and I/O coordination.
+- **Build Infrastructure & Optimization**:
+  - `Makefile` supporting GNU (`gfortran`), Intel (`ifx`/`ifort`), and NVIDIA (`nvfortran`).
+  - Automated library detection (OpenBLAS, FlexiBLAS, Intel MKL).
+  - Validation test target (`make test`).
+  - Delivers a 25% CPU performance boost over legacy implementation.
 - **Entropy Comparison Study (`EntropyComparison/`)**:
   - Comparative investigation of excess entropy $s_{\text{ex}}$ and two-body pair entropy $s^{(2)}$ between:
     - **System 3C**: Solvent ($x_1=0.80$) + pure symmetric 2:2 electrolyte ($q = [0, +2, -2]$, $x = [0.80, 0.10, 0.10]$, ionic strength $I = 0.40$).
@@ -58,29 +79,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Build System**:
   - Auto-detection of OpenBLAS paths and compiler runtime rpaths in `Makefile`.
   - Added cleaning of stale `.mod` files in project root.
-
----
-
-## [1.0.0] - 2026-10-20
-
-### Added
-- **Modern Modular Architecture**:
-  - Ported legacy monolithic `HNCR-nCLJ.f90` to modern Fortran 2008/2018.
-  - Split into 10 cohesive modules under `src/`:
-    - `types_mod.f90`: Standard floating-point precisions and physical constants.
-    - `params_mod.f90`: Runtime problem dimensions and parameters.
-    - `grid_mod.f90`: Dynamic radial ($r$) and reciprocal ($q$) grid infrastructure.
-    - `fft_mod.f90`: Fast Sine/Cosine transforms with precomputed bit-reversal lookup tables.
-    - `arrays_mod.f90`: Dynamic heap-allocated arrays for correlations and Jacobians.
-    - `linalg_mod.f90`: BLAS (`DGEMV`) and LAPACK (`DGETRF`, `DGETRI`) linear algebra wrappers.
-    - `potentials_mod.f90`: Cut-and-shifted Lennard-Jones potential, virials, and Debye screening.
-    - `initial_guess_mod.f90`: Analytical MSA for charged spheres and Percus--Yevick HS initializations.
-    - `thermo_mod.f90`: Internal energy, Helmholtz free energy, chemical potentials, and structure factors.
-    - `hnc_solver_mod.f90`: Coupled Broyles mixing and Newton-Raphson nonlinear solver with Kinoshita-Harada continuation.
-    - `main.f90`: Command-line interface and I/O coordination.
-- **Build Infrastructure**:
-  - `Makefile` supporting GNU (`gfortran`), Intel (`ifx`/`ifort`), and NVIDIA (`nvfortran`).
-  - Automated library detection (OpenBLAS, FlexiBLAS, Intel MKL).
-  - Validation test target (`make test`).
-- **Baseline Verification**:
-  - Verified numerical equivalence with original baseline to machine precision while delivering a 25% CPU performance boost.
