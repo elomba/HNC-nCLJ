@@ -1,0 +1,24 @@
+# Build artifacts
+obj/
+bin/
+*.o
+*.mod
+*.a
+
+# Calculation output files
+Salida.hncr
+Thermohncr.dat
+RDFhncr.dat
+skhnc.dat
+lsol.hncr
+fort.*
+
+# Editor and temporary files
+*~
+*.swp
+*.swo
+.DS_Store
+
+# Keep reference baseline and example files
+!baseline_results/
+!examples/
