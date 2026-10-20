@@ -79,6 +79,12 @@ The code evaluates three complementary entropy quantities:
 ├── 5C/                     # Dedicated 5-component test suite
 │   ├── datosLJ.hncr        # 5-species input dataset
 │   └── Thermohncr.dat      # Converged 5-component thermodynamic output
+├── EntropyComparison/      # 3C vs. 5C excess entropy comparative study & TI
+│   ├── system_3C/          # 3-component (solvent + 2:2 salt) inputs
+│   ├── system_5C/          # 5-component (solvent + 1:1 & 2:2 salt) inputs
+│   ├── scripts/            # Pipeline (run_study.sh) & TI script (thermodynamic_integration.py)
+│   ├── results/            # Density sweep datasets, comparison summary, and plots
+│   └── README.md           # Methodology, physical parameters, and detailed analysis
 ├── doc/                    # Theoretical notes and LaTeX documentation
 │   ├── entropy_theory.tex  # Comprehensive entropy & reduced units technical note
 │   └── entropy_theory.pdf  # Compiled PDF document

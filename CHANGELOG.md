@@ -10,6 +10,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **Entropy Comparison Study (`EntropyComparison/`)**:
+  - Comparative investigation of excess entropy $s_{\text{ex}}$ and two-body pair entropy $s^{(2)}$ between:
+    - **System 3C**: Solvent ($x_1=0.80$) + pure symmetric 2:2 electrolyte ($q = [0, +2, -2]$, $x = [0.80, 0.10, 0.10]$, ionic strength $I = 0.40$).
+    - **System 5C**: Solvent ($x_1=0.80$) + mixed 1:1 and 2:2 electrolytes ($q = [0, +1, +2, -1, -2]$, $x = [0.80, 0.05, 0.04, 0.09, 0.02]$, ionic strength $I = 0.19$).
+  - Systems perfectly matched in packing fraction ($\eta \approx 0.3665$ at $\rho^* = 0.70$), solvent volume fraction, total ion volume fraction, and Lennard-Jones parameters ($\sigma = 1.0, \epsilon = 1.0, r_{\text{cut}} = 2.5$) at electrostatic coupling $\gamma = 1.0$.
+  - Selected supercritical isotherm at $T^* = 2.00$ ($\beta^* = 0.50 > \beta_c^* \approx 0.76$) ensuring $\chi_T^{-1} > 0$ throughout, safely avoiding any vapor-liquid spinodal down to $\rho^* = 0.01$.
+  - Automated pipeline script `EntropyComparison/scripts/run_study.sh`.
+  - Python post-processing and thermodynamic integration suite `EntropyComparison/scripts/thermodynamic_integration.py`:
+    - Evaluates $A_{\text{ex}} / N k_B T = \int_0^\rho \frac{Z-1}{\rho'} d\rho'$ via cubic splines.
+    - Demonstrates that the 3C system (higher ionic strength) exhibits greater structural ordering ($\Delta s_{\text{ex}} \approx +0.019 \, k_B$ for 5C relative to 3C), with $\sim 58\%$ of this entropy difference captured by the two-body pair term $\Delta s^{(2)}$.
+    - Generates publication plots (`entropy_comparison.png`, `delta_entropy.png`, `compressibility_and_ti.png`) and tabular data (`comparison_data.csv`, `comparison_summary.txt`).
 - **Two-Body Structural Pair Entropy ($s^{(2)}$)**:
   - Implemented exact multicomponent Green--Wallace pair entropy integral:
     $$\frac{s^{(2)}}{N k_B} = - \frac{1}{2} \rho \sum_{i,j} x_i x_j \int \left[ g_{ij}(r) \ln g_{ij}(r) - (g_{ij}(r) - 1) \right] d\mathbf{r}$$
