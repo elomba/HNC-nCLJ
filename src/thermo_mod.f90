@@ -68,10 +68,10 @@ contains
   ! Subroutine: compute_thermodynamics
   ! Calculates complete thermodynamics after convergence of the HNC equations.
   !=============================================================================
-  subroutine compute_thermodynamics(tr, rhot, rkd, pres, sek, sekc, ankt, sex, stot, &
+  subroutine compute_thermodynamics(tr, rhot, rkd, pres, sek, sekc, ankt, sex, stot, s2, &
                                     za, xc, lamb1, lamb2, vrr, vcc)
     real(dp), intent(in)  :: tr, rhot, rkd
-    real(dp), intent(out) :: pres, sek, sekc, ankt, sex, stot, za, xc
+    real(dp), intent(out) :: pres, sek, sekc, ankt, sex, stot, s2, za, xc
     real(dp), intent(out) :: lamb1, lamb2, vrr, vcc
 
     integer(ip) :: i, j, k, l, ncj, ic, ics, is, js, nps
@@ -80,6 +80,8 @@ contains
     real(dp) :: seklj, akcor, ipk, fcnr, xd, xion, cionion, Mrr0, Mcc0, Mrc0
     real(dp) :: sm1, sm11, sm3, chss, chsum, sigx, ssm1, eik, alr, asr, elr, xcsum
     real(dp) :: tds12_eff, sid
+    real(dp) :: s2sum, f_val, g_val, h_val
+    real(dp), dimension(NIT) :: s2_pair
 
     xcsum = 0.0_dp
 
@@ -149,6 +151,45 @@ contains
        chm(j)   =  2.0_dp * PI * (rmusum - rms1) * DR / 3.0_dp
        xcsum    = (2.0_dp - real(ic, dp)) * (rms1 + rms2) * dnt2 + xcsum
        aklr(j)  =  2.0_dp * PI * alrsum * DR / 3.0_dp
+
+       ! Two-body entropy integral: \int_0^\infty [g(r) ln g(r) - h(r)] r^2 dr
+       s2sum = 0.0_dp
+       do i = 1, N - 2, 2
+          l = i + 1
+          k = i + 2
+
+          ! point i
+          h_val = h(i, j)
+          g_val = h_val + 1.0_dp
+          if (g_val > 1.0d-15) then
+             f_val = g_val * log(g_val) - h_val
+          else
+             f_val = - h_val
+          end if
+          s2sum = s2sum + R(i)**2 * f_val
+
+          ! point l (Simpson weight 4)
+          h_val = h(l, j)
+          g_val = h_val + 1.0_dp
+          if (g_val > 1.0d-15) then
+             f_val = g_val * log(g_val) - h_val
+          else
+             f_val = - h_val
+          end if
+          s2sum = s2sum + 4.0_dp * R(l)**2 * f_val
+
+          ! point k (Simpson weight 1)
+          h_val = h(k, j)
+          g_val = h_val + 1.0_dp
+          if (g_val > 1.0d-15) then
+             f_val = g_val * log(g_val) - h_val
+          else
+             f_val = - h_val
+          end if
+          s2sum = s2sum + R(k)**2 * f_val
+       end do
+       ! Include inner interval [0, R(1)] where g(r)=0 => f=1 => integral = R(1)^3 / 3 = DR^3 / 3
+       s2_pair(j) = (DR**3 / 3.0_dp) + (DR / 3.0_dp) * s2sum
     end do
 
     ! Integral in k-space for Helmholtz free energy a2kt
@@ -181,6 +222,7 @@ contains
     psum  = 0.0_dp
     ankt  = 0.0_dp
     akcor = 0.0_dp
+    s2    = 0.0_dp
 
     ! Sum contributions across interaction pairs
     l = 1
@@ -197,6 +239,7 @@ contains
           ankt    = ankt + a1kt(l) * real(ic, dp)
           psum    = psum + pr(l) * real(ic, dp)
           akcor   = akcor + aklr(l)
+          s2      = s2 - fcnr * TWOPI * (rho(i) * rho(j) / rhot) * s2_pair(l)
 
           tds(i, j) = 0.0_dp
           do k = 1, NR

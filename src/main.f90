@@ -36,7 +36,7 @@ program main
   integer(ip) :: nrho, ntr, idn, itr, i, j, k, l, lx, inr, nrmax, ni
   integer(ip) :: mx, nx, in1, in2, ncmin, ntt, kwit, total_broyles
   real(dp)    :: rhot, rkx, tr, rkd, xp, xm, dri, tri, rr, final_err
-  real(dp)    :: pres, sek, sekc, ankt, sex, stot, za, xc, lamb1, lamb2, vrr, vcc
+  real(dp)    :: pres, sek, sekc, ankt, sex, stot, s2, za, xc, lamb1, lamb2, vrr, vcc
   real(dp)    :: sx, sq
   real(dp)    :: t_start, t_end, t_step, sksum, scccon
 
@@ -181,14 +181,14 @@ program main
 
   write(8, '("#  Thermodynamics:")')
   write(8, '("# -----------------")')
-  write(8, '("# ", 4A8, 7A10)', advance='no') &
-       'x(1)', 'rho', 'beta*', 'z', 'u/nkt', 'u_c/nkt', 'a/nkt', 's_ex/nk', 's/nk', 'z(a)', 'xc'
+  write(8, '("# ", 4A8, 8A10)', advance='no') &
+       'x(1)', 'rho', 'beta*', 'z', 'u/nkt', 'u_c/nkt', 'a/nkt', 's_ex/nk', 's/nk', 's2/nk', 'z(a)', 'xc'
   do j = 1, NSP
      write(mu_header, '("mu/kt(", I0, ")")') j
      write(8, '(A10)', advance='no') adjustr(mu_header)
   end do
   write(8, '(4A10)') 'lamb1', 'lamb2', 'vrr', 'vcc'
-  write(8, '("#", 180("*"))')
+  write(8, '("#", 190("*"))')
 
   ! Initial solution
   if (compsi) then
@@ -277,14 +277,14 @@ program main
         end if
 
         ! Calculate thermodynamics
-        call compute_thermodynamics(tr, rhot, rkd, pres, sek, sekc, ankt, sex, stot, za, xc, &
+        call compute_thermodynamics(tr, rhot, rkd, pres, sek, sekc, ankt, sex, stot, s2, za, xc, &
                                     lamb1, lamb2, vrr, vcc)
 
         call cpu_time(t_step)
         write(3, 99009) ntt, total_broyles, t_step - t_start
         write(8, '(2x, 4(f8.4), *(f10.4))') &
              XXc(1), rhot, 1.0_dp / tr, pres, &
-             sek, sekc, ankt, sex, stot, za, xc, &
+             sek, sekc, ankt, sex, stot, s2, za, xc, &
              (chemp(j), j = 1, NSP), lamb1, lamb2, vrr, vcc
 
      end do temperature_loop

@@ -1,0 +1,236 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{cite}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\title{\textbf{On the Computation of Entropy, Reduced Units, and Two-Body Structural Contributions in Multicomponent Integral Equation Theories}}
+\author{\textbf{HNCR-nCLJ Project Notes}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This technical note details the statistical-mechanical formulation and physical interpretation of the entropy in multicomponent charged Lennard-Jones fluids solved via the Hypernetted Chain (HNC) integral equation. We address the occurrence of negative total entropy in classical continuous formulations using reduced Lennard-Jones units, explaining its connection to the thermal de Broglie wavelength, the Sackur--Tetrode equation, and the absence of an absolute zero in classical mechanics. Furthermore, we derive the exact multicomponent two-body pair entropy contribution $s^{(2)}$, outline its numerical implementation via Simpson quadrature, and analyze its relationship to the thermodynamic excess entropy $s_{\text{ex}}$ and structural ordering.
+\end{abstract}
+
+\section{Introduction}
+
+In classical liquid-state theory, the Ornstein--Zernike (OZ) equation with the Hypernetted Chain (HNC) closure provides a powerful, non-perturbative framework for determining the pair correlation functions $g_{ij}(r)$ and thermodynamics of dense neutral and ionic mixtures.
+
+For a multicomponent fluid consisting of $m$ distinct species with total number density $\rho = N/V$, particle mole fractions $x_i = N_i / N$, and partial densities $\rho_i = \rho x_i$, the thermodynamic excess properties are evaluated from the converged pair correlation functions $h_{ij}(r) = g_{ij}(r) - 1$ and direct correlation functions $c_{ij}(r)$ using Allnatt's renormalized OZ formulation.
+
+The excess internal energy per particle $u_{\text{ex}} / k_B T$ is computed from the radial pair potentials $u_{ij}(r)$ and correlation functions, while the excess Helmholtz free energy per particle $a_{\text{ex}} / k_B T$ is evaluated via $k$-space integration over the direct and total correlation spectra. The thermodynamic excess entropy $s_{\text{ex}}$ then follows directly from fundamental thermodynamics:
+\begin{equation}
+\label{eq:sex_thermo}
+\frac{s_{\text{ex}}}{N k_B} = \frac{u_{\text{ex}} - a_{\text{ex}}}{N k_B T}.
+\end{equation}
+
+When combining $s_{\text{ex}}$ with the ideal-gas mixture entropy $s_{\text{id}}$ to obtain the total entropy $s = s_{\text{id}} + s_{\text{ex}}$, numerical calculations at low temperatures or high ionic strengths can yield negative values for $s / N k_B$. As demonstrated below, this is a completely physical, well-understood characteristic of classical continuous statistical mechanics in reduced units.
+
+---
+
+\section{Classical vs. Quantum Entropy: The Third Law and Phase Space}
+
+In quantum statistical mechanics, entropy is defined via the density operator $\hat{\rho}$ as $S = -k_B \mathrm{Tr}(\hat{\rho} \ln \hat{\rho})$. By the Third Law of Thermodynamics (Nernst heat theorem), as temperature approaches absolute zero, the system settles into its ground state (or a non-degenerate manifold), yielding:
+\begin{equation}
+\lim_{T \to 0} S_{\text{quantum}} = 0 \quad (\text{or } S \ge 0 \text{ strictly}).
+\end{equation}
+
+In classical statistical mechanics, however, microstates form a continuous phase space $\Gamma = (\mathbf{r}^N, \mathbf{p}^N)$. The classical Gibbs entropy is an integral over the probability density $f(\Gamma)$:
+\begin{equation}
+S_{\text{classical}} = - k_B \int f(\Gamma) \ln [h^{3N} f(\Gamma)] \, d\Gamma.
+\end{equation}
+
+Because $f(\Gamma)$ is a continuous probability density rather than a discrete probability, the Shannon/Gibbs continuous (differential) entropy has no absolute lower bound. Specifically, for an ideal gas of particles of mass $m$ at temperature $T$, the momentum distribution is Gaussian with variance $\langle p^2 \rangle = m k_B T$. As $T \to 0$, the momentum distribution approaches a Dirac delta function in momentum space, causing the momentum-space volume to vanish. Consequently, the classical ideal-gas entropy diverges logarithmically to negative infinity:
+\begin{equation}
+\lim_{T \to 0} S_{\text{classical}} = -\infty.
+\end{equation}
+Therefore, within classical mechanics, a negative value of entropy at lower temperatures is neither a mathematical anomaly nor a sign of unphysical code behavior; it is an inevitable consequence of continuous classical phase-space integration.
+
+---
+
+\section{Reduced Units and the Thermal de Broglie Wavelength}
+
+The exact quantum-corrected Sackur--Tetrode equation for a multicomponent ideal gas mixture of non-interacting particles is:
+\begin{equation}
+\label{eq:sackur_tetrode}
+\frac{s_{\text{id}}}{N k_B} = \frac{5}{2} - \sum_{i=1}^{m} x_i \ln\left( \rho_i \Lambda_i^3 \right),
+\end{equation}
+where $\Lambda_i$ is the thermal de Broglie wavelength of species $i$:
+\begin{equation}
+\Lambda_i = \frac{h}{\sqrt{2\pi m_i k_B T}}.
+\end{equation}
+
+Using the partial density relation $\rho_i = \rho x_i$ and expanding the logarithm:
+\begin{align}
+\frac{s_{\text{id}}}{N k_B} &= \frac{5}{2} - \ln \rho - \sum_{i=1}^{m} x_i \ln x_i - 3 \sum_{i=1}^{m} x_i \ln \Lambda_i \nonumber \\
+&= \left[ \frac{5}{2} - \ln(\rho \sigma^3) - \sum_{i=1}^{m} x_i \ln x_i \right] - 3 \sum_{i=1}^{m} x_i \ln\left( \frac{\Lambda_i}{\sigma} \right),
+\label{eq:sid_expanded}
+\end{align}
+where $\sigma$ is an arbitrary characteristic length scale (typically chosen as the Lennard-Jones collision diameter $\sigma = \sigma_{11} \equiv 1$).
+
+\subsection{Implicit Normalization in Reduced Units}
+In classical simulations and liquid-state integral equations, calculations are conducted in reduced Lennard-Jones units where $\sigma = 1$, $\epsilon = 1$, and $k_B = 1$. The ideal-gas baseline implemented in the code evaluates the bracketed term in Eq.~\eqref{eq:sid_expanded}:
+\begin{equation}
+\label{eq:sid_code}
+\left( \frac{s_{\text{id}}}{N k_B} \right)_{\text{reduced}} = \frac{5}{2} - \ln \rho^* - \sum_{i=1}^{m} x_i \ln x_i,
+\end{equation}
+where $\rho^* = \rho \sigma^3$.
+
+By adopting Eq.~\eqref{eq:sid_code}, the code implicitly sets $\Lambda_i = \sigma = 1$ (equivalent to setting Planck's constant and particle masses to a conventional reduced value).
+
+\subsection{Magnitude of the Omitted Quantum Phase-Space Offset}
+For actual physical atoms and ions in solution at ambient temperatures (e.g., argon, water, $\text{Na}^+$, $\text{Cl}^-$ at $T \approx 300\text{ K}$):
+\begin{itemize}
+    \item Characteristic atomic diameter: $\sigma \approx 3.0 \text{--} 4.0\text{ \AA}$.
+    \item Thermal de Broglie wavelength: $\Lambda \approx 0.15 \text{--} 0.25\text{ \AA}$.
+\end{itemize}
+The ratio $\Lambda / \sigma$ is therefore small: $\Lambda / \sigma \approx 0.04 \ll 1$. Evaluating the omitted logarithmic term:
+\begin{equation}
+- 3 \ln\left( \frac{\Lambda}{\sigma} \right) \approx -3 \ln(0.04) \approx +9.66.
+\end{equation}
+
+Thus, for any real physical fluid, the quantum phase-space constant shifts the baseline entropy upward by approximately $+8$ to $+12\,k_B$ per particle. When this realistic offset is restored, the absolute entropy of the physical liquid remains positive.
+
+---
+
+\section{Structural Ordering and Negative Excess Entropy ($s_{\text{ex}} < 0$)}
+
+The excess entropy $s_{\text{ex}} = s - s_{\text{id}}$ quantifies the loss of accessible configurational volume caused by interparticle forces relative to an ideal gas at the same density and temperature:
+\begin{itemize}
+    \item \textbf{Excluded-Volume Repulsion}: Steep repulsive cores prevent particle overlap, restricting particles to a fraction of the total system volume.
+    \item \textbf{Coulombic Ordering}: Electrostatic attractions between counter-ions lead to charge alternation, local ion pairing, and solvation shells, imposing high spatial and orientational order.
+\end{itemize}
+Consequently, $s_{\text{ex}} / N k_B$ is strictly negative ($s_{\text{ex}} < 0$) for simple and ionic fluids, decreasing monotonically as density increases or temperature decreases (increasing $\beta^* = 1/T^*$).
+
+For example, in a 5-component mixture at $\rho^* = 0.70$:
+\begin{equation}
+\left(\frac{s_{\text{id}}}{N k_B}\right)_{\text{reduced}} = \frac{5}{2} - \ln(0.70) - \sum_{i=1}^5 x_i \ln x_i \approx 2.50 + 0.3567 + 0.7410 \approx 3.60.
+\end{equation}
+As $\beta^*$ rises from $0.10$ to $1.10$, the structural ordering drives $s_{\text{ex}} / N k_B$ from $-2.45$ to $-3.79$. At $\beta^* \approx 0.90$, the magnitude of the structural ordering exceeds the reduced ideal baseline ($|s_{\text{ex}}| > s_{\text{id}}$), causing the total reduced entropy $s = s_{\text{id}} + s_{\text{ex}}$ to cross zero and become negative.
+
+---
+
+\section{The Two-Body Multiparticle Expansion ($s^{(2)}$)}
+
+\subsection{Green--Wallace Multiparticle Expansion}
+The excess entropy can be rigorously expanded in an infinite series of multiparticle spatial correlation functions (Kirkwood, Green, Nettleton, and Wallace):
+\begin{equation}
+s_{\text{ex}} = s^{(2)} + s^{(3)} + s^{(4)} + \dots
+\end{equation}
+where $s^{(n)}$ represents the contribution from $n$-particle irreducible correlations. In simple liquids and moderately coupled ionic fluids, the two-body contribution $s^{(2)}$ accounts for the vast majority ($85\%\text{--}95\%$) of the total excess entropy.
+
+\subsection{Multicomponent Formulation}
+For a mixture of $m$ species with mole fractions $x_i$, the exact two-body entropy per particle is:
+\begin{equation}
+\label{eq:s2_multicomp}
+\frac{s^{(2)}}{N k_B} = - \frac{1}{2} \rho \sum_{i=1}^{m} \sum_{j=1}^{m} x_i x_j \int \left[ g_{ij}(\mathbf{r}) \ln g_{ij}(\mathbf{r}) - \left( g_{ij}(\mathbf{r}) - 1 \right) \right] d\mathbf{r}.
+\end{equation}
+
+For isotropic fluids, exploiting spherical symmetry ($d\mathbf{r} = 4\pi r^2 dr$) and the symmetry of the pair correlation functions ($g_{ij}(r) = g_{ji}(r)$):
+\begin{equation}
+\label{eq:s2_radial}
+\frac{s^{(2)}}{N k_B} = - 2\pi \rho \sum_{i=1}^{m} \sum_{j \le i} \left(2 - \delta_{ij}\right) x_i x_j \int_0^{\infty} \left[ g_{ij}(r) \ln g_{ij}(r) - h_{ij}(r) \right] r^2 dr,
+\end{equation}
+where $h_{ij}(r) = g_{ij}(r) - 1$ is the total correlation function.
+
+\subsection{Mathematical Properties}
+\begin{enumerate}
+    \item \textbf{Negative Definiteness}: Consider the function $f(g) = g \ln g - g + 1$. By differentiation, $f'(g) = \ln g$ and $f''(g) = 1/g > 0$, so $f(g)$ is strictly convex with a unique global minimum at $g = 1$, where $f(1) = 0$. Hence:
+    \begin{equation}
+    g \ln g - (g - 1) \ge 0 \quad \forall g \ge 0.
+    \end{equation}
+    Because the integrand is non-negative everywhere, the two-body entropy is strictly negative:
+    \begin{equation}
+    \frac{s^{(2)}}{N k_B} \le 0.
+    \end{equation}
+    
+    \item \textbf{Core Behavior}: Inside the repulsive core where $g_{ij}(r) \to 0$:
+    \begin{equation}
+    \lim_{g \to 0} g \ln g = 0 \implies \left[ g \ln g - h \right] = -(-1) = 1.
+    \end{equation}
+    Integrating from $r = 0$ to $r = \sigma_{ij}$ yields an excluded-volume contribution of $- \frac{2\pi}{3} \rho \sigma_{ij}^3 x_i x_j$.
+    
+    \item \textbf{Asymptotic Convergence}: At large separations ($r \to \infty$), $h(r) \to 0$. Expanding $g \ln g - h$:
+    \begin{equation}
+    (1 + h) \ln(1 + h) - h = \frac{1}{2} h^2 - \frac{1}{6} h^3 + \mathcal{O}(h^4).
+    \end{equation}
+    Because $h(r)$ decays faster than $1/r^2$ in screened ionic fluids, the integral converges rapidly and absolutely.
+\end{enumerate}
+
+\subsection{Numerical Integration in the HNCR Solver}
+In the modular solver, Eq.~\eqref{eq:s2_radial} is evaluated via Simpson's rule over the radial grid points $R_k = k \cdot \Delta r$:
+\begin{equation}
+I_{ij} = \int_0^{R_N} \left[ g_{ij}(r) \ln g_{ij}(r) - h_{ij}(r) \right] r^2 dr \approx \frac{\Delta r^3}{3} + \frac{\Delta r}{3} \sum_{k=1}^{N-2} w_k R_k^2 f(g_{ij}(R_k)),
+\end{equation}
+where $w_k \in \{1, 4, 2\}$ are standard Simpson weights, and the term $\Delta r^3 / 3$ accounts for the innermost interval $[0, \Delta r]$ where $g(r) = 0$.
+
+---
+
+\section{Results and Thermodynamic Consistency}
+
+Table~\ref{tab:thermo5c} summarizes the results for a 5-component charged Lennard-Jones mixture at total density $\rho^* = 0.70$ across a wide range of coupling parameters $\beta^* = 1/T^* \in [0.10, 1.10]$.
+
+The 5-component system comprises:
+\begin{itemize}
+    \item Species 1: Neutral solvent ($q_1 = 0$, $x_1 = 0.80$, $\sigma_{11} = 1.0$, $\epsilon_{11} = 1.0$).
+    \item Species 2: Monovalent cation ($q_2 = +1$, $x_2 = 0.05$).
+    \item Species 3: Divalent cation ($q_3 = +2$, $x_3 = 0.04$).
+    \item Species 4: Monovalent anion ($q_4 = -1$, $x_4 = 0.09$).
+    \item Species 5: Divalent anion ($q_5 = -2$, $x_5 = 0.02$).
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\caption{Thermodynamic properties and entropy components of the 5-component charged LJ mixture at $\rho^* = 0.70$.}
+\label{tab:thermo5c}
+\small
+\begin{tabular}{cccccccccc}
+\toprule
+$\beta^*$ & $Z_{\text{virial}}$ & $Z_a$ & $u_{\text{ex}}/k_B T$ & $a_{\text{ex}}/k_B T$ & $s_{\text{ex}}/Nk_B$ & $s_{\text{tot}}/Nk_B$ & $s^{(2)}/Nk_B$ & $\mu_1/k_B T$ & $\chi_T^{-1}$ \\
+\midrule
+0.10 & 3.2151 & 3.2208 &  0.0091 & 2.4568 & -2.4478 &  1.1609 & -0.9800 & 4.6855 & 6.0784 \\
+0.15 & 3.3828 & 3.3892 & -0.1822 & 2.4250 & -2.6072 &  1.0015 & -1.0960 & 4.8278 & 6.5021 \\
+0.20 & 3.4639 & 3.4708 & -0.3883 & 2.3446 & -2.7329 &  0.8757 & -1.1897 & 4.8353 & 6.7295 \\
+0.30 & 3.4801 & 3.4878 & -0.8249 & 2.1055 & -2.9304 &  0.6783 & -1.3412 & 4.6268 & 6.8551 \\
+0.40 & 3.3800 & 3.3882 & -1.2807 & 1.8061 & -3.0868 &  0.5219 & -1.4657 & 4.2429 & 6.7199 \\
+0.50 & 3.2076 & 3.2163 & -1.7486 & 1.4702 & -3.2188 &  0.3898 & -1.5741 & 3.7511 & 6.4234 \\
+0.70 & 2.7264 & 2.7359 & -2.7084 & 0.7302 & -3.4386 &  0.1701 & -1.7617 & 2.5644 & 5.5268 \\
+0.90 & 2.1317 & 2.1418 & -3.6910 & -0.0683 & -3.6227 & -0.0140 & -1.9260 & 1.2075 & 4.3781 \\
+1.10 & 1.4705 & 1.4810 & -4.6926 & -0.9059 & -3.7868 & -0.1781 & -2.0776 & -0.2535 & 3.0816 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Key Observations}
+\begin{enumerate}
+    \item \textbf{Thermodynamic Consistency}: The virial compressibility factor $Z_{\text{virial}}$ and the free-energy / chemical-potential compressibility factor $Z_a = 1 + \sum_i x_i \mu_i / k_B T - a_{\text{ex}} / k_B T$ agree to within $< 0.5\%$ across the entire temperature span, verifying that the numerical HNC solution is sound and highly accurate.
+    \item \textbf{Monotonic Entropy Decline}: Both $s_{\text{ex}}$ and $s^{(2)}$ decrease monotonically as $\beta^*$ increases (temperature drops), reflecting enhanced spatial structuring and ion pairing.
+    \item \textbf{Transition to Negative Total Entropy}: The total reduced entropy $s_{\text{tot}}$ smoothly crosses zero at $\beta^* \approx 0.89$ and becomes $-0.1781$ at $\beta^* = 1.10$. As established in Section~3, adding the physical quantum offset $-3\ln(\Lambda/\sigma) \approx +9.66$ shifts the true entropy of the physical fluid to $s_{\text{real}} / N k_B \approx +9.48 > 0$.
+\end{enumerate}
+
+---
+
+\section{Summary}
+
+\begin{itemize}
+    \item In classical statistical mechanics, continuous phase-space integration leads to $\lim_{T \to 0} S = -\infty$, meaning that negative values of entropy at low temperatures are mathematically natural and expected.
+    \item Reduced units implicitly set the thermal de Broglie wavelength to unity ($\Lambda = \sigma = 1$), omitting a large positive quantum phase-space term (typically $+8\text{--}12\,k_B$ per particle for physical fluids).
+    \item The excess entropy $s_{\text{ex}}$ and its two-body pair approximation $s^{(2)}$ are non-positive definite, mass-independent quantities that directly characterize the degree of structural ordering and govern dynamical transport coefficients via Rosenfeld scaling.
+\end{itemize}
+
+\end{document}

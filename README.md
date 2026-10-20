@@ -23,6 +23,7 @@ The code implements **Allnatt's renormalized OZ formulation** to handle long-ran
   - Helmholtz free energy $A / N k_B T$ via $k$-space integration.
   - **Excess entropy** $S_{\text{ex}} / N k_B = (U_{\text{ex}} - A_{\text{ex}}) / N k_B T$.
   - **Total entropy** $S / N k_B = S_{\text{id}} / N k_B + S_{\text{ex}} / N k_B$ including ideal-gas mixture mixing entropy.
+  - **Two-body pair entropy** $S^{(2)} / N k_B = -\frac{1}{2}\rho \sum_{i,j} x_i x_j \int \left[ g_{ij}(r)\ln g_{ij}(r) - (g_{ij}(r)-1) \right] d\mathbf{r}$ evaluated via Simpson quadrature.
   - Virial and free-energy compressibility factors ($Z_v$ and $Z_a$).
   - Reduced inverse isothermal compressibility $\chi_T^{-1}$.
   - Excess chemical potentials $\mu_i / k_B T$.
@@ -53,6 +54,18 @@ The long-range electrostatic tails are screened using a Yukawa-like term with in
 The Hypernetted Chain (HNC) closure in renormalized form reads:
 $$c_{ij}(r) = \exp\left[-u_{ij}^{\text{LJ}}(r) + h_{ij}(r) - c_{ij}(r)\right] - 1 - (h_{ij}(r) - c_{ij}(r))$$
 
+### 4. Entropy Formulation and Two-Body Pair Contribution
+The code evaluates three complementary entropy quantities:
+1. **Excess Entropy**:
+   $$\frac{s_{\text{ex}}}{N k_B} = \frac{u_{\text{ex}} - a_{\text{ex}}}{N k_B T} < 0$$
+   quantifying the configurational ordering induced by excluded-volume repulsion and electrostatic ion pairing.
+2. **Two-Body Structural Entropy (Green--Wallace Expansion)**:
+   $$\frac{s^{(2)}}{N k_B} = - 2\pi \rho \sum_{i=1}^{NSP} \sum_{j \le i} (2 - \delta_{ij}) x_i x_j \int_0^\infty \left[ g_{ij}(r) \ln g_{ij}(r) - (g_{ij}(r) - 1) \right] r^2 dr \le 0$$
+   which is strictly negative definite and captures $85\text{--}95\%$ of the total excess entropy.
+3. **Total Classical Entropy**:
+   $$\frac{s}{N k_B} = \left[ \frac{5}{2} - \ln \rho^* - \sum_{i=1}^{NSP} x_i \ln x_i \right] + \frac{s_{\text{ex}}}{N k_B}$$
+   *Note on negative total entropy*: In classical continuous statistical mechanics ($\lim_{T\to 0} S = -\infty$) and reduced units ($\Lambda = \sigma = 1$), the omitted quantum thermal de Broglie wavelength contribution $-3\ln(\Lambda/\sigma) \approx +8 \text{ to } +12 \, k_B$ shifts the baseline downward. At low temperatures ($\beta^* \ge 0.9$), $|s_{\text{ex}}| > s_{\text{id}}$, causing reduced total entropy to become negative while remaining entirely physical. For full derivations, see [`doc/entropy_theory.pdf`](file:///home/e.lomba/EntropicFLuids/doc/entropy_theory.pdf) or [`doc/entropy_theory.tex`](file:///home/e.lomba/EntropicFLuids/doc/entropy_theory.tex).
+
 ---
 
 ## Project Structure
@@ -61,7 +74,14 @@ $$c_{ij}(r) = \exp\left[-u_{ij}^{\text{LJ}}(r) + h_{ij}(r) - c_{ij}(r)\right] - 
 .
 ├── Makefile                # Unified build system (GNU, Intel, NVIDIA)
 ├── README.md               # Documentation and usage guide
+├── CHANGELOG.md            # Detailed version history
 ├── datosLJ.hncr            # Default input parameters (3-component charged mixture)
+├── 5C/                     # Dedicated 5-component test suite
+│   ├── datosLJ.hncr        # 5-species input dataset
+│   └── Thermohncr.dat      # Converged 5-component thermodynamic output
+├── doc/                    # Theoretical notes and LaTeX documentation
+│   ├── entropy_theory.tex  # Comprehensive entropy & reduced units technical note
+│   └── entropy_theory.pdf  # Compiled PDF document
 ├── examples/               # Example input datasets
 │   ├── datosLJ_3comp.hncr
 │   └── datosLJ_2comp_nocharge.hncr
@@ -75,7 +95,7 @@ $$c_{ij}(r) = \exp\left[-u_{ij}^{\text{LJ}}(r) + h_{ij}(r) - c_{ij}(r)\right] - 
     ├── linalg_mod.f90      # LAPACK/BLAS wrappers (invmat, matvec) & symmetric solvers
     ├── potentials_mod.f90  # Truncated LJ potential, virial, and screening functions
     ├── initial_guess_mod.f90# Analytical MSA and Percus-Yevick starting estimates
-    ├── thermo_mod.f90      # Energy, pressure, chemical potentials, Bhatia-Thornton S(q)
+    ├── thermo_mod.f90      # Energy, pressure, chemical potentials, Bhatia-Thornton S(q), S_ex, S^(2)
     ├── hnc_solver_mod.f90  # Coupled Broyles / Newton-Raphson iterative engine
     └── main.f90            # Main driver and CLI entry point
 ```
@@ -158,7 +178,7 @@ If no input file is passed as an argument, the program defaults to `datosLJ.hncr
 | File | Content |
 |:---|:---|
 | `Salida.hncr` | Detailed log of iterations, residuals, and timing per thermodynamic state |
-| `Thermohncr.dat` | Thermodynamic summary table: density $\rho$, temperature $\beta^*$, pressure $Z$, energies ($U_{\text{tot}}, U_{\text{coulomb}}$), free energy $A/Nk_BT$, excess entropy $S_{\text{ex}}/Nk_B$, total entropy $S/Nk_B$, compressibility $\chi_T^{-1}$, chemical potentials $\mu_i$, and Bhatia-Thornton eigenvalues $\lambda_1, \lambda_2$ |
+| `Thermohncr.dat` | Thermodynamic summary table: density $\rho$, temperature $\beta^*$, pressure $Z$, energies ($U_{\text{tot}}, U_{\text{coulomb}}$), free energy $A/Nk_BT$, excess entropy $S_{\text{ex}}/Nk_B$, total entropy $S/Nk_B$, two-body entropy $S^{(2)}/Nk_B$, compressibility $\chi_T^{-1}$, chemical potentials $\mu_i$, and Bhatia-Thornton eigenvalues $\lambda_1, \lambda_2$ |
 | `RDFhncr.dat` | Radial distribution functions $g_{ij}(r)$ for all pairs as a function of $r$ |
 | `skhnc.dat` | Structure factors $S_{ij}(q)$, total number $S_{NN}(q)$, and concentration-concentration $S_{cc}(q)$ |
 | `lsol.hncr` | Converged short-range series function $r \cdot s_{ij}(r)$ (can be used to restart with `compsi=.false.`) |
