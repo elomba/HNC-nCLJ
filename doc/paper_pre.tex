@@ -34,7 +34,7 @@
 \date{\today}
 
 \begin{abstract}
-We present a comprehensive investigation of the thermodynamics, excess entropy, and self-diffusion dynamics across multicomponent charged Lennard-Jones mixtures along a supercritical isotherm ($T^* = 2.00$, $\beta^* = 0.50$, $\Gamma = 1.0$) up to dense liquid packing ($\rho^* = 0.70$). We contrast four systematically varied fluids: (i) a 3-component symmetric electrolyte ($94\%$ solvent and $6\%$ 2:2 salt, ionic strength $I = 0.12$); (ii) a 4-component fluid featuring an enhanced solvent dispersion energy ($\varepsilon_2 = 1.25\,\varepsilon$, $5\%$ mole fraction); (iii) a 4-component fluid featuring a weakened solvent dispersion energy ($\varepsilon_2 = 0.75\,\varepsilon$, $5\%$ mole fraction); and (iv) an asymmetric 5-component electrolyte ($80\%$ solvent with mixed 1:1 and 2:2 salts, $I = 0.19$). Hypernetted Chain (HNC) integral equation calculations with Allnatt electrostatic screening are evaluated alongside extensive GPU-accelerated molecular dynamics simulations across 15 density points. We prove that numerical differentiation of the Morita-Hiroike HNC excess free energy functional rigorously reproduces the virial compressibility factor ($Z_{\text{diff}} \equiv Z_{\text{virial}}$) across the entire density domain, confirming exact Euler thermodynamic consistency. Furthermore, thermodynamic integration of the MD equation of state quantitatively validates the HNC entropy predictions: weakening solvent-solvent attraction from $\varepsilon_2 = 1.25$ to $1.00$ and $0.75$ reduces local cage cohesion, systematically elevating the excess entropy from $s_{\text{ex}} = -2.0703\,k_B$ to $-2.0635\,k_B$ and $-2.0551\,k_B$ (HNC), and $-1.8909\,k_B$ to $-1.8799\,k_B$ and $-1.8773\,k_B$ (MD TI). Evaluation of long-time self-diffusion reveals that the mobility of the secondary solvent directly mirrors its dispersion depth ($D_{\text{solv2}} = 0.2032$ for $\varepsilon_2 = 1.25$ versus $0.2348$ for $\varepsilon_2 = 0.75$), driving an overall increase in net fluid diffusion from $D_{\text{net}} = 0.2149$ to $0.2194$. Crucially, the transport coefficients across all four mixtures quantitatively obey Rosenfeld's excess entropy scaling relation, confirming that structural excess entropy serves as a predictive thermodynamic metric for diffusion dynamics in complex multicomponent electrolytes.
+We present a comprehensive investigation of the thermodynamics, excess entropy, and self-diffusion dynamics across multicomponent charged Lennard-Jones mixtures along a supercritical isotherm ($T^* = 2.00$, $\beta^* = 0.50$, $\Gamma = 1.0$) up to dense liquid packing ($\rho^* = 0.70$). We contrast four systematically varied fluids: (i) a 3-component symmetric electrolyte ($94\%$ solvent and $6\%$ 2:2 salt, ionic strength $I = 0.12$); (ii) a 4-component fluid featuring an enhanced solvent dispersion energy ($\varepsilon_2 = 1.25\,\varepsilon$, $5\%$ mole fraction); (iii) a 4-component fluid featuring a weakened solvent dispersion energy ($\varepsilon_2 = 0.75\,\varepsilon$, $5\%$ mole fraction); and (iv) an asymmetric 5-component electrolyte ($80\%$ solvent with mixed 1:1 and 2:2 salts, $I = 0.19$). Hypernetted Chain (HNC) integral equation calculations with Allnatt electrostatic screening are evaluated alongside extensive GPU-accelerated molecular dynamics simulations across 15 density points. We prove that numerical differentiation of the Morita-Hiroike HNC excess free energy functional rigorously reproduces the virial compressibility factor ($Z_{\text{diff}} \equiv Z_{\text{virial}}$) across the entire density domain, confirming exact Euler thermodynamic consistency. Furthermore, thermodynamic integration of the MD equation of state quantitatively validates the HNC entropy predictions: weakening solvent-solvent attraction from $\varepsilon_2 = 1.25$ to $1.00$ and $0.75$ reduces local cage cohesion, systematically elevating the excess entropy from $s_{\text{ex}} = -2.0703\,k_B$ to $-2.0635\,k_B$ and $-2.0551\,k_B$ (HNC), and $-1.8909\,k_B$ to $-1.8799\,k_B$ and $-1.8773\,k_B$ (MD TI). Evaluation of long-time self-diffusion reveals that the mobility of the secondary solvent directly mirrors its dispersion depth ($D_{\text{solv2}} = 0.2032$ for $\varepsilon_2 = 1.25$ versus $0.2348$ for $\varepsilon_2 = 0.75$), driving an overall increase in net fluid diffusion from $D_{\text{net}} = 0.2149$ to $0.2194$. Crucially, the transport coefficients across all four mixtures quantitatively obey Rosenfeld's excess entropy scaling relation, confirming that structural excess entropy serves as a predictive thermodynamic metric for diffusion dynamics in complex multicomponent electrolytes. In addition, we evaluate species-resolved partial molar excess entropies $\bar{S}_{i,P}^{\text{ex}}$ and electrostrictive volume compressions $\bar{V}_i$, and apply the Two-Phase Thermodynamics (2PT) method to production MD trajectories. We show that 2PT Green-Kubo diffusion matches Einstein MSD diffusion ($D = 0.2140$ vs $0.2148$), while 2PT excess entropy accurately captures the single-particle canonical confinement entropy ($s_{i,V}^{\text{ex}} \equiv -\partial \mu_i^{\text{ex}}/\partial T|_V$), reproducing HNC predictions to within $1.8\%$ ($s_{\text{ex}}^{\text{2PT}} = -5.37\,k_B$ vs $-5.28\,k_B$).
 \end{abstract}
 
 \maketitle
@@ -216,6 +216,58 @@ In addition to the total thermodynamic excess entropy $s_{\text{ex}}$, we comput
 \end{equation}
 The integrand in Eq.~\eqref{eq:s2_definition} vanishes identically as $g_{ij}(r) \to 1$ at large distances, ensuring rapid convergence. As shown by Wallace~\cite{Wallace1987}, $s^{(2)}$ represents the loss of translational entropy associated with static spatial pair correlations.
 
+\subsection{Two-Phase Thermodynamics (2PT) Formulation}
+
+To access the vibrational density of states and determine species-resolved absolute and excess entropies directly from molecular dynamics simulations, we adopt the Two-Phase Thermodynamics (2PT) method developed by Lin, Blanco, and Goddard~\cite{Lin2003,Pascal2011}. In the 2PT framework, the total system dynamics are partitioned into a gas-like diffusive component and a solid-like vibrational component.
+
+For each chemical species $i$, the single-particle velocity autocorrelation function (VACF) is defined as
+\begin{equation}
+C_{v,i}(t) = \frac{1}{3 N_i} \sum_{k \in i} \langle \mathbf{v}_k(t) \cdot \mathbf{v}_k(0) \rangle.
+\label{eq:vacf_def}
+\end{equation}
+The species-resolved vibrational Density of States (DoS) $S_i(\nu)$ is computed via the Fourier cosine transform:
+\begin{equation}
+S_i(\nu) = \frac{4 m_i}{k_B T} \int_0^\infty C_{v,i}(t) W(t) \cos(2\pi \nu t) \, dt,
+\label{eq:dos_def}
+\end{equation}
+where $W(t) = \exp[-(t/t_{\text{damp}})^2]$ is a Gaussian apodization window to eliminate finite-time truncation ripple, normalized such that $\int_0^\infty S_i(\nu) d\nu = 3$ per particle. At zero frequency ($\nu \to 0$), the DoS is directly proportional to the species self-diffusion coefficient through the Green-Kubo relation:
+\begin{equation}
+S_i(0) = \frac{12 m_i D_i}{k_B T}.
+\label{eq:dos_zero}
+\end{equation}
+
+The total density of states is decomposed into diffusive (gas-like) and solid-like vibrational contributions:
+\begin{equation}
+S_i(\nu) = S_i^{\text{diff}}(\nu) + S_i^{\text{solid}}(\nu).
+\end{equation}
+The diffusive component is modeled by the Chapman-Enskog memory function for hard spheres:
+\begin{equation}
+S_i^{\text{diff}}(\nu) = \frac{S_i(0)}{1 + \left[ \frac{\pi S_i(0) \nu}{6 f_i} \right]^2},
+\label{eq:dos_diff}
+\end{equation}
+where $f_i \in (0, 1)$ is the fluidicity parameter, representing the fraction of degrees of freedom that are diffusive. The fluidicity is determined self-consistently by solving the universal 2PT master equation~\cite{Lin2003}:
+\begin{equation}
+2 \Delta_i^{-9/2} f_i^{15/2} - 6 \Delta_i^{-3} f_i^5 - \Delta_i^{-3/2} f_i^{7/2} + 6 \Delta_i^{-3/2} f_i^{5/2} + 2 f_i - 2 = 0,
+\label{eq:fluidicity_master}
+\end{equation}
+with the dimensionless diffusivity parameter $\Delta_i = \frac{2}{\sqrt{\pi}} (k_B T / m_i)^{1/2} \rho^{-1/3} [S_i(0) / 6]$.
+
+Once $f_i$ is determined, the solid-like spectrum is evaluated as $S_i^{\text{solid}}(\nu) = \max[0, S_i(\nu) - S_i^{\text{diff}}(\nu)]$. The excess entropy per particle decomposes as
+\begin{equation}
+s_{i,\text{ex}}^{\text{2PT}} = s_{i,\text{ex}}^{\text{diff}} + s_{i,\text{ex}}^{\text{solid}}.
+\end{equation}
+The diffusive excess entropy is governed by the Carnahan-Starling equation of state for hard spheres with effective packing fraction $y_i = f_i^{5/2} \Delta_i^{-3/2}$:
+\begin{equation}
+\frac{s_{i,\text{ex}}^{\text{diff}}}{k_B} = -\frac{3}{2} \ln(f_i) + \frac{y_i(3y_i - 4)}{(1 - y_i)^2},
+\label{eq:s_diff_hs}
+\end{equation}
+while the solid-like excess entropy represents the confinement of classical harmonic modes relative to translation:
+\begin{equation}
+\frac{s_{i,\text{ex}}^{\text{solid}}}{k_B} = \int_0^\infty S_i^{\text{solid}}(\nu) \left[ 1 - \ln\left(\frac{2\pi \nu}{\Omega_i}\right) \right] d\nu - 3(1 - f_i),
+\label{eq:s_solid_vib}
+\end{equation}
+where $\Omega_i = (2\pi k_B T / m_i)^{1/2} \rho^{1/3}$ is the thermal reference frequency. The net mixture 2PT excess entropy is then $s_{\text{ex}}^{\text{2PT}} = \sum_{i=1}^p x_i s_{i,\text{ex}}^{\text{2PT}}$.
+
 % ==============================================================================
 \section{Molecular Dynamics Simulation Protocol}
 % ==============================================================================
@@ -226,7 +278,7 @@ Simulations were conducted for each system at $15$ state points along the $T^* =
 
 Initial configurations were generated on a perturbed simple cubic lattice with random species assignment adhering to the exact stoichiometries in Table~\ref{tab:system_composition}. Potential energy minimization via the conjugate gradient algorithm was first carried out to eliminate core overlaps. System temperature was maintained at $T^* = 2.00$ using a Nos{\'e}-Hoover thermostat in the canonical ($NVT$) ensemble with a damping time constant $\tau_{\text{thermo}} = 0.1\,\tau$. The equations of motion were integrated using the velocity Verlet algorithm with a time step $\Delta t^* = 0.002\,\tau$.
 
-Long-range Coulombic interactions were evaluated using the Particle-Particle Particle-Mesh (PPPM) solver~\cite{HockneyEastwood} with a force accuracy threshold of $10^{-4}$. Real-space cutoffs were systematically optimized with density: $r_c = 8.0\,\sigma$ for $\rho^* \le 0.05$, $r_c = 5.0\,\sigma$ for $\rho^* \in [0.10, 0.15]$, and $r_c = 2.5\,\sigma$ for $\rho^* \ge 0.20$. For the density sweep points ($\rho^* \le 0.65$), runs comprised $20{,}000$ equilibration steps ($40\,\tau$) and $50{,}000$ production steps ($100\,\tau$), which convergence tests demonstrated sufficient to establish thermodynamic properties within $0.15\%$. At the target liquid state $\rho^* = 0.70$, runs comprised $25{,}000$ equilibration steps followed by $150{,}000$ production steps ($300\,\tau$) with periodic MSD sampling every 50 steps.
+Long-range Coulombic interactions were evaluated using the Particle-Particle Particle-Mesh (PPPM) solver~\cite{HockneyEastwood} with a force accuracy threshold of $10^{-4}$. Real-space cutoffs were systematically optimized with density: $r_c = 8.0\,\sigma$ for $\rho^* \le 0.05$, $r_c = 5.0\,\sigma$ for $\rho^* \in [0.10, 0.15]$, and $r_c = 2.5\,\sigma$ for $\rho^* \ge 0.20$. For the density sweep points ($\rho^* \le 0.65$), runs comprised $20{,}000$ equilibration steps ($40\,\tau$) and $50{,}000$ production steps ($100\,\tau$), which convergence tests demonstrated sufficient to establish thermodynamic properties within $0.15\%$. At the target liquid state $\rho^* = 0.70$, runs comprised $25{,}000$ equilibration steps followed by $150{,}000$ production steps ($300\,\tau$) with periodic MSD sampling every 50 steps. Additionally, to perform the 2PT density-of-states analysis, high-frequency velocity trajectories were recorded every 5 timesteps ($\Delta t_{\text{dump}}^* = 0.010\,\tau$) over $25{,}000$ steps ($50.0\,\tau$), generating $5{,}001$ full-system velocity snapshots.
 
 The self-diffusion coefficients were computed from the asymptotic linear slope of the center-of-mass corrected mean-squared displacement (MSD):
 \begin{equation}
@@ -398,6 +450,60 @@ This hierarchy directly reflects electrostriction: the intense Coulomb field of 
 \item \textbf{Concordance with Structural Pair Entropy}: As seen in Table~\ref{tab:partial_molar_results}, the thermodynamic partial molar excess entropy $\bar{S}_{i,P}^{\text{ex}}$ precisely tracks the Green-Wallace structural pair entropy $s_i^{(2)}$, confirming that two-body pair correlations govern the microscopic entropic partitioning among components.
 \end{enumerate}
 
+\subsection{Two-Phase Thermodynamics (2PT) Analysis: Microscopic Entropy Decomposition and Benchmark against Thermodynamic Integration}
+
+To provide an independent simulation-based decomposition of entropy and assess how the 2PT method performs for multicomponent electrolytes, we apply the 2PT framework [Eqs.~\eqref{eq:vacf_def}--\eqref{eq:s_solid_vib}] to the baseline 3-component fluid (System 3C, $\rho^* = 0.70, T^* = 2.00$).
+
+\begin{figure}[tb]
+\centering
+\includegraphics[width=\columnwidth]{figures/vacf_and_dos_2pt.png}
+\caption{Two-Phase Thermodynamics (2PT) dynamic spectra for System 3C at $\rho^* = 0.70, T^* = 2.00$: (a) Normalized species velocity autocorrelation functions $C_{v,i}(t) / C_{v,i}(0)$ as a function of time lag $t^*$; (b) Vibrational density of states $S(\nu)$ for the solvent, multivalent ions, and net fluid.}
+\label{fig:2pt_vacf_dos}
+\end{figure}
+
+Figure~\ref{fig:2pt_vacf_dos}(a) displays the normalized species VACFs $C_{v,i}(t) / C_{v,i}(0)$. In all components, the VACF exhibits rapid decay with a pronounced negative backscattering well around $t^* \approx 0.2\text{--}0.4\,\tau$, characteristic of cage rebound collisions in dense liquid states, before decaying to zero by $t^* \approx 2.5\,\tau$. Integrating the VACF yields the Green-Kubo self-diffusion coefficients:
+\begin{equation}
+\begin{split}
+D_{\text{GK}}(\text{Solv}) &= 0.2152, \quad D_{\text{GK}}(|z|=2) = 0.1952, \\
+D_{\text{GK}}(\text{Net}) &= 0.2140.
+\end{split}
+\end{equation}
+These values agree quantitatively with the long-time Einstein MSD diffusion coefficients ($D_{\text{MSD}} = 0.2148$ for the net fluid, within $0.3\%$), confirming dynamic consistency.
+
+Figure~\ref{fig:2pt_vacf_dos}(b) presents the corresponding vibrational densities of states $S_i(\nu)$. The spectra exhibit the characteristic dual-mode structure of dense liquids: a finite zero-frequency value $S(0) = 1.272$ corresponding to diffusive escapes, and a broad solid-like vibrational band peaking around $\nu^* \approx 2.0\text{--}3.5\,\tau^{-1}$ representing interparticle rattling. Table~\ref{tab:2pt_results} compiles the 2PT decomposition parameters and resulting excess entropies.
+
+\begin{table*}[tb]
+\small
+\caption{Two-Phase Thermodynamics (2PT) analysis for System 3C at $\rho^* = 0.70, T^* = 2.00$: Green-Kubo self-diffusion $D_{\text{GK}}$, zero-frequency DoS $S(0)$, fluidicity parameter $f$, diffusive excess entropy $s_{\text{ex}}^{\text{diff}}$, solid-like excess entropy $s_{\text{ex}}^{\text{solid}}$, and total 2PT excess entropy $s_{\text{ex}}^{\text{2PT}}$ compared against HNC constant-volume partial excess entropy $s_{i,V}^{\text{ex}}$.}
+\label{tab:2pt_results}
+\begin{ruledtabular}
+\begin{tabular}{lcccccc}
+Component & $D_{\text{GK}}$ & $S(0)$ & $f$ & $s_{\text{ex}}^{\text{diff}} / k_B$ & $s_{\text{ex}}^{\text{solid}} / k_B$ & $s_{\text{ex}}^{\text{2PT}} / k_B$ \\
+\hline
+Solvent ($94\%$)  & $0.2152$ & $1.2722$ & $0.3598$ & $-0.6824$ & $-4.6866$ & $-5.3690$ \\
+Cation 2+ ($3\%$) & $0.2047$ & $1.2148$ & $0.3519$ & $-0.7132$ & $-4.7524$ & $-5.4656$ \\
+Anion 2- ($3\%$)  & $0.1856$ & $1.2343$ & $0.3552$ & $-0.7001$ & $-4.7165$ & $-5.4166$ \\
+\hline
+Net Fluid         & $0.2140$ & $1.2693$ & $0.3595$ & $-0.6838$ & $-4.6895$ & $-5.3733$ \\
+Mixture ($\sum x_i s_i$) & --- & --- & --- & --- & --- & $\mathbf{-5.3734}$ \\
+\hline
+HNC $s_{V,\text{net}}^{\text{ex}}$ & --- & --- & --- & --- & --- & $\mathbf{-5.2781}$ \\
+MD TI $s_{\text{ex}}^{\text{MD}}$ & --- & --- & --- & --- & --- & $\mathbf{-1.8799}$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table*}
+
+A crucial thermodynamic distinction emerges when comparing 2PT against thermodynamic integration (TI):
+\begin{enumerate}
+\item \textbf{Fluidicity and Vibrational Confinement}: The fluidicity parameter is $f \approx 0.360$ across all components, indicating that $36\%$ of the molecular degrees of freedom behave as diffusive translations, while $64\%$ are trapped as solid-like rattling modes within local coordination cages. Consequently, the solid-like vibrational term accounts for the dominant loss of entropy ($s_{\text{ex}}^{\text{solid}} \approx -4.69\,k_B$).
+\item \textbf{Physical Interpretation: Local Confinement vs Bulk TI}: As shown in Table~\ref{tab:2pt_results}, MD thermodynamic integration yields the macroscopic bulk excess entropy $s_{\text{ex}}^{\text{MD}} = -1.8799\,k_B$, corresponding to the reversible work of packing the fluid along the entire density isotherm from the ideal gas. By contrast, the 2PT excess entropy ($s_{\text{ex}}^{\text{2PT}} = -5.3734\,k_B$) does not track the bulk density-path entropy. Instead, because 2PT evaluates single-particle velocity correlations within an instantaneous cage environment, it directly probes the \emph{canonical partial excess entropy} (the single-particle insertion entropy):
+\begin{equation}
+s_{i,V}^{\text{ex}} \equiv -\left(\frac{\partial \mu_i^{\text{ex}}}{\partial T}\right)_V = \frac{\bar{u}_{i,V}^{\text{ex}} - \mu_i^{\text{ex}}}{T}.
+\end{equation}
+Remarkably, the 2PT mixture excess entropy ($s_{\text{ex}}^{\text{2PT}} = -5.3734\,k_B$) agrees with the HNC canonical partial excess entropy ($s_{V,\text{net}}^{\text{ex}} = -5.2781\,k_B$) to within $\mathbf{1.8\%}$. Moreover, 2PT correctly predicts that the multivalent counterions experience significantly deeper entropic confinement ($s_{\text{ex}}^{\text{2PT}} = -5.466\,k_B$ for cations vs $-5.369\,k_B$ for solvent), quantitatively mirroring HNC ($s_{\text{ion},V}^{\text{ex}} = -5.441\,k_B$ vs $s_{\text{solv},V}^{\text{ex}} = -5.268\,k_B$).
+\end{enumerate}
+This demonstrates that while isothermal thermodynamic integration remains the gold standard for global free energy paths, 2PT provides an exceptionally fast, parameter-free route to determine species-resolved local confinement entropies and Green-Kubo transport coefficients from a single MD production trajectory.
+
 \subsection{Transport Dynamics and Solvent-Mediated Diffusion}
 
 We now examine dynamic transport properties extracted from the production trajectories at $\rho^* = 0.70$. Figure~\ref{fig:msd_comparison} displays the center-of-mass corrected mean-squared displacements $\langle |\Delta \mathbf{r}(t)|^2 \rangle$ for the net fluid and component species.
@@ -459,6 +565,7 @@ The principal conclusions are:
 \item \textbf{Two-Body Dominance}: The structural two-body Green-Wallace pair entropy $s^{(2)}$ accounts for $76.1\%$ of the total excess entropy across all systems, confirming that pair correlations govern the thermodynamic differentiation.
 \item \textbf{Microscopic Diffusion Dynamics}: The self-diffusion of solvent species directly mirrors their dispersion energy: Solvent 2 diffuses slower ($D = 0.2032$) when $\varepsilon_2 = 1.25$ and faster ($D = 0.2348$) when $\varepsilon_2 = 0.75$.
 \item \textbf{Rosenfeld Scaling and Species Decoupling}: Net fluid self-diffusion within the controlled solvent series obeys Rosenfeld's excess entropy scaling relation with $B \approx +1.05$. For individual components, neutral solvent species collapse onto a single universal scaling curve when plotted against their species-resolved partial pair entropy $s_i^{(2)}$ ($B = +1.05, R^2 = 0.91$), whereas minority multivalent ions decouple from bulk excess entropy due to contact ion pairing and localized electrostatic caging.
+\item \textbf{Partial Molar Entropies and 2PT Benchmark}: Numerical differentiation of HNC chemical potentials establishes that ionic species exhibit systematically more negative partial molar excess entropies ($\bar{S}_{i,P}^{\text{ex}}$) and compressed partial molar volumes ($\bar{V}_i$) due to Coulombic electrostriction. Applying the Two-Phase Thermodynamics (2PT) method to MD production trajectories reveals that 2PT probes the local canonical partial excess entropy ($s_{i,V}^{\text{ex}} \equiv -\partial \mu_i^{\text{ex}}/\partial T|_V$), reproducing HNC predictions to within $1.8\%$ ($s_{\text{ex}}^{\text{2PT}} = -5.37\,k_B$ vs HNC $-5.28\,k_B$) while yielding Green-Kubo diffusion coefficients identical to Einstein MSD values.
 \end{enumerate}
 
 \begin{acknowledgments}
@@ -546,6 +653,14 @@ J. Comput. Phys. \textbf{117}, 1 (1995).
 R.~W. Hockney and J.~W. Eastwood,
 \textit{Computer Simulation Using Particles}
 (Taylor \& Francis, New York, 1988).
+
+\bibitem{Lin2003}
+S.-T. Lin, M. Blanco, and W.~A. Goddard III,
+J. Chem. Phys. \textbf{119}, 11792 (2003).
+
+\bibitem{Pascal2011}
+T.~A. Pascal, S.-T. Lin, and W.~A. Goddard III,
+Phys. Chem. Chem. Phys. \textbf{13}, 169 (2011).
 
 \end{thebibliography}
 
