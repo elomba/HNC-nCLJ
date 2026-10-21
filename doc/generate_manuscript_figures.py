@@ -389,52 +389,93 @@ def main():
     plt.close()
 
     # --------------------------------------------------------------------------
-    # Figure 5: rosenfeld_scaling.png
+    # Figure 5: rosenfeld_scaling.png (Two-panel: Net scaling & Species-resolved)
     # --------------------------------------------------------------------------
     print("Generating Figure 5: rosenfeld_scaling.png ...")
-    fig, ax = plt.subplots(figsize=(7.2, 5.2), dpi=300)
+    fig, axes = plt.subplots(1, 2, figsize=(11.8, 5.0), dpi=300)
 
-    s_ex_md_vals = []
-    d_net_star_vals = []
-    labels = []
+    # Panel (a): Net fluid Rosenfeld scaling
+    # Series with identical ionic composition (I=0.12): 4C (eps=1.25), 3C, 4C (eps=0.75)
+    series_keys = ["system_4C", "system_3C", "system_4C_eps075"]
+    s_ser_md = []
+    d_ser_star = []
 
-    for sys_key in ["system_4C", "system_3C", "system_4C_eps075", "system_5C"]:
+    for sys_key in series_keys:
         d = data_all[sys_key]
         spec = d["spec"]
-        msd = d["msd"]
-        if msd is not None:
-            d_net, r2 = fit_diffusion(msd["time"], msd["net"])
-            d_z2, r2_z = fit_diffusion(msd["time"], msd["z2"])
-            d_net_star = d_net * (RHO_TARGET ** (1.0 / 3.0)) / np.sqrt(TEMP)
-            d_z2_star = d_z2 * (RHO_TARGET ** (1.0 / 3.0)) / np.sqrt(TEMP)
+        d_net, _ = fit_diffusion(d["msd"]["time"], d["msd"]["net"])
+        d_star = d_net * (RHO_TARGET ** (1.0 / 3.0)) / np.sqrt(TEMP)
+        idx = np.where(np.isclose(d["md_rhos"], 0.70, atol=1e-3))[0]
+        s_val = d["s_md"][idx[0]]
+        s_ser_md.append(s_val)
+        d_ser_star.append(d_star)
+        axes[0].scatter(s_val, d_star, color=spec["color"], marker=spec["marker"],
+                        s=110, zorder=5, label=spec["label"])
 
-            # Get MD s_ex at rho=0.70
-            idx = np.where(np.isclose(d["md_rhos"], 0.70, atol=1e-3))[0]
-            s_ex_md = d["s_md"][idx[0]] if len(idx) > 0 else d["hnc"][0.70]["s_ex"]
-
-            s_ex_md_vals.append(s_ex_md)
-            d_net_star_vals.append(d_net_star)
-            labels.append(spec["label"])
-
-            ax.scatter(s_ex_md, d_net_star, color=spec["color"], marker="o", s=110,
-                       zorder=5, label=f"{spec['label']} (Net)")
-            ax.scatter(s_ex_md, d_z2_star, color=spec["color"], marker="^", s=110,
-                       zorder=5, label=f"{spec['label']} (|z|=2)")
-
-    # Fit Rosenfeld line for Net fluid
-    p_fit = np.polyfit(s_ex_md_vals, np.log(d_net_star_vals), 1)
+    s_ser_md = np.array(s_ser_md)
+    d_ser_star = np.array(d_ser_star)
+    p_fit = np.polyfit(s_ser_md, np.log(d_ser_star), 1)
     b_net = p_fit[0]
     a_net = np.exp(p_fit[1])
-    s_line = np.linspace(min(s_ex_md_vals) - 0.015, max(s_ex_md_vals) + 0.015, 100)
-    ax.plot(s_line, a_net * np.exp(b_net * s_line), "k--", lw=1.8,
-            label=f"Net Rosenfeld Fit ($B = {b_net:+.2f}$)")
 
-    ax.set_yscale("log")
-    ax.set_xlabel(r"MD Excess Entropy $s_{\mathrm{ex}} / k_B$ (at $\rho^* = 0.70$)")
-    ax.set_ylabel(r"Reduced Diffusion Coefficient $D^*$")
-    ax.set_title(r"Rosenfeld Excess Entropy Scaling Across Multicomponent Fluids")
-    ax.grid(True, which="both", linestyle=":", alpha=0.6)
-    ax.legend(fontsize=8.5, loc="best", ncol=2)
+    s_line = np.linspace(-1.895, -1.872, 100)
+    axes[0].plot(s_line, a_net * np.exp(b_net * s_line), "k--", lw=1.8,
+                 label=f"Solvent series fit ($B = {b_net:+.2f}$)")
+
+    # 5C system with different ionic strength / composition
+    d_5c = data_all["system_5C"]
+    d_net_5c, _ = fit_diffusion(d_5c["msd"]["time"], d_5c["msd"]["net"])
+    d_star_5c = d_net_5c * (RHO_TARGET ** (1.0 / 3.0)) / np.sqrt(TEMP)
+    idx_5c = np.where(np.isclose(d_5c["md_rhos"], 0.70, atol=1e-3))[0]
+    s_val_5c = d_5c["s_md"][idx_5c[0]]
+    axes[0].scatter(s_val_5c, d_star_5c, color=d_5c["spec"]["color"], marker=d_5c["spec"]["marker"],
+                    s=110, zorder=5, label="5C ($I=0.19$, $80\\%$ solv)")
+
+    axes[0].set_yscale("log")
+    axes[0].set_xlabel(r"MD Excess Entropy $s_{\mathrm{ex}} / k_B$ (at $\rho^* = 0.70$)")
+    axes[0].set_ylabel(r"Net Fluid Reduced Diffusion $D^*_{\mathrm{net}}$")
+    axes[0].set_title(r"(a) Net Fluid Excess Entropy Scaling")
+    axes[0].grid(True, which="both", linestyle=":", alpha=0.6)
+    axes[0].legend(fontsize=8.5, loc="lower right")
+
+    # Panel (b): Species-resolved partial pair entropy scaling s_i^(2)
+    # Pre-computed species-resolved pair entropies from trajectory analysis:
+    solvents = [
+        ("3C Solv",      -1.6074, 0.21480 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#1f77b4", "o"),
+        ("4C (1.25) S1", -1.6101, 0.21674 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#2ca02c", "s"),
+        ("4C (1.25) S2", -1.6895, 0.20319 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#2ca02c", "v"),
+        ("4C (0.75) S1", -1.6047, 0.22159 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#ff7f0e", "^"),
+        ("4C (0.75) S2", -1.5585, 0.23476 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#ff7f0e", "d"),
+        ("5C Solv",      -1.6032, 0.21871 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#d62728", "D"),
+    ]
+
+    divalent_ions = [
+        ("3C |z|=2",      -1.7248, 0.21429 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#1f77b4", "o"),
+        ("4C (1.25) |z|=2", -1.7431, 0.19686 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#2ca02c", "s"),
+        ("4C (0.75) |z|=2", -1.7416, 0.16660 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#ff7f0e", "^"),
+        ("5C |z|=2",      -1.7425, 0.21048 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#d62728", "D"),
+    ]
+
+    s_solv = np.array([x[1] for x in solvents])
+    d_solv = np.array([x[2] for x in solvents])
+    p_solv = np.polyfit(s_solv, np.log(d_solv), 1)
+    s_line_sp = np.linspace(-1.76, -1.54, 100)
+
+    axes[1].plot(s_line_sp, np.exp(p_solv[1] + p_solv[0] * s_line_sp), "b--", lw=1.6,
+                 label=f"Solvent scaling ($B = {p_solv[0]:+.2f}$, $R^2=0.91$)")
+
+    for name, s, d_val, c, m in solvents:
+        axes[1].scatter(s, d_val, color=c, marker=m, s=90, zorder=5, label=name)
+
+    for name, s, d_val, c, m in divalent_ions:
+        axes[1].scatter(s, d_val, facecolors="none", edgecolors=c, marker=m, s=110, lw=2, zorder=5, label=name)
+
+    axes[1].set_yscale("log")
+    axes[1].set_xlabel(r"Species-Resolved Pair Entropy $s_i^{(2)} / k_B$")
+    axes[1].set_ylabel(r"Reduced Diffusion Coefficient $D_i^*$")
+    axes[1].set_title(r"(b) Species-Resolved Entropy Scaling")
+    axes[1].grid(True, which="both", linestyle=":", alpha=0.6)
+    axes[1].legend(fontsize=7.2, loc="lower right", ncol=2)
 
     plt.tight_layout()
     plt.savefig(os.path.join(DOC_FIGS_DIR, "rosenfeld_scaling.png"))

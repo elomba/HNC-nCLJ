@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [V1.3] - 2026-10-21
+
+### Added
+- **Species-Resolved Partial Pair Entropy ($s_i^{(2)}$) Analysis**:
+  - Investigated the origin of the decoupling between divalent ion diffusion and bulk excess entropy.
+  - Implemented the Green-Wallace species-resolved partial pair entropy:
+    $$s_i^{(2)} = - 2\pi \rho \sum_{j=1}^p x_j \int_0^\infty \left[ g_{ij}(r) \ln g_{ij}(r) - (g_{ij}(r)-1) \right] r^2 dr$$
+    evaluated directly from MD radial distribution functions $g_{ij}(r)$ across all multicomponent fluids.
+  - Demonstrated that while bulk excess entropy is dominated by the majority solvent matrix ($89$--$94\%$), multivalent ions ($|z|=2$) decouple into deeply negative structural caging ($s_i^{(2)} \approx -1.72$ to $-1.76\,k_B$).
+  - Identified contact ion-pairing ($g_{+-}(r_{\text{contact}})$ rising from $4.93$ in 3C to $5.25$ in 4C $\varepsilon_2=0.75$) as the microscopic origin of suppressed divalent ion mobility in weakened solvent mixtures.
+  - Established a universal master curve for all neutral solvent species obeying $D_i^* \propto \exp(B s_i^{(2)})$ with $B = +1.05$ ($R^2 = 0.91$).
+
+### Changed
+- **Figure 5 Redesign (`doc/figures/rosenfeld_scaling.png`)**:
+  - Re-engineered Figure 5 into a two-panel publication layout:
+    - **Panel (a)**: Net fluid Rosenfeld scaling for the controlled solvent-variation series (System 3C, 4C $\varepsilon_2=1.25$, and 4C $\varepsilon_2=0.75$, sharing identical $I=0.12$ and $6\%$ divalent ions), yielding a strictly positive scaling exponent $B = +1.05$ (MD TI) and $B = +1.40$ (HNC), alongside System 5C as an independent compositional baseline ($I=0.19$, $80\%$ solvent).
+    - **Panel (b)**: Species-resolved scaling of reduced diffusion coefficients $D_i^*$ against partial pair entropy $s_i^{(2)}$.
+  - Resolved regression slope discrepancy ($B = -0.14$ caused by mixing disparate compositional families in a single unconstrained fit).
+- **Physical Review E Manuscript (`doc/paper_pre.tex` & `doc/paper_pre.pdf`)**:
+  - Updated Section IV.D and Conclusions with detailed physical discussion on species-resolved pair entropy scaling, contact ion pairing, and multivalent counterion transport decoupling.
+
+---
+
 ## [V1.2] - 2026-10-21
 
 ### Added

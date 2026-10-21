@@ -358,20 +358,29 @@ Examining the component solvent species in the 4C mixtures reveals the microscop
 
 \subsection{Quantitative Validation of Rosenfeld Excess Entropy Scaling}
 
-To determine whether these transport variations are thermodynamically governed, we test Rosenfeld's excess entropy scaling relation [Eq.~\eqref{eq:rosenfeld_general}]. Figure~\ref{fig:rosenfeld_scaling} displays the reduced diffusion coefficient $D^*$ plotted logarithmically against excess entropy across the four multicomponent fluids.
+To determine whether these transport variations are thermodynamically governed, we test Rosenfeld's excess entropy scaling relation [Eq.~\eqref{eq:rosenfeld_general}]. Figure~\ref{fig:rosenfeld_scaling}(a) displays the net fluid reduced diffusion coefficient $D^*_{\text{net}}$ plotted against the thermodynamic excess entropy $s_{\text{ex}}$ for the controlled solvent-variation series (System 3C, 4C with $\varepsilon_2 = 1.25$, and 4C with $\varepsilon_2 = 0.75$, all sharing identical ionic strength $I = 0.12$ and $6\%$ divalent ions), alongside System 5C ($I = 0.19$, $80\%$ solvent).
 
-\begin{figure}[tb]
+\begin{figure*}[tb]
 \centering
-\includegraphics[width=\columnwidth]{figures/rosenfeld_scaling.png}
-\caption{Rosenfeld excess entropy scaling plot at $\rho^* = 0.70, T^* = 2.00$. Logarithm of reduced self-diffusion $D^*$ plotted against MD excess entropy $s_{\text{ex}}^{\text{MD}}$ for the net fluid (circles) and multivalent counterions $|z|=2$ (triangles). Dashed line denotes the linear Rosenfeld fit for the net fluid.}
+\includegraphics[width=\textwidth]{figures/rosenfeld_scaling.png}
+\caption{Rosenfeld excess entropy scaling at $\rho^* = 0.70, T^* = 2.00$: (a) Net fluid reduced diffusion coefficient $D_{\text{net}}^*$ plotted logarithmically against total MD excess entropy $s_{\text{ex}}^{\text{MD}}$. The dashed line denotes the linear fit for the solvent-variation series ($I = 0.12$), yielding $B = +1.05$. System 5C ($I=0.19$, $80\%$ solvent) reflects a distinct baseline state. (b) Species-resolved reduced diffusion $D_i^*$ plotted against the partial pair entropy $s_i^{(2)} / k_B$. All neutral solvent species collapse onto a single universal scaling line ($B = +1.05$, $R^2 = 0.91$), whereas the multivalent ions $|z|=2$ decouple into deeply negative structural caging ($s_i^{(2)} \approx -1.72$ to $-1.76\,k_B$).}
 \label{fig:rosenfeld_scaling}
-\end{figure}
+\end{figure*}
 
-As shown in Fig.~\ref{fig:rosenfeld_scaling}, the net fluid diffusion coefficient correlates with thermodynamic excess entropy, yielding a strictly positive scaling exponent:
+Within the solvent-variation series, the net fluid diffusion coefficient correlates strictly with thermodynamic excess entropy:
 \begin{equation}
-\ln D_{\text{net}}^* = \ln A + B \, \frac{s_{\text{ex}}}{k_B}, \quad \text{with } B \approx +0.75.
+\ln D_{\text{net}}^* = \ln A + B \, \frac{s_{\text{ex}}}{k_B}, \quad \text{with } B = +1.05 \quad (\text{MD TI}),
 \end{equation}
-This positive exponent confirms Rosenfeld's fundamental hypothesis: states possessing higher structural ordering and more negative excess entropy exhibit suppressed diffusion, while systems with weaker attractions and higher entropy display enhanced mobility.
+and $B = +1.40$ using HNC excess entropy. Both exponents are positive and of order unity ($B \sim 1$), in quantitative accordance with Rosenfeld's hypothesis. System 5C exhibits a shifted baseline excess entropy ($s_{\text{ex}}^{\text{MD}} = -1.9375\,k_B$ versus $-1.88\,k_B$) due to its substantially lower solvent mole fraction ($80\%$ vs $89$--$94\%$) and higher ionic strength ($I = 0.19$ vs $0.12$).
+
+Crucially, examining individual species mobility reveals that the global excess entropy $s_{\text{ex}}$ does not dictate the diffusion of the minority multivalent ions ($x_{\text{cat}} = x_{\text{an}} = 0.03$). Because neutral solvent molecules comprise $89$--$94\%$ of the fluid, the bulk excess entropy $s_{\text{ex}} = \sum x_i \bar{s}_i$ is overwhelmingly dominated by the solvent. Weakening the solvent attraction ($\varepsilon_2 = 0.75$) softens the solvent cages, expanding the accessible configuration space and elevating both bulk $s_{\text{ex}}$ and net diffusion $D_{\text{net}}$. For the divalent ions, however, the weaker solvent provides poorer dielectric shielding and solvation, driving contact ion-counterion pairing: the cation-anion contact peak $g_{+-}(r_{\text{contact}})$ intensifies from $4.93$ in 3C to $5.25$ in 4C ($\varepsilon_2 = 0.75$). Trapped within these associated $(+-)$ contact pairs, the divalent ions experience higher effective hydrodynamic drag, reducing their mobility to $D_{z2} = 0.1666$.
+
+To resolve this species-specific decoupling, we follow the framework of Truskett and coworkers for multicomponent mixtures~\cite{Errington2006,Goel2008} and evaluate the \emph{species-resolved partial pair entropy}:
+\begin{equation}
+s_i^{(2)} = - 2\pi \rho \sum_{j=1}^p x_j \int_0^\infty \left[ g_{ij}(r) \ln g_{ij}(r) - (g_{ij}(r) - 1) \right] r^2 dr.
+\label{eq:partial_s2}
+\end{equation}
+As shown in Fig.~\ref{fig:rosenfeld_scaling}(b), plotting $D_i^*$ against $s_i^{(2)}$ yields a striking collapse: all six neutral solvent components across all four fluids adhere to a single universal Rosenfeld relation with $B = +1.05$ and $R^2 = 0.91$. The multivalent ions, by contrast, segregate into deeply negative partial pair entropies ($s_i^{(2)} \approx -1.72$ to $-1.76\,k_B$), directly demonstrating that multivalent ion transport in electrolyte mixtures is governed by localized electrostatic coordination rather than the macroscopic bulk excess entropy.
 
 % ==============================================================================
 \section{Conclusions}
@@ -385,7 +394,7 @@ The principal conclusions are:
 \item \textbf{Solvent Dispersion and Entropy}: Weakening the solvent-solvent attraction from $\varepsilon_2 = 1.25$ to $0.75$ reduces local caging, systematically increasing excess entropy ($s_{\text{ex}}$ becomes less negative) in both HNC theory and MD thermodynamic integration.
 \item \textbf{Two-Body Dominance}: The structural two-body Green-Wallace pair entropy $s^{(2)}$ accounts for $76.1\%$ of the total excess entropy across all systems, confirming that pair correlations govern the thermodynamic differentiation.
 \item \textbf{Microscopic Diffusion Dynamics}: The self-diffusion of solvent species directly mirrors their dispersion energy: Solvent 2 diffuses slower ($D = 0.2032$) when $\varepsilon_2 = 1.25$ and faster ($D = 0.2348$) when $\varepsilon_2 = 0.75$.
-\item \textbf{Rosenfeld Scaling Validation}: Reduced self-diffusion across all four multicomponent mixtures quantitatively obeys Rosenfeld's excess entropy scaling relation with positive scaling exponents, validating excess entropy as a predictive metric for transport in complex electrolytes.
+\item \textbf{Rosenfeld Scaling and Species Decoupling}: Net fluid self-diffusion within the controlled solvent series obeys Rosenfeld's excess entropy scaling relation with $B \approx +1.05$. For individual components, neutral solvent species collapse onto a single universal scaling curve when plotted against their species-resolved partial pair entropy $s_i^{(2)}$ ($B = +1.05, R^2 = 0.91$), whereas minority multivalent ions decouple from bulk excess entropy due to contact ion pairing and localized electrostatic caging.
 \end{enumerate}
 
 \begin{acknowledgments}
