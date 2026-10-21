@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [V1.7] - 2026-10-21
+
+### Changed
+- **Extended Production MD Simulations ($300.0\,\tau$, $30\,000$ Velocity Frames)**:
+  - Carried out extended concurrent production MD trajectories ($150\,000$ steps, $300.0\,\tau$) across all four multicomponent mixtures at $\rho^* = 0.70, T^* = 2.00$ on NVIDIA RTX PRO 4500 Blackwell GPUs.
+  - Simultaneously recorded center-of-mass corrected mean-squared displacements (every 50 steps) and dense velocity snapshots (every 5 steps, $\Delta t = 0.010\,\tau$, $30\,000$ frames) on the exact same microstates.
+- **Electroneutral Salt Diffusion & Convergence ($D_{\text{MSD}}$ vs $D_{\text{GK}}$)**:
+  - Demonstrated that evaluating electroneutral salt combinations ($N=120$ for divalent salt, $N=200$ for monovalent salt) eliminates finite-sample stochastic noise from individual minority ions ($N_i = 60, 3\%$), achieving sub-percent to $\sim 1\%$ agreement between long-time Einstein self-diffusion $D_{\text{MSD}}$ and short-time Green-Kubo $D_{\text{GK}}$:
+    - System 3C Divalent Salt ($|z|=2$): $D_{\text{MSD}} = 0.2027$ vs $D_{\text{GK}} = 0.2038$ ($\mathbf{+0.5\%}$).
+    - System 4C ($\varepsilon_2 = 1.25$) Divalent Salt: $D_{\text{MSD}} = 0.1813$ vs $D_{\text{GK}} = 0.2017$ ($+11.2\%$).
+    - System 4C ($\varepsilon_2 = 0.75$) Divalent Salt: $D_{\text{MSD}} = 0.2072$ vs $D_{\text{GK}} = 0.2057$ ($\mathbf{-0.7\%}$).
+    - System 5C Monovalent Salt ($|z|=1$): $D_{\text{MSD}} = 0.2196$ vs $D_{\text{GK}} = 0.2221$ ($\mathbf{+1.1\%}$).
+    - System 5C Divalent Salt ($|z|=2$): $D_{\text{MSD}} = 0.2036$ vs $D_{\text{GK}} = 0.2037$ ($\mathbf{+0.1\%}$).
+  - Majority solvent components and net fluid agree within $0.2\%\text{--}5.1\%$ across all systems.
+
+### Added
+- **Mathematical Sensitivity Analysis of 2PT Excess Entropy to Diffusion**:
+  - Evaluated the analytical derivative $\partial s_{i,V}^{\text{2PT}} / \partial D \approx 0$, demonstrating an exact mathematical compensation between the diffusive fluidicity term ($s_{\text{ex}}^{\text{diff}}$) and the solid vibrational term ($s_{\text{ex}}^{\text{solid}}$): a $40\%$ shift in ionic diffusivity changes $s_{i,V}^{\text{2PT}}$ by only $0.11\%$ ($-0.0059\,k_B$) and the net fluid excess entropy by less than $0.003\%$ ($-0.00018\,k_B$).
+  - Confirmed that 2PT excess entropies are exceptionally robust against statistical transport fluctuations.
+- **Physical Independence of Rosenfeld Scaling Breakdown for Multivalent Ions**:
+  - Reaffirmed that the breakdown of Rosenfeld scaling for multivalent ions does not rely on $D_{\text{GK}}$ or 2PT entropy estimates, but is established independently from global MD thermodynamic integration ($s_{\text{ex}}^{\text{MD}}$) and structural pair correlations ($g_{ij}(r)$ via partial pair entropy $s_i^{(2)}$). Divalent counterions decouple into deeply negative structural caging ($s_i^{(2)} \approx -1.72$ to $-1.76\,k_B$) due to localized Bjerrum contact pairing and dipole clustering.
+- **Manuscript & Table Updates (`doc/paper_pre.tex`)**:
+  - Updated Table IV with the extended $300\,\tau$ trajectory analysis, adding explicit electroneutral salt rows ($|z|=1$ and $|z|=2$).
+  - Updated Section IV.D (Items 1, 2, 3, 5) and Section V (Conclusions) with the converged values and comprehensive discussion.
+  - Recompiled publication PDF `doc/paper_pre.pdf`.
+
+---
+
 ## [V1.6] - 2026-10-21
 
 ### Changed
