@@ -63,8 +63,8 @@ SYSTEMS = {
         "hnc_file": os.path.join(BASE_DIR, "EntropyComparison", "results", "Thermo_4C_eps075_density_sweep.dat"),
     },
     "system_5C": {
-        "name": "5C (I=0.19)",
-        "label": "5C (I=0.19)",
+        "name": "5C (I=0.17)",
+        "label": "5C (I=0.17)",
         "color": "#d62728",  # Red
         "marker": "D",
         "hnc_file": os.path.join(BASE_DIR, "EntropyComparison", "results", "Thermo_5C_density_sweep.dat"),
@@ -429,7 +429,7 @@ def main():
     idx_5c = np.where(np.isclose(d_5c["md_rhos"], 0.70, atol=1e-3))[0]
     s_val_5c = d_5c["s_md"][idx_5c[0]]
     axes[0].scatter(s_val_5c, d_star_5c, color=d_5c["spec"]["color"], marker=d_5c["spec"]["marker"],
-                    s=110, zorder=5, label="5C ($I=0.19$, $80\\%$ solv)")
+                    s=110, zorder=5, label="5C ($I=0.17$, $84\\%$ solv)")
 
     axes[0].set_yscale("log")
     axes[0].set_xlabel(r"MD Excess Entropy $s_{\mathrm{ex}} / k_B$ (at $\rho^* = 0.70$)")
@@ -446,14 +446,14 @@ def main():
         ("4C (1.25) S2", -1.6895, 0.20319 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#2ca02c", "v"),
         ("4C (0.75) S1", -1.6047, 0.22159 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#ff7f0e", "^"),
         ("4C (0.75) S2", -1.5585, 0.23476 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#ff7f0e", "d"),
-        ("5C Solv",      -1.6032, 0.21871 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#d62728", "D"),
+        ("5C Solv",      -1.6007, 0.21598 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#d62728", "D"),
     ]
 
     divalent_ions = [
         ("3C |z|=2",      -1.7248, 0.21429 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#1f77b4", "o"),
         ("4C (1.25) |z|=2", -1.7431, 0.19686 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#2ca02c", "s"),
         ("4C (0.75) |z|=2", -1.7416, 0.16660 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#ff7f0e", "^"),
-        ("5C |z|=2",      -1.7425, 0.21048 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#d62728", "D"),
+        ("5C |z|=2",      -1.7519, 0.22887 * (RHO_TARGET**(1/3))/np.sqrt(TEMP), "#d62728", "D"),
     ]
 
     s_solv = np.array([x[1] for x in solvents])

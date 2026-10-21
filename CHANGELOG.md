@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [V1.6] - 2026-10-21
+
+### Changed
+- **Symmetric 5-Component Fluid Composition & Systematic Recalibration**:
+  - Corrected the mole fractions of the 5-component mixture (System 5C) to enforce strict charge symmetry and exact divalent ion concentration matching with the other mixtures ($x_{+2} = x_{-2} = 0.03$, $3\%$ Cation 2+ and $3\%$ Anion 2-):
+    - Solvent: $x_1 = 0.84$ ($N_1 = 1680, q_1 = 0$)
+    - Cation 1+: $x_2 = 0.05$ ($N_2 = 100, q_2 = +1$)
+    - Cation 2+: $x_3 = 0.03$ ($N_3 = 60, q_3 = +2$)
+    - Anion 1-: $x_4 = 0.05$ ($N_4 = 100, q_4 = -1$)
+    - Anion 2-: $x_5 = 0.03$ ($N_5 = 60, q_5 = -2$)
+    - Ionic strength: $I = \frac{1}{2}\sum x_i q_i^2 = 0.17$; Debye screening length: $\kappa^{-1} = 0.818\,\sigma$.
+  - All four fluids (3C, 4C $\varepsilon_2=1.25$, 4C $\varepsilon_2=0.75$, 5C) now share identical divalent salt mole fractions ($3\%$ Cation 2+, $3\%$ Anion 2-).
+
+### Added
+- **Full Hypernetted Chain (HNC) Recalculation for Corrected 5C**:
+  - Converged HNC solution and carried out full density continuation sweep across 15 density points ($\rho^* = 0.01 \to 0.70$) with Allnatt screening.
+  - Performed HNC thermodynamic integration at $\rho^* = 0.70$: $Z_{\text{virial}} = Z_{\text{diff}} = 3.2099$, $u_{\text{ex}}/(k_B T) = -1.7403$, $A_{\text{ex}}/(N k_B T) = +0.3274$, $s_{\text{ex}} = -2.0677\,k_B$, $s^{(2)} = -1.5731\,k_B$ ($s^{(2)}/s_{\text{ex}} = 76.1\%$).
+  - Evaluated species-resolved partial molar excess properties ($\mu_i^{\text{ex}}, \bar{V}_i, s_{i,V}^{\text{ex}}, \bar{S}_{i,P}^{\text{ex}}$):
+    - Solvent: $\mu_1^{\text{ex}}/(k_B T) = 2.6021, \bar{V}_1 = 1.434\,\sigma^3, s_{1,V}^{\text{ex}} = -5.267\,k_B, \bar{S}_{1,P}^{\text{ex}} = -1.384\,k_B$.
+    - Monovalent ions ($|z|=1$): $\mu_{|z|=1}^{\text{ex}}/(k_B T) = 2.4380, \bar{V} = 1.427\,\sigma^3, s_{V}^{\text{ex}} = -5.308\,k_B, \bar{S}_{P}^{\text{ex}} = -1.445\,k_B$.
+    - Divalent ions ($|z|=2$): $\mu_{|z|=2}^{\text{ex}}/(k_B T) = 1.9421, \bar{V} = 1.408\,\sigma^3, s_{V}^{\text{ex}} = -5.442\,k_B, \bar{S}_{P}^{\text{ex}} = -1.636\,k_B$.
+    - Verified strict electrostrictive volume compression: $\bar{V}_{|z|=2} (1.408\,\sigma^3) < \bar{V}_{|z|=1} (1.427\,\sigma^3) < \bar{V}_{\text{solv}} (1.434\,\sigma^3)$.
+- **GPU-Accelerated MD Batch & Thermodynamic Integration for Corrected 5C**:
+  - Re-generated and ran all 15 LAMMPS MD simulations across the supercritical isotherm on NVIDIA RTX PRO 4500 Blackwell GPUs.
+  - Computed equation of state and thermodynamic integration: $Z_{\text{MD}} = 2.5210 \pm 0.003$, $u_{\text{ex}}/(k_B T) = -1.8355 \pm 0.001$, $A_{\text{ex}}/(N k_B T) = +0.0499$, $s_{\text{ex}}^{\text{MD}} = -1.8854\,k_B$.
+  - Evaluated long-time Einstein self-diffusivities at $\rho^* = 0.70$: $D_{\text{net}} = 0.21789 \pm 0.00003$, $D_{z2} = 0.22887 \pm 0.00016$ ($D_{\text{cat2}} = 0.22854, D_{\text{an2}} = 0.22684$).
+- **Two-Phase Thermodynamics (2PT) MD Simulation for Corrected 5C**:
+  - Performed high-frequency velocity dumping NVT simulation (30,000 steps, 5,000 snapshots over 50.0 $\tau$).
+  - Extracted 2PT dynamic decomposition: $D_{\text{GK}} = 0.2219$, $S(0) = 1.2668$, $f = 0.3592$, $s_{\text{ex}}^{\text{diff}} = -0.685\,k_B$, $s_{\text{ex}}^{\text{solid}} = -4.687\,k_B$, yielding $s_{\text{mix},V}^{\text{2PT}} = -5.372\,k_B$ (matching HNC $-5.282\,k_B$ to within $1.7\%$).
+- **Manuscript & Figures Update**:
+  - Regenerated all figures (`compressibility_and_ti.png`, `entropy_comparison.png`, `delta_entropy.png`, `msd_comparison.png`, `rosenfeld_scaling.png`, and `vacf_and_dos_2pt.png`).
+  - Updated Tables I, II, III, and IV, and text in `doc/paper_pre.tex`.
+  - Recompiled publication PDF `doc/paper_pre.pdf` (12 pages, clean compilation).
+
+---
+
 ## [V1.5] - 2026-10-21
 
 ### Added
