@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [V1.5] - 2026-10-21
+
+### Added
+- **Multi-System Two-Phase Thermodynamics (2PT) Analysis across All Fluids**:
+  - Configured and executed high-frequency NVT velocity dumping MD simulations on NVIDIA RTX PRO 4500 GPUs for all remaining multicomponent mixtures: System 4C ($\varepsilon_2 = 1.25$), System 4C ($\varepsilon_2 = 0.75$), and System 5C ($I = 0.19$).
+  - Developed generalized analysis framework (`lammps_study/two_pt_analysis/run_multisystem_2pt.py` and `generate_fig6.py`).
+  - Evaluated species-resolved Green-Kubo diffusion coefficients $D_{\text{GK}}$, zero-frequency densities of states $S(0)$, fluidicity parameters $f$, diffusive hard-sphere excess entropies $s_{\text{ex}}^{\text{diff}}$, and solid-like vibrational excess entropies $s_{\text{ex}}^{\text{solid}}$.
+  - Expanded Table IV into a comprehensive multi-system table displaying the complete species breakdown (solvents, cations, and anions) side-by-side with HNC canonical constant-volume partial excess entropies $s_{i,V}^{\text{ex}}$.
+  - Demonstrated quantitative agreement between 2PT and HNC across all species in all four fluids ($0.05\%\text{--}2.4\%$ error).
+  - Validated solvent dispersion modulation in 2PT: weakening solvent attraction ($\varepsilon_2 = 1.25 \to 0.75$) yields a $+0.279\,k_B$ entropic surge ($s_{2,V}^{\text{2PT}} = -5.485 \to -5.206\,k_B$), quantitatively mirroring HNC ($+0.332\,k_B$).
+  - Confirmed electrostriction valence ordering in 5C: divalent ions experience significantly deeper vibrational caging and entropic confinement ($s_{i,V}^{\text{2PT}} \approx -5.44$ to $-5.46\,k_B$) than monovalent ions ($-5.39$ to $-5.42\,k_B$) and neutral solvent ($-5.38\,k_B$).
+
+### Changed
+- **Figure 6 Redesign (`doc/figures/vacf_and_dos_2pt.png`)**:
+  - Upgraded Figure 6 into a publication-quality 4-panel layout:
+    - **Panel (a)**: Normalized solvent velocity autocorrelation functions $C_v(t) / C_v(0)$ comparing 3C, 4C ($\varepsilon_2=1.25$), and 4C ($\varepsilon_2=0.75$).
+    - **Panel (b)**: Ionic VACFs in System 5C, contrasting backscattering well depths for monovalent vs divalent ions.
+    - **Panel (c)**: Solvent vibrational density of states $S(\nu)$, showing the elevated diffusive peak $S(0)$ and softened vibrational band for $\varepsilon_2 = 0.75$.
+    - **Panel (d)**: Ionic vibrational density of states in System 5C, illustrating the electrostrictive blue-shift of solid-like rattling modes for multivalent counterions.
+- **Physical Review E Manuscript (`doc/paper_pre.tex` & `doc/paper_pre.pdf`)**:
+  - Corrected minor typographical mole fractions in Table III for System 5C ($x_{-1} = 0.09, x_{-2} = 0.02$).
+  - Overhauled Section IV.D to present the complete multi-system 2PT analysis with Table IV and updated Figure 6.
+  - Recompiled manuscript to `doc/paper_pre.pdf` (12 pages, clean compilation).
+
+---
+
 ## [V1.4] - 2026-10-21
 
 ### Added

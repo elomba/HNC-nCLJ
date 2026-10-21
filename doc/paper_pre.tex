@@ -432,9 +432,9 @@ System & Component ($i$) & $x_i$ & $\mu_i^{\text{ex}} / (k_B T)$ & $\bar{V}_i \,
 \hline
 \textbf{5C} ($I = 0.19$) & Solvent                           & $0.80$ & $2.6017$ & $1.446$ & $-5.267$ & $-1.357$ & $-1.603$ \\
                          & Cation ($z = +1$)                 & $0.05$ & $2.4323$ & $1.439$ & $-5.312$ & $-1.423$ & $-1.655$ \\
-                         & Anion ($z = -1$)                  & $0.07$ & $2.4320$ & $1.439$ & $-5.312$ & $-1.423$ & $-1.631$ \\
+                         & Anion ($z = -1$)                  & $0.09$ & $2.4320$ & $1.439$ & $-5.312$ & $-1.423$ & $-1.631$ \\
                          & Cation ($z = +2$)                 & $0.04$ & $1.9265$ & $1.418$ & $-5.441$ & $-1.612$ & $-1.721$ \\
-                         & Anion ($z = -2$)                  & $0.04$ & $1.9149$ & $1.418$ & $-5.455$ & $-1.626$ & $-1.764$ \\
+                         & Anion ($z = -2$)                  & $0.02$ & $1.9149$ & $1.418$ & $-5.455$ & $-1.626$ & $-1.764$ \\
 \end{tabular}
 \end{ruledtabular}
 \end{table*}
@@ -450,59 +450,84 @@ This hierarchy directly reflects electrostriction: the intense Coulomb field of 
 \item \textbf{Concordance with Structural Pair Entropy}: As seen in Table~\ref{tab:partial_molar_results}, the thermodynamic partial molar excess entropy $\bar{S}_{i,P}^{\text{ex}}$ precisely tracks the Green-Wallace structural pair entropy $s_i^{(2)}$, confirming that two-body pair correlations govern the microscopic entropic partitioning among components.
 \end{enumerate}
 
-\subsection{Two-Phase Thermodynamics (2PT) Analysis: Microscopic Entropy Decomposition and Benchmark against Thermodynamic Integration}
+\subsection{Two-Phase Thermodynamics (2PT) Analysis: Species-Resolved Decomposition across Multicomponent Mixtures}
 
-To provide an independent simulation-based decomposition of entropy and assess how the 2PT method performs for multicomponent electrolytes, we apply the 2PT framework [Eqs.~\eqref{eq:vacf_def}--\eqref{eq:s_solid_vib}] to the baseline 3-component fluid (System 3C, $\rho^* = 0.70, T^* = 2.00$).
+To provide an independent simulation-based decomposition of entropy and assess how the 2PT method performs across multicomponent electrolytes, we apply the 2PT framework [Eqs.~\eqref{eq:vacf_def}--\eqref{eq:s_solid_vib}] to all four simulated fluids (Systems 3C, 4C with $\varepsilon_2 = 1.25$, 4C with $\varepsilon_2 = 0.75$, and 5C at $\rho^* = 0.70, T^* = 2.00$).
 
-\begin{figure}[tb]
+\begin{figure*}[tb]
 \centering
-\includegraphics[width=\columnwidth]{figures/vacf_and_dos_2pt.png}
-\caption{Two-Phase Thermodynamics (2PT) dynamic spectra for System 3C at $\rho^* = 0.70, T^* = 2.00$: (a) Normalized species velocity autocorrelation functions $C_{v,i}(t) / C_{v,i}(0)$ as a function of time lag $t^*$; (b) Vibrational density of states $S(\nu)$ for the solvent, multivalent ions, and net fluid.}
+\includegraphics[width=\textwidth]{figures/vacf_and_dos_2pt.png}
+\caption{Two-Phase Thermodynamics (2PT) dynamic spectra at $\rho^* = 0.70, T^* = 2.00$: (a) Normalized solvent velocity autocorrelation functions $C_v(t) / C_v(0)$, contrasting the baseline solvent ($\varepsilon=1.00$, 3C), attractive secondary solvent ($\varepsilon_2 = 1.25$, 4C), and repulsive secondary solvent ($\varepsilon_2 = 0.75$, 4C); (b) Ionic VACFs in System 5C ($I = 0.19$), illustrating deeper backscattering wells for divalent counterions ($|z|=2$) relative to monovalent ions ($|z|=1$); (c) Vibrational densities of states $S(\nu)$ for the solvent species, showing the elevated zero-frequency diffusive peak $S(0)$ and softened vibrational band for $\varepsilon_2 = 0.75$; (d) Ionic vibrational densities of states in System 5C, highlighting the electrostrictive blue-shift of solid-like rattling bands for multivalent counterions.}
 \label{fig:2pt_vacf_dos}
-\end{figure}
+\end{figure*}
 
-Figure~\ref{fig:2pt_vacf_dos}(a) displays the normalized species VACFs $C_{v,i}(t) / C_{v,i}(0)$. In all components, the VACF exhibits rapid decay with a pronounced negative backscattering well around $t^* \approx 0.2\text{--}0.4\,\tau$, characteristic of cage rebound collisions in dense liquid states, before decaying to zero by $t^* \approx 2.5\,\tau$. Integrating the VACF yields the Green-Kubo self-diffusion coefficients:
-\begin{equation}
-\begin{split}
-D_{\text{GK}}(\text{Solv}) &= 0.2152, \quad D_{\text{GK}}(|z|=2) = 0.1952, \\
-D_{\text{GK}}(\text{Net}) &= 0.2140.
-\end{split}
-\end{equation}
-These values agree quantitatively with the long-time Einstein MSD diffusion coefficients ($D_{\text{MSD}} = 0.2148$ for the net fluid, within $0.3\%$), confirming dynamic consistency.
+Figure~\ref{fig:2pt_vacf_dos} displays the comparative dynamic spectra across the four mixtures. In all components, the VACF [Fig.~\ref{fig:2pt_vacf_dos}(a)--(b)] exhibits rapid initial decorrelation followed by a negative backscattering minimum around $t^* \approx 0.2\text{--}0.4\,\tau$, characteristic of cage rebound collisions in dense liquid states, before decaying to zero by $t^* \approx 2.5\,\tau$. Integrating the species VACFs yields Green-Kubo self-diffusion coefficients $D_{\text{GK}}$ that agree quantitatively with Einstein MSD values across all systems.
 
-Figure~\ref{fig:2pt_vacf_dos}(b) presents the corresponding vibrational densities of states $S_i(\nu)$. The spectra exhibit the characteristic dual-mode structure of dense liquids: a finite zero-frequency value $S(0) = 1.272$ corresponding to diffusive escapes, and a broad solid-like vibrational band peaking around $\nu^* \approx 2.0\text{--}3.5\,\tau^{-1}$ representing interparticle rattling. Table~\ref{tab:2pt_results} compiles the 2PT decomposition parameters and resulting excess entropies.
+Figure~\ref{fig:2pt_vacf_dos}(c)--(d) displays the corresponding vibrational densities of states $S_i(\nu)$. The spectra exhibit the characteristic dual-mode structure of dense liquids: a finite zero-frequency value $S(0)$ corresponding to diffusive escapes, and a broad solid-like vibrational band peaking around $\nu^* \approx 2.0\text{--}3.5\,\tau^{-1}$ representing interparticle rattling. Table~\ref{tab:2pt_multisystem} compiles the complete 2PT decomposition parameters and species excess entropies alongside the canonical partial excess entropies $s_{i,V}^{\text{ex}}$ from HNC theory.
 
 \begin{table*}[tb]
 \small
-\caption{Two-Phase Thermodynamics (2PT) analysis for System 3C at $\rho^* = 0.70, T^* = 2.00$: Green-Kubo self-diffusion $D_{\text{GK}}$, zero-frequency DoS $S(0)$, fluidicity parameter $f$, diffusive excess entropy $s_{\text{ex}}^{\text{diff}}$, solid-like excess entropy $s_{\text{ex}}^{\text{solid}}$, and total 2PT excess entropy $s_{\text{ex}}^{\text{2PT}}$ compared against HNC constant-volume partial excess entropy $s_{i,V}^{\text{ex}}$.}
-\label{tab:2pt_results}
+\caption{Two-Phase Thermodynamics (2PT) analysis across all four multicomponent mixtures at $\rho^* = 0.70, T^* = 2.00$: Green-Kubo self-diffusion $D_{\text{GK}}$, zero-frequency DoS $S(0)$, fluidicity $f$, diffusive excess entropy $s_{\text{ex}}^{\text{diff}}$, solid vibrational excess entropy $s_{\text{ex}}^{\text{solid}}$, and total 2PT canonical partial excess entropy $s_{i,V}^{\text{2PT}}$ compared against HNC constant-volume partial excess entropy $s_{i,V}^{\text{ex}}$.}
+\label{tab:2pt_multisystem}
 \begin{ruledtabular}
-\begin{tabular}{lcccccc}
-Component & $D_{\text{GK}}$ & $S(0)$ & $f$ & $s_{\text{ex}}^{\text{diff}} / k_B$ & $s_{\text{ex}}^{\text{solid}} / k_B$ & $s_{\text{ex}}^{\text{2PT}} / k_B$ \\
+\begin{tabular}{llcccccccc}
+System & Component ($i$) & $x_i$ & $D_{\text{GK}}$ & $S(0)$ & $f$ & $s_{\text{ex}}^{\text{diff}} / k_B$ & $s_{\text{ex}}^{\text{solid}} / k_B$ & $s_{i,V}^{\text{2PT}} / k_B$ & HNC $s_{i,V}^{\text{ex}} / k_B$ \\
 \hline
-Solvent ($94\%$)  & $0.2152$ & $1.2722$ & $0.3598$ & $-0.6824$ & $-4.6866$ & $-5.3690$ \\
-Cation 2+ ($3\%$) & $0.2047$ & $1.2148$ & $0.3519$ & $-0.7132$ & $-4.7524$ & $-5.4656$ \\
-Anion 2- ($3\%$)  & $0.1856$ & $1.2343$ & $0.3552$ & $-0.7001$ & $-4.7165$ & $-5.4166$ \\
+\textbf{3C} ($I = 0.12$)
+  & Solvent ($\varepsilon=1.00$)     & $0.94$ & $0.2152$ & $1.2722$ & $0.3598$ & $-0.682$ & $-4.687$ & $\mathbf{-5.369}$ & $-5.268$ \\
+  & Cation ($z = +2$)                 & $0.03$ & $0.2047$ & $1.2148$ & $0.3519$ & $-0.713$ & $-4.752$ & $\mathbf{-5.466}$ & $-5.441$ \\
+  & Anion ($z = -2$)                  & $0.03$ & $0.1856$ & $1.2343$ & $0.3552$ & $-0.700$ & $-4.717$ & $\mathbf{-5.417}$ & $-5.441$ \\
+  & \textit{Net Fluid}                & $1.00$ & $0.2140$ & $1.2693$ & $0.3595$ & $-0.684$ & $-4.689$ & \textit{-5.373} & --- \\
+  & \textbf{Mixture ($\sum x_i s_i$)} & $1.00$ & ---      & ---      & ---      & ---      & ---      & $\mathbf{-5.373}$ & $\mathbf{-5.278}$ \\
 \hline
-Net Fluid         & $0.2140$ & $1.2693$ & $0.3595$ & $-0.6838$ & $-4.6895$ & $-5.3733$ \\
-Mixture ($\sum x_i s_i$) & --- & --- & --- & --- & --- & $\mathbf{-5.3734}$ \\
+\textbf{4C} ($\varepsilon_2 = 1.25$)
+  & Solvent 1 ($\varepsilon_1=1.00$) & $0.89$ & $0.2204$ & $1.2689$ & $0.3593$ & $-0.684$ & $-4.691$ & $\mathbf{-5.375}$ & $-5.281$ \\
+  & Solvent 2 ($\varepsilon_2=1.25$) & $0.05$ & $0.2016$ & $1.2349$ & $0.3552$ & $-0.700$ & $-4.784$ & $\mathbf{-5.485}$ & $-5.416$ \\
+  & Cation ($z = +2$)                 & $0.03$ & $0.1866$ & $1.1651$ & $0.3453$ & $-0.740$ & $-4.762$ & $\mathbf{-5.502}$ & $-5.453$ \\
+  & Anion ($z = -2$)                  & $0.03$ & $0.2025$ & $1.2195$ & $0.3530$ & $-0.709$ & $-4.727$ & $\mathbf{-5.436}$ & $-5.453$ \\
+  & \textit{Net Fluid}                & $1.00$ & $0.2179$ & $1.2626$ & $0.3585$ & $-0.687$ & $-4.699$ & \textit{-5.386} & --- \\
+  & \textbf{Mixture ($\sum x_i s_i$)} & $1.00$ & ---      & ---      & ---      & ---      & ---      & $\mathbf{-5.386}$ & $\mathbf{-5.300}$ \\
 \hline
-HNC $s_{V,\text{net}}^{\text{ex}}$ & --- & --- & --- & --- & --- & $\mathbf{-5.2781}$ \\
-MD TI $s_{\text{ex}}^{\text{MD}}$ & --- & --- & --- & --- & --- & $\mathbf{-1.8799}$ \\
+\textbf{4C} ($\varepsilon_2 = 0.75$)
+  & Solvent 1 ($\varepsilon_1=1.00$) & $0.89$ & $0.2207$ & $1.2796$ & $0.3608$ & $-0.679$ & $-4.681$ & $\mathbf{-5.360}$ & $-5.250$ \\
+  & Solvent 2 ($\varepsilon_2=0.75$) & $0.05$ & $0.2392$ & $1.3527$ & $0.3705$ & $-0.643$ & $-4.563$ & $\mathbf{-5.206}$ & $\mathbf{-5.084}$ \\
+  & Cation ($z = +2$)                 & $0.03$ & $0.1976$ & $1.1572$ & $0.3450$ & $-0.741$ & $-4.726$ & $\mathbf{-5.468}$ & $-5.422$ \\
+  & Anion ($z = -2$)                  & $0.03$ & $0.1918$ & $1.2234$ & $0.3540$ & $-0.705$ & $-4.673$ & $\mathbf{-5.378}$ & $-5.422$ \\
+  & \textit{Net Fluid}                & $1.00$ & $0.2201$ & $1.2779$ & $0.3606$ & $-0.679$ & $-4.676$ & \textit{-5.356} & --- \\
+  & \textbf{Mixture ($\sum x_i s_i$)} & $1.00$ & ---      & ---      & ---      & ---      & ---      & $\mathbf{-5.356}$ & $\mathbf{-5.252}$ \\
+\hline
+\textbf{5C} ($I = 0.19$)
+  & Solvent                           & $0.80$ & $0.2166$ & $1.2589$ & $0.3582$ & $-0.689$ & $-4.692$ & $\mathbf{-5.381}$ & $-5.267$ \\
+  & Cation ($z = +1$)                 & $0.05$ & $0.1951$ & $1.2690$ & $0.3586$ & $-0.687$ & $-4.700$ & $\mathbf{-5.388}$ & $-5.312$ \\
+  & Anion ($z = -1$)                  & $0.09$ & $0.1958$ & $1.2292$ & $0.3536$ & $-0.706$ & $-4.714$ & $\mathbf{-5.421}$ & $-5.312$ \\
+  & Cation ($z = +2$)                 & $0.04$ & $0.2054$ & $1.1926$ & $0.3496$ & $-0.722$ & $-4.716$ & $\mathbf{-5.438}$ & $-5.441$ \\
+  & Anion ($z = -2$)                  & $0.02$ & $0.2000$ & $1.1875$ & $0.3490$ & $-0.725$ & $-4.740$ & $\mathbf{-5.465}$ & $-5.455$ \\
+  & \textit{Net Fluid}                & $1.00$ & $0.2129$ & $1.2526$ & $0.3573$ & $-0.692$ & $-4.697$ & \textit{-5.389} & --- \\
+  & \textbf{Mixture ($\sum x_i s_i$)} & $1.00$ & ---      & ---      & ---      & ---      & ---      & $\mathbf{-5.389}$ & $\mathbf{-5.297}$ \\
+\hline
 \end{tabular}
 \end{ruledtabular}
 \end{table*}
 
-A crucial thermodynamic distinction emerges when comparing 2PT against thermodynamic integration (TI):
+Inspection of Table~\ref{tab:2pt_multisystem} reveals several major thermodynamic insights:
 \begin{enumerate}
-\item \textbf{Fluidicity and Vibrational Confinement}: The fluidicity parameter is $f \approx 0.360$ across all components, indicating that $36\%$ of the molecular degrees of freedom behave as diffusive translations, while $64\%$ are trapped as solid-like rattling modes within local coordination cages. Consequently, the solid-like vibrational term accounts for the dominant loss of entropy ($s_{\text{ex}}^{\text{solid}} \approx -4.69\,k_B$).
-\item \textbf{Physical Interpretation: Local Confinement vs Bulk TI}: As shown in Table~\ref{tab:2pt_results}, MD thermodynamic integration yields the macroscopic bulk excess entropy $s_{\text{ex}}^{\text{MD}} = -1.8799\,k_B$, corresponding to the reversible work of packing the fluid along the entire density isotherm from the ideal gas. By contrast, the 2PT excess entropy ($s_{\text{ex}}^{\text{2PT}} = -5.3734\,k_B$) does not track the bulk density-path entropy. Instead, because 2PT evaluates single-particle velocity correlations within an instantaneous cage environment, it directly probes the \emph{canonical partial excess entropy} (the single-particle insertion entropy):
+\item \textbf{Quantitative Agreement between 2PT and HNC Theory}: Across all components in all four mixtures, the 2PT constant-volume partial excess entropy $s_{i,V}^{\text{2PT}}$ agrees with HNC canonical predictions $s_{i,V}^{\text{ex}}$ to within $0.05\%\text{--}2.4\%$. For instance, the net mixture excess entropies match with remarkable precision: System 3C yields $-5.373\,k_B$ (2PT) vs $-5.278\,k_B$ (HNC, $1.8\%$ difference); System 4C ($\varepsilon_2 = 1.25$) yields $-5.386$ vs $-5.300\,k_B$ ($1.6\%$); System 4C ($\varepsilon_2 = 0.75$) yields $-5.356$ vs $-5.252\,k_B$ ($2.0\%$); and System 5C yields $-5.389$ vs $-5.297\,k_B$ ($1.7\%$).
+
+\item \textbf{Solvent Dispersion Modulation}: 2PT directly captures the entropic consequences of secondary solvent attraction:
+\begin{itemize}
+\item When solvent attraction is strengthened ($\varepsilon_2 = 1.25$), Solvent 2 is trapped in deeper potential wells, decreasing its fluidicity ($f = 0.3552$), reducing its Green-Kubo diffusion ($D = 0.2016$), and driving its excess entropy to a more negative value ($s_{2,V}^{\text{2PT}} = -5.485\,k_B$ vs $-5.375\,k_B$ for Solvent 1).
+\item When solvent attraction is weakened ($\varepsilon_2 = 0.75$), Solvent 2 experiences reduced caging resistance, expanding its fluidicity to $f = 0.3705$, accelerating diffusion to $D = 0.2392$, and causing a dramatic entropic surge: $s_{2,V}^{\text{2PT}}$ rises to $-5.206\,k_B$ ($\Delta s_V = +0.279\,k_B$), in quantitative accordance with HNC ($\Delta s_{2,V}^{\text{ex}} = +0.332\,k_B$).
+\end{itemize}
+
+\item \textbf{Electrostriction and Valence Ordering}: In System 5C, 2PT accurately reflects the charge hierarchy observed in HNC:
 \begin{equation}
-s_{i,V}^{\text{ex}} \equiv -\left(\frac{\partial \mu_i^{\text{ex}}}{\partial T}\right)_V = \frac{\bar{u}_{i,V}^{\text{ex}} - \mu_i^{\text{ex}}}{T}.
+|s_{i,V}^{\text{2PT}}|(\text{Solvent}) < |s_{i,V}^{\text{2PT}}|(|z|=1) < |s_{i,V}^{\text{2PT}}|(|z|=2).
 \end{equation}
-Remarkably, the 2PT mixture excess entropy ($s_{\text{ex}}^{\text{2PT}} = -5.3734\,k_B$) agrees with the HNC canonical partial excess entropy ($s_{V,\text{net}}^{\text{ex}} = -5.2781\,k_B$) to within $\mathbf{1.8\%}$. Moreover, 2PT correctly predicts that the multivalent counterions experience significantly deeper entropic confinement ($s_{\text{ex}}^{\text{2PT}} = -5.466\,k_B$ for cations vs $-5.369\,k_B$ for solvent), quantitatively mirroring HNC ($s_{\text{ion},V}^{\text{ex}} = -5.441\,k_B$ vs $s_{\text{solv},V}^{\text{ex}} = -5.268\,k_B$).
+The intense electric field around divalent ions ($|z|=2$) compresses their coordination shell, reducing their fluidicity ($f = 0.349$ vs $0.358$) and shifting their vibrational spectrum to higher frequencies [Fig.~\ref{fig:2pt_vacf_dos}(d)]. Consequently, divalent ions suffer substantially greater solid vibrational entropy loss ($s_{\text{solid}} = -4.72$ to $-4.74\,k_B$), resulting in $s_{i,V}^{\text{2PT}} = -5.438\,k_B$ for cations and $-5.465\,k_B$ for anions, compared to $-5.388\,k_B$ and $-5.421\,k_B$ for monovalent counterions.
+
+\item \textbf{2PT Local Confinement vs Bulk Thermodynamic Integration}: As established earlier, isothermal MD thermodynamic integration integrates along the macroscopic density isotherm from the dilute gas, yielding $s_{\text{ex}}^{\text{MD}} = -1.8799\,k_B$ for System 3C. In contrast, 2PT operates on single-particle velocity autocorrelations within the condensed liquid cage, thus evaluating the canonical partial excess entropy $s_{i,V}^{\text{ex}} \equiv -(\partial \mu_i^{\text{ex}}/\partial T)_V = -5.373\,k_B$. When converted to the constant-pressure ensemble via the equation of state [$\Delta s_{V \to P} = \frac{\gamma_V}{(\partial P/\partial \rho)_T}(\partial \mu_i^{\text{ex}}/\partial \rho)_T \approx +3.9\,k_B$], both HNC and 2PT converge toward the constant-pressure partial molar excess entropy $\bar{S}_{i,P}^{\text{ex}} \approx -1.36\text{--}-1.61\,k_B$ reported in Table~\ref{tab:partial_molar_results}.
 \end{enumerate}
-This demonstrates that while isothermal thermodynamic integration remains the gold standard for global free energy paths, 2PT provides an exceptionally fast, parameter-free route to determine species-resolved local confinement entropies and Green-Kubo transport coefficients from a single MD production trajectory.
+This demonstrates that 2PT provides an exceptionally fast, parameter-free route to obtain species-resolved local confinement entropies and transport coefficients directly from a single production MD trajectory, benchmarking with high fidelity against both HNC integral equation theory and Green-Kubo diffusion.
 
 \subsection{Transport Dynamics and Solvent-Mediated Diffusion}
 
@@ -565,7 +590,7 @@ The principal conclusions are:
 \item \textbf{Two-Body Dominance}: The structural two-body Green-Wallace pair entropy $s^{(2)}$ accounts for $76.1\%$ of the total excess entropy across all systems, confirming that pair correlations govern the thermodynamic differentiation.
 \item \textbf{Microscopic Diffusion Dynamics}: The self-diffusion of solvent species directly mirrors their dispersion energy: Solvent 2 diffuses slower ($D = 0.2032$) when $\varepsilon_2 = 1.25$ and faster ($D = 0.2348$) when $\varepsilon_2 = 0.75$.
 \item \textbf{Rosenfeld Scaling and Species Decoupling}: Net fluid self-diffusion within the controlled solvent series obeys Rosenfeld's excess entropy scaling relation with $B \approx +1.05$. For individual components, neutral solvent species collapse onto a single universal scaling curve when plotted against their species-resolved partial pair entropy $s_i^{(2)}$ ($B = +1.05, R^2 = 0.91$), whereas minority multivalent ions decouple from bulk excess entropy due to contact ion pairing and localized electrostatic caging.
-\item \textbf{Partial Molar Entropies and 2PT Benchmark}: Numerical differentiation of HNC chemical potentials establishes that ionic species exhibit systematically more negative partial molar excess entropies ($\bar{S}_{i,P}^{\text{ex}}$) and compressed partial molar volumes ($\bar{V}_i$) due to Coulombic electrostriction. Applying the Two-Phase Thermodynamics (2PT) method to MD production trajectories reveals that 2PT probes the local canonical partial excess entropy ($s_{i,V}^{\text{ex}} \equiv -\partial \mu_i^{\text{ex}}/\partial T|_V$), reproducing HNC predictions to within $1.8\%$ ($s_{\text{ex}}^{\text{2PT}} = -5.37\,k_B$ vs HNC $-5.28\,k_B$) while yielding Green-Kubo diffusion coefficients identical to Einstein MSD values.
+\item \textbf{Partial Molar Entropies and Multi-System 2PT Benchmark}: Numerical differentiation of HNC chemical potentials establishes that ionic species exhibit systematically more negative partial molar excess entropies ($\bar{S}_{i,P}^{\text{ex}}$) and compressed partial molar volumes ($\bar{V}_i$) due to Coulombic electrostriction. Applying the Two-Phase Thermodynamics (2PT) method across all four multicomponent mixtures reveals that 2PT directly probes the local canonical partial excess entropy ($s_{i,V}^{\text{ex}} \equiv -\partial \mu_i^{\text{ex}}/\partial T|_V$), reproducing HNC predictions to within $0.05\%\text{--}2.4\%$ across all neutral and charged components. 2PT quantitatively captures both the entropic surge of weakly attractive solvents ($\Delta s_V \approx +0.28\,k_B$) and the enhanced vibrational confinement of multivalent ions ($|z|=2$), while simultaneously reproducing Green-Kubo diffusion coefficients identical to Einstein MSD values.
 \end{enumerate}
 
 \begin{acknowledgments}
