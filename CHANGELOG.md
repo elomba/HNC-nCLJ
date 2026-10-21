@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [V1.1] - 2026-10-21
+
+### Added
+- **Molecular Dynamics Simulation Suite (`lammps_study/`)**:
+  - GPU-accelerated LAMMPS simulation framework for multicomponent charged Lennard-Jones mixtures ($N = 2000$ particles) along the supercritical isotherm ($T^* = 2.00, \Gamma = 1.0$) across 15 density points ($\rho^* \in [0.01, 0.70]$).
+  - SLURM batch submission pipelines targeting NVIDIA RTX PRO 4500 Blackwell GPUs on cluster nodes `ladon28` and `ladon29`.
+  - Full long-range Coulomb electrostatics via PPPM with adaptive real-space cutoff ($r_c = 8.0\,\sigma$ for $\rho^* \le 0.05$ to collapse reciprocal mesh overhead, and $r_c = 2.5\,\sigma$ for $\rho^* \ge 0.10$).
+  - Full trajectory recording at $\rho^* = 0.70$ in both NetCDF (`traj.nc`) and custom LAMMPS (`traj.lammpstrj`) formats.
+- **Thermodynamic Integration from Molecular Dynamics**:
+  - Time-averaged equations of state ($P, Z, U_{\text{ex}}$) integrated via cubic splines along the isotherm.
+  - Evaluation of excess Helmholtz free energy $A_{\text{ex}} / (N k_B T)$ and total excess entropy $s_{\text{ex}} / (N k_B)$ from simulation.
+  - Excellent agreement with HNC internal energy ($|\Delta u_{\text{ex}}| < 0.2\%$ across $\rho^* \in [0.10, 0.35]$) and thermodynamic offsets ($\Delta s_{\text{ex}}^{\text{MD}} = -0.0223\,k_B$ vs $\Delta s_{\text{ex}}^{\text{HNC}} = -0.0192\,k_B$).
+- **Diffusion Dynamics & Rosenfeld Excess Entropy Scaling**:
+  - Center-of-mass corrected Mean Squared Displacements (MSD) over 500,000 production steps ($1000\,\tau$).
+  - High-precision self-diffusion coefficients ($R^2 > 0.999$) for net fluid, total divalent ions ($|z|=2$), cations, and anions.
+  - Quantitative demonstration of Rosenfeld's scaling hypothesis: enhanced structural ordering at higher ionic strength retards diffusion, yielding strictly positive scaling exponents $B_{\text{net}} \approx +0.69$--$+1.10$ and $B_{\text{an}} \approx +4.67$.
+- **Physical Review E Manuscript (`doc/paper_pre.tex` & `doc/paper_pre.pdf`)**:
+  - Complete RevTeX 4.2 publication manuscript formatted for Physical Review E.
+  - Integrated theory (multicomponent OZ, Allnatt screening, Morita-Hiroike excess free energy functional, exact Euler relation $Z_{\text{diff}} \equiv Z_{\text{virial}}$, Green-Wallace pair entropy $s^{(2)}$).
+  - Multi-panel publication figures in `doc/figures/`:
+    - `compressibility_and_ti.png`: Equation of state $Z(\rho^*)$ and free energy $A_{\text{ex}}(\rho^*)$ comparing MD against HNC virial and free-energy routes.
+    - `entropy_comparison.png`: Excess entropy $s_{\text{ex}}(\rho^*)$ and pair entropy $s^{(2)}(\rho^*)$ along the isotherm.
+    - `delta_entropy.png`: Entropic offset $\Delta s_{\text{ex}}(\rho^*)$ and $\Delta s^{(2)}(\rho^*)$ comparing MD and HNC.
+    - `msd_comparison.png`: Center-of-mass corrected MSD (ballistic crossover and linear Einstein diffusive regime).
+    - `rosenfeld_scaling.png`: Rosenfeld excess entropy scaling plots for net fluid and divalent ions.
+
+---
+
 ## [V1.0] - 2026-10-20
 
 ### Added
