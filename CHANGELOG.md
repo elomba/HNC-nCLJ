@@ -39,6 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Manuscript & Figures Update**:
   - Regenerated all figures (`compressibility_and_ti.png`, `entropy_comparison.png`, `delta_entropy.png`, `msd_comparison.png`, `rosenfeld_scaling.png`, and `vacf_and_dos_2pt.png`).
   - Updated Tables I, II, III, and IV, and text in `doc/paper_pre.tex`.
+  - Expanded Table IV to include simulated Einstein self-diffusion coefficients $D_{\text{MSD}}$ alongside Green-Kubo values $D_{\text{GK}}$ for all individual species and net fluid across all four mixtures.
+  - Added in-depth discussion in Section IV.D (Item 5) clarifying the physical origin of the discrepancy between $D_{\text{MSD}}$ and $D_{\text{GK}}$ for multivalent ions: localized short-time in-cage rattling ($50\,\tau$ trajectory, $10\,\tau$ VACF window, $D_{\text{GK}} \approx 0.195$) versus long-time hydrodynamic transport requiring whole contact-pair diffusion and dissociation ($300\,\tau$ MSD trajectory, $D_{z2} = 0.214 \to 0.167$).
   - Recompiled publication PDF `doc/paper_pre.pdf` (12 pages, clean compilation).
 
 ---
