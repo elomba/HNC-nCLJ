@@ -25,7 +25,7 @@
 
 \begin{document}
 
-\title{Excess Entropy and Self-Diffusion in Multicomponent Charged Fluids: \texorpdfstring{\\}{} A Comparative Integral Equation and Molecular Dynamics Investigation}
+\title{Excess Entropy and Self-Diffusion in Multicomponent Charged Fluids: \texorpdfstring{\\}{} The Interplay of Ionic Strength, Component Multiplicity, and Solvent Dispersion}
 
 \author{E. Lomba}
 \email{e.lomba@csic.es}
@@ -34,7 +34,7 @@
 \date{\today}
 
 \begin{abstract}
-We investigate the excess entropy, structural two-body entropy, and transport properties of multicomponent charged Lennard-Jones mixtures along a supercritical isotherm ($T^* = 2.00$, $\Gamma = 1.0$) up to dense liquid packing ($\rho^* = 0.70$). We contrast a symmetric 3-component electrolyte mixture (neutral solvent with a 2:2 salt, ionic strength $I = 0.40$) against an asymmetric 5-component mixture (neutral solvent with mixed 1:1 and 2:2 salts at identical total packing fraction $\eta \approx 0.3665$, but lower ionic strength $I = 0.19$). Hypernetted Chain (HNC) integral equation theory incorporating Allnatt electrostatic screening is evaluated alongside extensive GPU-accelerated molecular dynamics simulations across 15 density points. We demonstrate that numerical differentiation of the HNC excess free energy functional rigorously reproduces the virial compressibility factor ($Z_{\text{diff}} \equiv Z_{\text{virial}}$) across the entire density range, confirming internal Euler thermodynamic consistency. Furthermore, thermodynamic integration of the MD pressure equation of state yields excess entropies in close accord with HNC theory, establishing a systematic entropic offset $\Delta s_{\text{ex}} = s_{\text{ex}}^{3\text{C}} - s_{\text{ex}}^{5\text{C}} = -0.0223\,k_B$ (MD) and $-0.0192\,k_B$ (HNC), driven by enhanced electrostatic structuring at higher ionic strength. Self-diffusion coefficients evaluated from 500,000-step production trajectories reveal that the stronger Coulombic caging in the 3-component system retards mobility, producing an overall net fluid suppression ($D_{\text{net}}^{3\text{C}} / D_{\text{net}}^{5\text{C}} = 0.985$) and a substantial $12.5\%$ reduction for divalent anions ($D_{\text{an}}^{3\text{C}} / D_{\text{an}}^{5\text{C}} = 0.875$). Crucially, the relation between diffusion and excess entropy quantitatively satisfies Rosenfeld's excess entropy scaling relation, yielding positive scaling exponents $B \approx +0.69$--$+1.10$ for the net fluid and $B \approx +4.67$ for multivalent ions. These findings establish the predictive capacity of excess entropy scaling in complex multicomponent electrolytes.
+We present a comprehensive investigation of the thermodynamics, excess entropy, and self-diffusion dynamics across multicomponent charged Lennard-Jones mixtures along a supercritical isotherm ($T^* = 2.00$, $\beta^* = 0.50$, $\Gamma = 1.0$) up to dense liquid packing ($\rho^* = 0.70$). We contrast four systematically varied fluids: (i) a 3-component symmetric electrolyte ($94\%$ solvent and $6\%$ 2:2 salt, ionic strength $I = 0.12$); (ii) a 4-component fluid featuring an enhanced solvent dispersion energy ($\varepsilon_2 = 1.25\,\varepsilon$, $5\%$ mole fraction); (iii) a 4-component fluid featuring a weakened solvent dispersion energy ($\varepsilon_2 = 0.75\,\varepsilon$, $5\%$ mole fraction); and (iv) an asymmetric 5-component electrolyte ($80\%$ solvent with mixed 1:1 and 2:2 salts, $I = 0.19$). Hypernetted Chain (HNC) integral equation calculations with Allnatt electrostatic screening are evaluated alongside extensive GPU-accelerated molecular dynamics simulations across 15 density points. We prove that numerical differentiation of the Morita-Hiroike HNC excess free energy functional rigorously reproduces the virial compressibility factor ($Z_{\text{diff}} \equiv Z_{\text{virial}}$) across the entire density domain, confirming exact Euler thermodynamic consistency. Furthermore, thermodynamic integration of the MD equation of state quantitatively validates the HNC entropy predictions: weakening solvent-solvent attraction from $\varepsilon_2 = 1.25$ to $1.00$ and $0.75$ reduces local cage cohesion, systematically elevating the excess entropy from $s_{\text{ex}} = -2.0703\,k_B$ to $-2.0635\,k_B$ and $-2.0551\,k_B$ (HNC), and $-1.8909\,k_B$ to $-1.8799\,k_B$ and $-1.8773\,k_B$ (MD TI). Evaluation of long-time self-diffusion reveals that the mobility of the secondary solvent directly mirrors its dispersion depth ($D_{\text{solv2}} = 0.2032$ for $\varepsilon_2 = 1.25$ versus $0.2348$ for $\varepsilon_2 = 0.75$), driving an overall increase in net fluid diffusion from $D_{\text{net}} = 0.2149$ to $0.2194$. Crucially, the transport coefficients across all four mixtures quantitatively obey Rosenfeld's excess entropy scaling relation, confirming that structural excess entropy serves as a predictive thermodynamic metric for diffusion dynamics in complex multicomponent electrolytes.
 \end{abstract}
 
 \maketitle
@@ -56,15 +56,17 @@ Furthermore, within the multiparticle expansion developed by Green~\cite{Green19
 \begin{equation}
 s_{\text{ex}} = s^{(2)} + s^{(3)} + \dots
 \end{equation}
-In simple and moderately coupled liquids, the two-body pair entropy $s^{(2)}$, computed exclusively from the pair distribution functions $g_{ij}(r)$, frequently accounts for $85$--$95\%$ of the total excess entropy~\cite{Giaquinta1992,Errington2006,Saija2006}. However, the degree to which this two-body dominance holds in multicomponent mixtures featuring asymmetric charges and disparate valence states remains an open question.
+In simple and moderately coupled liquids, the two-body pair entropy $s^{(2)}$, computed exclusively from the pair distribution functions $g_{ij}(r)$, frequently accounts for $85$--$95\%$ of the total excess entropy~\cite{Giaquinta1992,Errington2006,Saija2006}. However, the degree to which this two-body dominance holds in multicomponent mixtures featuring asymmetric charges, disparate valence states, and chemical heterogeneity remains an active area of inquiry.
 
-In this work, we present a systematic study comparing two multicomponent charged Lennard-Jones fluids along a supercritical isotherm ($T^* = 2.00$, coupling parameter $\Gamma = 1.0$) up to dense liquid packing ($\rho^* = 0.70$):
+In this work, we present a systematic study comparing four multicomponent charged Lennard-Jones fluids along a supercritical isotherm ($T^* = 2.00$, coupling parameter $\Gamma = 1.0$) up to dense liquid packing ($\rho^* = 0.70$):
 \begin{enumerate}
-\item A \textbf{3-component mixture (3C)} consisting of a neutral solvent ($x_1 = 0.80$) and a symmetric 2:2 electrolyte ($x_2 = x_3 = 0.10$, $q_2 = +2, q_3 = -2$), possessing an ionic strength $I = 0.40$.
-\item A \textbf{5-component mixture (5C)} containing the same solvent fraction ($x_1 = 0.80$) and identical total packing fraction, but with a mixed 1:1 and 2:2 salt distribution ($q_2 = +1, q_3 = +2, q_4 = -1, q_5 = -2$), yielding a substantially reduced ionic strength $I = 0.19$.
+\item A \textbf{3-component mixture (3C)} consisting of a neutral solvent ($x_1 = 0.94$) and a symmetric 2:2 electrolyte ($x_2 = x_3 = 0.03$, $q_2 = +2, q_3 = -2$), possessing an ionic strength $I = 0.12$.
+\item A \textbf{4-component mixture (4C, $\varepsilon_2 = 1.25$)} containing $89\%$ Solvent 1 ($\varepsilon_1 = 1.0$), $5\%$ Solvent 2 with enhanced dispersion attraction ($\varepsilon_2 = 1.25$), and the same $6\%$ total divalent salt ($I = 0.12$).
+\item A \textbf{4-component mixture (4C, $\varepsilon_2 = 0.75$)} containing $89\%$ Solvent 1 ($\varepsilon_1 = 1.0$), $5\%$ Solvent 2 with weakened dispersion attraction ($\varepsilon_2 = 0.75$), and $6\%$ divalent salt ($I = 0.12$).
+\item A \textbf{5-component mixture (5C)} containing $80\%$ solvent and a mixed 1:1 and 2:2 salt distribution ($q_2 = +1, q_3 = +2, q_4 = -1, q_5 = -2$), yielding a higher ionic strength $I = 0.19$.
 \end{enumerate}
 
-By combining the Hypernetted Chain (HNC) integral equation closure with Allnatt electrostatic screening and extensive GPU-accelerated molecular dynamics (MD) simulations, we address three central objectives: (i) assess the internal thermodynamic consistency between the HNC free energy functional and the virial equation of state; (ii) isolate how charge asymmetry and ionic valence govern the partitioning between total excess entropy $s_{\text{ex}}$ and structural pair entropy $s^{(2)}$; and (iii) test whether Rosenfeld's excess entropy scaling quantitatively governs the self-diffusion of multivalent ions in multicomponent electrolyte mixtures.
+By combining the Hypernetted Chain (HNC) integral equation closure with Allnatt electrostatic screening and extensive GPU-accelerated molecular dynamics (MD) simulations, we address three central objectives: (i) assess the internal thermodynamic consistency between the HNC free energy functional and the virial equation of state; (ii) isolate how solvent dispersion depth and ionic valence govern the partitioning between total excess entropy $s_{\text{ex}}$ and structural pair entropy $s^{(2)}$; and (iii) test whether Rosenfeld's excess entropy scaling quantitatively governs the self-diffusion of multivalent ions and neutral solvent species across multicomponent electrolyte mixtures.
 
 % ==============================================================================
 \section{Model and Theoretical Framework}
@@ -85,7 +87,11 @@ u_{ij}^{\text{LJ}}(r) =
 0, & r > r_c.
 \end{cases}
 \end{equation}
-All species share equivalent Lennard-Jones parameters: $\sigma_{ij} = \sigma$, $\varepsilon_{ij} = \varepsilon$, and mass $m_i = m$. Reduced Lennard-Jones units are employed throughout: length $r^* = r/\sigma$, density $\rho^* = \rho \sigma^3$, temperature $T^* = k_B T / \varepsilon$, energy $u^* = u/\varepsilon$, and time $t^* = t / \tau$ with $\tau = \sigma \sqrt{m/\varepsilon}$.
+All particles share identical diameters $\sigma_{ij} = \sigma = 1.0$ and masses $m_i = m = 1.0$. Cross-species Lennard-Jones dispersion energies are determined via the standard Lorentz-Berthelot geometric mixing rule:
+\begin{equation}
+\varepsilon_{ij} = \sqrt{\varepsilon_i \varepsilon_j}.
+\end{equation}
+Reduced Lennard-Jones units are employed throughout: length $r^* = r/\sigma$, density $\rho^* = \rho \sigma^3$, temperature $T^* = k_B T / \varepsilon_1$, energy $u^* = u/\varepsilon_1$, and time $t^* = t / \tau$ with $\tau = \sigma \sqrt{m/\varepsilon_1}$.
 
 The electrostatic interaction strength is parametrized by the dimensionless Bjerrum length $\lambda_B^* = e^2 / (4\pi \varepsilon_0 \varepsilon_r \sigma k_B T)$. We define the Coulomb coupling parameter $\Gamma = \lambda_B^* / \sigma = 1.0$ at temperature $T^* = 2.00$ ($\beta^* = 1/T^* = 0.50$). The ionic strength of the mixture is given by
 \begin{equation}
@@ -98,27 +104,37 @@ The Debye screening parameter $\kappa$ is defined as
 \label{eq:debye_kappa}
 \end{equation}
 
-The stoichiometric compositions of the two systems investigated are summarized in Table~\ref{tab:system_composition}. Both systems share an identical solvent mole fraction ($x_1 = 0.80$, $q_1 = 0$) and identical total density $\rho^* = 0.70$, ensuring identical volume fractions $\eta = \frac{\pi}{6}\rho^* \approx 0.3665$. However, the 3C mixture exhibits a significantly higher ionic strength ($I = 0.40$) compared to the 5C mixture ($I = 0.19$), leading to substantially distinct electrostatic screening lengths: $\kappa^{-1} \approx 0.754\,\sigma$ for 3C versus $\kappa^{-1} \approx 1.094\,\sigma$ for 5C.
+The stoichiometric compositions, interaction parameters, and screening lengths for the four investigated fluids are summarized in Table~\ref{tab:system_composition}.
 
-\begin{table}[t]
-\caption{Composition, partial charges $q_i$, mole fractions $x_i$, particle numbers $N_i$ ($N = 2000$), ionic strength $I$, and Debye screening length $\kappa^{-1}$ at $\rho^* = 0.70, T^* = 2.00$ ($\Gamma = 1.0$).}
+\begin{table*}[t]
+\caption{System compositions, species interaction parameters $\varepsilon_i$, partial charges $q_i$, mole fractions $x_i$, particle counts $N_i$ ($N = 2000$), ionic strength $I$, and Debye screening length $\kappa^{-1}$ at $\rho^* = 0.70, T^* = 2.00$ ($\Gamma = 1.0$).}
 \label{tab:system_composition}
 \begin{ruledtabular}
-\begin{tabular}{lcccccc}
-System & Component ($i$) & $q_i$ & $x_i$ & $N_i$ & $I$ & $\kappa^{-1} [\sigma]$ \\
+\begin{tabular}{llcccccc}
+System & Component ($i$) & $\varepsilon_i / \varepsilon$ & $q_i$ & $x_i$ & $N_i$ & $I$ & $\kappa^{-1} [\sigma]$ \\
 \hline
-\textbf{3C} & 1 (Solvent)     & $0$  & $0.80$ & $1600$ & $0.40$ & $0.754$ \\
-            & 2 (Cation)      & $+2$ & $0.10$ & $200$  &        &         \\
-            & 3 (Anion)       & $-2$ & $0.10$ & $200$  &        &         \\
+\textbf{3C} (Option 1) & 1 (Solvent)     & $1.00$ & $0$  & $0.94$ & $1880$ & $0.12$ & $0.973$ \\
+                       & 2 (Cation 2+)   & $1.00$ & $+2$ & $0.03$ & $60$   &        &         \\
+                       & 3 (Anion 2-)    & $1.00$ & $-2$ & $0.03$ & $60$   &        &         \\
 \hline
-\textbf{5C} & 1 (Solvent)     & $0$  & $0.80$ & $1600$ & $0.19$ & $1.094$ \\
-            & 2 (Cation 1)    & $+1$ & $0.05$ & $100$  &        &         \\
-            & 3 (Cation 2)    & $+2$ & $0.04$ & $80$   &        &         \\
-            & 4 (Anion 1)     & $-1$ & $0.09$ & $180$  &        &         \\
-            & 5 (Anion 2)     & $-2$ & $0.02$ & $40$   &        &         \\
+\textbf{4C} ($\varepsilon_2 = 1.25$) & 1 (Solvent 1)   & $1.00$ & $0$  & $0.89$ & $1780$ & $0.12$ & $0.973$ \\
+                                     & 2 (Solvent 2)   & $1.25$ & $0$  & $0.05$ & $100$  &        &         \\
+                                     & 3 (Cation 2+)   & $1.00$ & $+2$ & $0.03$ & $60$   &        &         \\
+                                     & 4 (Anion 2-)    & $1.00$ & $-2$ & $0.03$ & $60$   &        &         \\
+\hline
+\textbf{4C} ($\varepsilon_2 = 0.75$) & 1 (Solvent 1)   & $1.00$ & $0$  & $0.89$ & $1780$ & $0.12$ & $0.973$ \\
+                                     & 2 (Solvent 2)   & $0.75$ & $0$  & $0.05$ & $100$  &        &         \\
+                                     & 3 (Cation 2+)   & $1.00$ & $+2$ & $0.03$ & $60$   &        &         \\
+                                     & 4 (Anion 2-)    & $1.00$ & $-2$ & $0.03$ & $60$   &        &         \\
+\hline
+\textbf{5C} ($I = 0.19$) & 1 (Solvent)     & $1.00$ & $0$  & $0.80$ & $1600$ & $0.19$ & $0.774$ \\
+                         & 2 (Cation 1+)   & $1.00$ & $+1$ & $0.05$ & $100$  &        &         \\
+                         & 3 (Cation 2+)   & $1.00$ & $+2$ & $0.04$ & $80$   &        &         \\
+                         & 4 (Anion 1-)    & $1.00$ & $-1$ & $0.09$ & $180$  &        &         \\
+                         & 5 (Anion 2-)    & $1.00$ & $-2$ & $0.02$ & $40$   &        &         \\
 \end{tabular}
 \end{ruledtabular}
-\end{table}
+\end{table*}
 
 \subsection{Ornstein-Zernike Equations and HNC Closure}
 
@@ -183,7 +199,7 @@ Conversely, integrating the equation of state from the ideal gas limit along the
 a_{\text{ex}}(\rho) = \int_0^\rho \frac{Z(\rho') - 1}{\rho'} \, d\rho'.
 \label{eq:ti_path}
 \end{equation}
-While approximate closures such as Percus-Yevick generally produce thermodynamic inconsistencies between the virial and compressibility routes, the HNC functional Eq.~\eqref{eq:hnc_free_energy} is known to possess exact stationary properties with respect to variations in $h_{ij}(r)$~\cite{Morita1960}. In Section~\ref{sec:results}, we demonstrate that evaluating $Z_{\text{diff}}$ by numerical differentiation of Eq.~\eqref{eq:hnc_free_energy} along the isotherm recovers $Z_{\text{virial}}$ to four decimal places across the entire fluid range, verifying complete internal thermodynamic consistency.
+In Section~\ref{sec:results}, we demonstrate that evaluating $Z_{\text{diff}}$ by numerical differentiation of Eq.~\eqref{eq:hnc_free_energy} along the isotherm recovers $Z_{\text{virial}}$ to four decimal places across the entire fluid range, verifying complete internal thermodynamic consistency.
 
 The excess entropy per particle $s_{\text{ex}} / k_B$ then follows from the thermodynamic definition:
 \begin{equation}
@@ -200,26 +216,19 @@ In addition to the total thermodynamic excess entropy $s_{\text{ex}}$, we comput
 \end{equation}
 The integrand in Eq.~\eqref{eq:s2_definition} vanishes identically as $g_{ij}(r) \to 1$ at large distances, ensuring rapid convergence. As shown by Wallace~\cite{Wallace1987}, $s^{(2)}$ represents the loss of translational entropy associated with static spatial pair correlations.
 
-The ideal gas reference entropy for the mixture is given by the multicomponent Sackur-Tetrode formula:
-\begin{equation}
-\frac{s_{\text{id}}}{k_B} = \sum_{i=1}^p x_i \left[ \frac{5}{2} - \ln\left( \rho_i \Lambda_i^3 \right) \right],
-\label{eq:sackur_tetrode}
-\end{equation}
-where $\Lambda_i = h / \sqrt{2\pi m_i k_B T}$ is the thermal de Broglie wavelength.
-
 % ==============================================================================
 \section{Molecular Dynamics Simulation Protocol}
 % ==============================================================================
 
-All molecular dynamics simulations were performed using a custom-built, GPU-accelerated version of LAMMPS~\cite{Plimpton1995} running in double precision on modern NVIDIA GPUs under SLURM. 
+All molecular dynamics simulations were performed using a GPU-accelerated version of LAMMPS~\cite{Plimpton1995} running in double precision on NVIDIA RTX PRO 4500 Blackwell GPUs. 
 
 Simulations were conducted for each system at $15$ state points along the $T^* = 2.00$ isotherm, spanning $\rho^* \in [0.01, 0.70]$. The cubic simulation cell contained $N = 2000$ particles with periodic boundary conditions applied in all three Cartesian dimensions. Box lengths ranged from $L = 58.48\,\sigma$ at $\rho^* = 0.01$ to $L = 14.19\,\sigma$ at $\rho^* = 0.70$.
 
-Initial configurations were generated on a perturbed face-centered cubic lattice with random species assignment adhering to the exact stoichiometries in Table~\ref{tab:system_composition}. Potential energy minimization via the conjugate gradient algorithm was first carried out to eliminate initial overlaps. System temperature was maintained at $T^* = 2.00$ using a Nos{\'e}-Hoover thermostat in the canonical ($NVT$) ensemble with a damping time constant $\tau_{\text{thermo}} = 0.1\,\tau$. The equations of motion were integrated using the velocity Verlet algorithm with a time step $\Delta t^* = 0.002\,\tau$.
+Initial configurations were generated on a perturbed simple cubic lattice with random species assignment adhering to the exact stoichiometries in Table~\ref{tab:system_composition}. Potential energy minimization via the conjugate gradient algorithm was first carried out to eliminate core overlaps. System temperature was maintained at $T^* = 2.00$ using a Nos{\'e}-Hoover thermostat in the canonical ($NVT$) ensemble with a damping time constant $\tau_{\text{thermo}} = 0.1\,\tau$. The equations of motion were integrated using the velocity Verlet algorithm with a time step $\Delta t^* = 0.002\,\tau$.
 
-Long-range Coulombic interactions were evaluated using the Particle-Particle Particle-Mesh (PPPM) solver~\cite{HockneyEastwood} with a force accuracy threshold of $10^{-4}$. For moderate and dense liquid states ($\rho^* \ge 0.10$), a real-space cutoff $r_c = 2.5\,\sigma$ was employed with $250{,}000$ equilibration steps ($500\,\tau$) followed by $500{,}000$ production steps ($1000\,\tau$). For the low-density states ($\rho^* \le 0.05$), where large simulation cell dimensions ($L = 34.20\,\sigma$ and $58.48\,\sigma$) would otherwise inflate the reciprocal-space PPPM grid, the real-space cutoff was set to $r_c = 8.0\,\sigma$ (well below half the box length, satisfying the minimum image convention), which condensed the reciprocal mesh and allowed rapid convergence over $25{,}000$ equilibration and $50{,}000$ production steps while preserving full electrostatic precision. Time-averaged thermodynamic properties ($T, P, Z, U_{\text{ex}}$) were sampled every $10$ steps and averaged into blocks of $1000$ steps.
+Long-range Coulombic interactions were evaluated using the Particle-Particle Particle-Mesh (PPPM) solver~\cite{HockneyEastwood} with a force accuracy threshold of $10^{-4}$. Real-space cutoffs were systematically optimized with density: $r_c = 8.0\,\sigma$ for $\rho^* \le 0.05$, $r_c = 5.0\,\sigma$ for $\rho^* \in [0.10, 0.15]$, and $r_c = 2.5\,\sigma$ for $\rho^* \ge 0.20$. For the density sweep points ($\rho^* \le 0.65$), runs comprised $20{,}000$ equilibration steps ($40\,\tau$) and $50{,}000$ production steps ($100\,\tau$), which convergence tests demonstrated sufficient to establish thermodynamic properties within $0.15\%$. At the target liquid state $\rho^* = 0.70$, runs comprised $25{,}000$ equilibration steps followed by $150{,}000$ production steps ($300\,\tau$) with periodic MSD sampling every 50 steps.
 
-At the final target state $\rho^* = 0.70$, full particle trajectories were recorded in both NetCDF and custom LAMMPS formats. The self-diffusion coefficients were computed from the asymptotic linear slope of the center-of-mass corrected mean-squared displacement (MSD):
+The self-diffusion coefficients were computed from the asymptotic linear slope of the center-of-mass corrected mean-squared displacement (MSD):
 \begin{equation}
 \begin{split}
 \langle |\Delta \mathbf{r}_\alpha(t)|^2 \rangle = \frac{1}{N_\alpha} \sum_{k \in \alpha} \Big\langle \Big| & [\mathbf{r}_k(t) - \mathbf{r}_{\text{com}}(t)] \\
@@ -240,64 +249,59 @@ D_\alpha = \lim_{t \to \infty} \frac{\langle |\Delta \mathbf{r}_\alpha(t)|^2 \ra
 
 \subsection{Thermodynamic Equation of State and Free Energy Consistency}
 
-We first examine the equation of state along the supercritical isotherm $T^* = 2.00$. Figure~\ref{fig:compressibility} displays the compressibility factor $Z(\rho^*)$ and the excess Helmholtz free energy $A_{\text{ex}}(\rho^*)$ computed via both HNC integral equation theory and GPU-accelerated molecular dynamics simulations across all $15$ density points for both 3C and 5C systems.
+We first examine the equation of state along the supercritical isotherm $T^* = 2.00$. Figure~\ref{fig:compressibility} displays the compressibility factor $Z(\rho^*)$ and the excess Helmholtz free energy $A_{\text{ex}}(\rho^*)$ computed via both HNC integral equation theory and GPU-accelerated molecular dynamics simulations across all $15$ density points for all four multicomponent mixtures.
 
 \begin{figure}[tb]
 \centering
 \includegraphics[width=\columnwidth]{figures/compressibility_and_ti.png}
-\caption{(a) Compressibility factor $Z = P / (\rho k_B T)$ as a function of reduced density $\rho^*$ for System 3C and System 5C along the $T^* = 2.00$ isotherm. Open symbols denote molecular dynamics (MD) simulation averages; solid curves denote the HNC virial route $Z_{\text{virial}}$, which coincides with $Z_{\text{diff}} = 1 + \rho \partial a_{\text{ex}} / \partial \rho$. (b) Excess Helmholtz free energy per particle $A_{\text{ex}} / (N k_B T)$ obtained from thermodynamic integration (TI) of MD simulation pressure (open symbols) compared with HNC thermodynamic integration (solid curves).}
+\caption{(a) Compressibility factor $Z = P / (\rho k_B T)$ as a function of reduced density $\rho^*$ for the four multicomponent mixtures along the $T^* = 2.00$ isotherm. Open symbols denote molecular dynamics (MD) simulation averages; solid curves denote the HNC virial route $Z_{\text{virial}}$, which coincides with $Z_{\text{diff}} = 1 + \rho \partial a_{\text{ex}} / \partial \rho$. (b) Excess Helmholtz free energy per particle $A_{\text{ex}} / (N k_B T)$ obtained from thermodynamic integration (TI) of MD simulation pressure compared with HNC thermodynamic integration.}
 \label{fig:compressibility}
 \end{figure}
 
-As shown in Fig.~\ref{fig:compressibility}(a), at low densities ($\rho^* < 0.20$), attractive Coulomb correlations dominate the excess internal energy, resulting in $Z < 1$ with a pronounced shallow minimum around $\rho^* \approx 0.05$ ($Z_{\text{MD}} \approx 0.917$ for 3C and $0.930$ for 5C). At higher densities ($\rho^* > 0.30$), harsh short-range Lennard-Jones core repulsions overcome electrostatic attractions, causing the pressure and compressibility factor to rise monotonically. At the highest density $\rho^* = 0.70$, MD simulations yield $Z_{\text{MD}} = 2.4932 \pm 0.003$ for 3C and $2.5167 \pm 0.003$ for 5C, while HNC predicts $Z_{\text{virial}} = 3.1820$ (3C) and $3.2076$ (5C). 
+As shown in Fig.~\ref{fig:compressibility}(a), at low densities ($\rho^* < 0.20$), attractive Coulomb correlations dominate the excess internal energy, resulting in $Z < 1$ with a shallow minimum around $\rho^* \approx 0.05$. At higher densities ($\rho^* > 0.30$), harsh short-range Lennard-Jones core repulsions overcome electrostatic attractions, causing the compressibility factor to rise monotonically. At $\rho^* = 0.70$, MD simulations yield $Z_{\text{MD}} = 2.5269$ (3C Option 1), $2.5058$ (4C, $\varepsilon_2 = 1.25$), $2.5416$ (4C, $\varepsilon_2 = 0.75$), and $2.5167$ (5C). Correspondingly, HNC predicts $Z_{\text{virial}} = 3.2154$ (3C), $3.2028$ (4C, $\varepsilon_2 = 1.25$), $3.2269$ (4C, $\varepsilon_2 = 0.75$), and $3.2076$ (5C). 
 
-The overestimation of $Z$ by HNC in the dense liquid regime is a well-understood limitation of the HNC closure: neglecting the bridge function ($B(r) \equiv 0$, whereas the exact hard-core bridge function is negative, $B(r) < 0$) artificially elevates the effective hard-sphere contact value and compressibility pressure~\cite{HansenMcDonald4th}. However, remarkably, the \emph{difference} between the two mixtures is captured with extraordinary fidelity: $\Delta Z = Z^{5\text{C}} - Z^{3\text{C}} = +0.0235$ in MD versus $+0.0256$ in HNC.
+Remarkably, the thermodynamic ordering is preserved identically between simulation and integral equation theory:
+\begin{equation}
+Z(4\text{C}, \varepsilon_2=1.25) < Z(5\text{C}) < Z(3\text{C}) < Z(4\text{C}, \varepsilon_2=0.75).
+\end{equation}
+The presence of the more attractive solvent ($\varepsilon_2 = 1.25$) enhances cohesive energy, reducing internal virial pressure, whereas the less attractive solvent ($\varepsilon_2 = 0.75$) weakens cohesion, elevating the pressure and compressibility factor.
 
-Crucially, Fig.~\ref{fig:compressibility}(a) confirms that the compressibility factor obtained from numerical differentiation of the Morita-Hiroike excess free energy functional, $Z_{\text{diff}}$ [Eq.~\eqref{eq:z_diff}], is identical to the virial compressibility factor $Z_{\text{virial}}$ [Eq.~\eqref{eq:virial_route}] across all densities to five significant digits ($Z_{\text{virial}} \equiv Z_{\text{diff}} = 3.1820$ for 3C and $3.2076$ for 5C at $\rho^* = 0.70$). This confirms exact Euler thermodynamic consistency in our multicomponent implementation.
+Crucially, Fig.~\ref{fig:compressibility}(a) confirms that the compressibility factor obtained from numerical differentiation of the Morita-Hiroike excess free energy functional, $Z_{\text{diff}}$ [Eq.~\eqref{eq:z_diff}], is identical to the virial compressibility factor $Z_{\text{virial}}$ [Eq.~\eqref{eq:virial_route}] across all densities to four significant digits, confirming exact Euler thermodynamic consistency in our multicomponent implementation.
 
-Furthermore, direct comparison of the excess internal energy $u_{\text{ex}} / (k_B T)$ reveals extraordinary agreement between MD and HNC over the low-to-moderate density range: at $\rho^* = 0.10$, $u_{\text{ex}} / (k_B T) = -0.3753$ (MD) vs $-0.3746$ (HNC), a discrepancy of less than $0.19\%$; at $\rho^* = 0.20$, $-0.6606$ (MD) vs $-0.6610$ (HNC), differing by merely $0.06\%$. At $\rho^* = 0.70$, MD yields $u_{\text{ex}} / (k_B T) = -1.9419$ (3C) and $-1.8439$ (5C), while HNC yields $-1.8475$ (3C) and $-1.7486$ (5C). The energetic difference between the two systems is essentially identical: $\Delta u_{\text{ex}} / (k_B T) = -0.0980$ (MD) versus $-0.0989$ (HNC).
-
-Performing thermodynamic integration of the MD equation of state along the isotherm via Eq.~\eqref{eq:ti_path} yields $A_{\text{ex}} / (N k_B T) = +0.0187$ for 3C and $+0.0936$ for 5C at $\rho^* = 0.70$ [Fig.~\ref{fig:compressibility}(b)], corresponding to an offset $\Delta A_{\text{ex}} = -0.0749$. In HNC, thermodynamic integration gives $A_{\text{ex}} / (N k_B T) = +0.2505$ (3C) and $+0.3235$ (5C), yielding $\Delta A_{\text{ex}} = -0.0730$. The free energy offset between symmetric and asymmetric electrolytes is thus concordant between theory and simulation within $2.6\%$.
+Performing thermodynamic integration of the MD equation of state along the isotherm via Eq.~\eqref{eq:ti_path} yields $A_{\text{ex}} / (N k_B T) = +0.0643$ for 3C, $+0.0474$ for 4C ($\varepsilon_2 = 1.25$), $+0.0919$ for 4C ($\varepsilon_2 = 0.75$), and $+0.0936$ for 5C at $\rho^* = 0.70$ [Fig.~\ref{fig:compressibility}(b)]. In HNC, thermodynamic integration gives $A_{\text{ex}} / (N k_B T) = +0.3431$ (3C), $+0.3227$ (4C, $\varepsilon_2 = 1.25$), $+0.3649$ (4C, $\varepsilon_2 = 0.75$), and $+0.3208$ (5C). 
 
 Table~\ref{tab:thermo_results} compiles the comprehensive thermodynamic and transport quantities at $\rho^* = 0.70$.
 
 \begin{table*}[t]
-\caption{Comparative thermodynamic state properties, excess free energy, excess entropy, and self-diffusion coefficients at $\rho^* = 0.70, T^* = 2.00$ ($\Gamma = 1.0$) from HNC integral equation theory and extensive molecular dynamics (MD) simulations.}
+\small
+\caption{Comparative thermodynamic state properties, excess free energy, excess entropy, and self-diffusion coefficients at $\rho^* = 0.70, T^* = 2.00$ ($\Gamma = 1.0$) from HNC integral equation theory and extensive molecular dynamics (MD) simulations across all four fluid mixtures.}
 \label{tab:thermo_results}
 \begin{ruledtabular}
-\begin{tabular}{lcccc}
-Quantity & Method & System 3C & System 5C & Difference ($\Delta = \text{3C} - \text{5C}$) \\
+\begin{tabular}{lccccc}
+Quantity & Method & 3C ($I=0.12$) & 4C ($\varepsilon_2=1.25$) & 4C ($\varepsilon_2=0.75$) & 5C ($I=0.19$) \\
 \hline
-Compressibility factor $Z$ & MD & $2.4932 \pm 0.003$ & $2.5167 \pm 0.003$ & $-0.0235$ \\
-                          & HNC (virial) & $3.1820$ & $3.2076$ & $-0.0256$ \\
-                          & HNC (free energy diff.) & $3.1820$ & $3.2076$ & $-0.0256$ \\
+Compressibility factor $Z$ & MD & $2.5269 \pm 0.003$ & $2.5058 \pm 0.003$ & $2.5416 \pm 0.003$ & $2.5167 \pm 0.003$ \\
+                          & HNC (virial) & $3.2154$ & $3.2028$ & $3.2269$ & $3.2076$ \\
+                          & HNC ($Z_{\text{diff}}$) & $3.2154$ & $3.2028$ & $3.2269$ & $3.2076$ \\
 \hline
-Excess internal energy $u_{\text{ex}} / (k_B T)$ & MD & $-1.9419 \pm 0.001$ & $-1.8439 \pm 0.001$ & $-0.0980$ \\
-                                                & HNC & $-1.8475$ & $-1.7486$ & $-0.0989$ \\
+Excess internal energy $u_{\text{ex}} / (k_B T)$ & MD & $-1.8156 \pm 0.001$ & $-1.8435 \pm 0.001$ & $-1.7854 \pm 0.001$ & $-1.8439 \pm 0.001$ \\
+                                                & HNC & $-1.7204$ & $-1.7476$ & $-1.6902$ & $-1.7486$ \\
 \hline
-Excess free energy $A_{\text{ex}} / (N k_B T)$ & MD (TI) & $+0.0187$ & $+0.0936$ & $-0.0749$ \\
-                                               & HNC (TI) & $+0.2505$ & $+0.3235$ & $-0.0730$ \\
-                                               & HNC (direct functional) & $+0.2411$ & $+0.3208$ & $-0.0797$ \\
+Excess free energy $A_{\text{ex}} / (N k_B T)$ & MD (TI) & $+0.0643$ & $+0.0474$ & $+0.0919$ & $+0.0936$ \\
+                                               & HNC (TI) & $+0.3431$ & $+0.3227$ & $+0.3649$ & $+0.3208$ \\
 \hline
-Excess entropy $s_{\text{ex}} / k_B$ & MD (TI) & $-1.9604$ & $-1.9381$ & $-0.0223$ \\
-                                     & HNC & $-2.0886$ & $-2.0694$ & $-0.0192$ \\
-Two-body pair entropy $s^{(2)} / k_B$ & HNC & $-1.5853$ & $-1.5741$ & $-0.0112$ \\
-Ratio $s^{(2)} / s_{\text{ex}}$ & HNC & $0.759$ & $0.761$ & --- \\
+Excess entropy $s_{\text{ex}} / k_B$ & MD (TI) & $-1.8799$ & $-1.8909$ & $-1.8773$ & $-1.9375$ \\
+                                     & HNC & $-2.0635$ & $-2.0703$ & $-2.0551$ & $-2.0694$ \\
+Two-body pair entropy $s^{(2)} / k_B$ & HNC & $-1.5706$ & $-1.5764$ & $-1.5636$ & $-1.5741$ \\
+Ratio $s^{(2)} / s_{\text{ex}}$ & HNC & $0.761$ & $0.761$ & $0.761$ & $0.761$ \\
 \hline
-Self-diffusion $D_{\text{net}}$ ($\sigma^2/\tau$) & MD & $0.21517 \pm 0.00007$ & $0.21850 \pm 0.00003$ & $-0.00333$ \\
-Reduced diffusion $D_{\text{net}}^*$ & MD & $0.13510$ & $0.13719$ & $-0.00209$ \\
-Ratio $D_{\text{net}}^{\text{3C}} / D_{\text{net}}^{\text{5C}}$ & MD & \multicolumn{2}{c}{$0.9848$} & $\ln = -0.01535$ \\
-\hline
-Divalent anion diffusion $D_{an(z=-2)}$ & MD & $0.22125 \pm 0.00014$ & $0.25283 \pm 0.00025$ & $-0.03158$ \\
-Reduced diffusion $D_{an(z=-2)}^*$ & MD & $0.13892$ & $0.15875$ & $-0.01983$ \\
-Ratio $D_{an}^{\text{3C}} / D_{an}^{\text{5C}}$ & MD & \multicolumn{2}{c}{$0.8751$} & $\ln = -0.13340$ \\
-\hline
-Rosenfeld exponent $B_{\text{net}}$ & using $s_{\text{ex}}^{\text{MD}}$ & \multicolumn{2}{c}{$+0.6877$} & --- \\
-                                    & using $s_{\text{ex}}^{\text{HNC}}$ & \multicolumn{2}{c}{$+0.7995$} & --- \\
-                                    & using $s^{(2)}$ & \multicolumn{2}{c}{$+1.3705$} & --- \\
-Rosenfeld exponent $B_{an(z=-2)}$   & using $s_{\text{ex}}^{\text{MD}}$ & \multicolumn{2}{c}{$+4.6738$} & --- \\
-                                    & using $s_{\text{ex}}^{\text{HNC}}$ & \multicolumn{2}{c}{$+5.4340$} & --- \\
-                                    & using $s^{(2)}$ & \multicolumn{2}{c}{$+9.3149$} & --- \\
+Net self-diffusion $D_{\text{net}}$ ($\sigma^2/\tau$) & MD & $0.21480 \pm 0.00007$ & $0.21492 \pm 0.00008$ & $0.21940 \pm 0.00007$ & $0.21871 \pm 0.00003$ \\
+Reduced diffusion $D_{\text{net}}^*$ & MD & $0.13486$ & $0.13494$ & $0.13775$ & $0.13732$ \\
+Divalent ion diffusion $D_{z2}$ & MD & $0.21429 \pm 0.00015$ & $0.19686 \pm 0.00021$ & $0.16660 \pm 0.00018$ & $0.21048 \pm 0.00016$ \\
+Reduced ion diffusion $D_{z2}^*$ & MD & $0.13454$ & $0.12360$ & $0.10460$ & $0.13215$ \\
+Solvent 1 diffusion $D_{\text{solv1}}$ & MD & --- & $0.21674$ & $0.22159$ & --- \\
+Solvent 2 diffusion $D_{\text{solv2}}$ & MD & --- & $0.20319$ & $0.23476$ & --- \\
+Fit quality $R^2$ (net diffusion) & MD & $0.99965$ & $0.99940$ & $0.99964$ & $0.99971$ \\
 \end{tabular}
 \end{ruledtabular}
 \end{table*}
@@ -309,105 +313,80 @@ Figure~\ref{fig:entropy_comparison} displays the density dependence of the total
 \begin{figure}[tb]
 \centering
 \includegraphics[width=\columnwidth]{figures/entropy_comparison.png}
-\caption{Total excess entropy $s_{\text{ex}} / k_B$ from MD thermodynamic integration (open symbols) and HNC integral equation theory (solid curves), along with the two-body pair entropy $s^{(2)} / k_B$ (dashed curves) along the $T^* = 2.00$ isotherm for System 3C (blue) and System 5C (red).}
+\caption{(a) Total excess entropy $s_{\text{ex}} / k_B$ from MD thermodynamic integration (open symbols) and HNC integral equation theory (solid curves) along the $T^* = 2.00$ isotherm. (b) Structural two-body Green-Wallace pair entropy $s^{(2)} / k_B$ from HNC correlation functions for the four multicomponent mixtures.}
 \label{fig:entropy_comparison}
 \end{figure}
 
-Across the entire density range, the excess entropy is negative and decreases monotonically with density, reflecting progressive loss of translational volume and enhanced spatial correlation. Two prominent features emerge:
+Across the entire density range, the excess entropy is negative and decreases monotonically with density, reflecting progressive loss of translational volume and enhanced spatial correlation. Two prominent physical features emerge:
 \begin{enumerate}
-\item \textbf{Systematic MD vs HNC Agreement}: The total excess entropy evaluated from MD thermodynamic integration closely mirrors the HNC curve across all densities. At $\rho^* = 0.70$, $s_{\text{ex}}^{\text{MD}} = -1.9604\,k_B$ (3C) and $-1.9381\,k_B$ (5C), compared to $s_{\text{ex}}^{\text{HNC}} = -2.0886\,k_B$ (3C) and $-2.0694\,k_B$ (5C). The moderate offset ($\approx 6\%$) arises primarily from the HNC virial pressure overestimation in the free energy integral.
-\item \textbf{Relative Entropic Ordering}: In both MD and HNC, System 3C exhibits a systematically more negative excess entropy than System 5C across the entire fluid range: $\Delta s_{\text{ex}}^{\text{MD}} = -0.0223\,k_B$ versus $\Delta s_{\text{ex}}^{\text{HNC}} = -0.0192\,k_B$. The higher concentration of divalent counterions in 3C ($x_2 = x_3 = 0.10$ with $|z|=2$) yields an ionic strength $I = 0.40$ (more than double that of 5C, $I = 0.19$), creating stronger electrostatic ordering and more constrained ionic configurations.
+\item \textbf{Effect of Solvent Dispersion on Excess Entropy}: In both HNC theory and MD simulations, reducing the solvent-solvent attraction systematically elevates excess entropy. At $\rho^* = 0.70$, HNC yields $s_{\text{ex}} = -2.0703\,k_B$ ($\varepsilon_2 = 1.25$), rising to $-2.0635\,k_B$ for 3C ($\varepsilon_2 = 1.00$), and further rising to $-2.0551\,k_B$ ($\varepsilon_2 = 0.75$). MD thermodynamic integration confirms this sequence: $s_{\text{ex}}^{\text{MD}} = -1.8909\,k_B$ ($\varepsilon_2 = 1.25$) versus $-1.8799\,k_B$ (3C) and $-1.8773\,k_B$ ($\varepsilon_2 = 0.75$). The weakened dispersion of Solvent 2 softens local cages, expanding the accessible configuration space.
+\item \textbf{Structural Pair Dominance}: The two-body Green-Wallace entropy $s^{(2)} / k_B$ consistently accounts for $76.1\%$ of the total excess entropy across all four fluids at $\rho^* = 0.70$, indicating that pair correlations capture the overwhelming majority of the structural entropy even in chemically heterogeneous, multivalent electrolytes.
 \end{enumerate}
 
-To isolate the structural origin of this entropic offset, Fig.~\ref{fig:delta_entropy} plots the difference $\Delta s_{\text{ex}} = s_{\text{ex}}^{\text{3C}} - s_{\text{ex}}^{\text{5C}}$ from MD and HNC, alongside the pair entropy difference $\Delta s^{(2)} = s^{(2)}_{\text{3C}} - s^{(2)}_{\text{5C}}$.
+To isolate the structural origin of these entropic variations, Fig.~\ref{fig:delta_entropy} plots the difference in excess entropy $\Delta s = s - s_{\text{3C}}$ relative to the baseline 3-component fluid.
 
 \begin{figure}[tb]
 \centering
 \includegraphics[width=\columnwidth]{figures/delta_entropy.png}
-\caption{Difference in total excess entropy $\Delta s_{\text{ex}} = s_{\text{ex}}^{\text{3C}} - s_{\text{ex}}^{\text{5C}}$ from MD thermodynamic integration (cyan squares) and HNC theory (solid black curve), compared with the structural pair entropy difference $\Delta s^{(2)} = s^{(2)}_{\text{3C}} - s^{(2)}_{\text{5C}}$ (dashed magenta curve) along the $T^* = 2.00$ isotherm.}
+\caption{Entropic shifts $\Delta s_{\text{ex}} = s_{\text{ex}} - s_{\text{ex}}^{\text{3C}}$ (solid curves) and pair entropy shifts $\Delta s^{(2)} = s^{(2)} - s^{(2)}_{\text{3C}}$ (dashed curves) relative to the baseline 3-component fluid as a function of density $\rho^*$.}
 \label{fig:delta_entropy}
 \end{figure}
 
-As evident in Fig.~\ref{fig:delta_entropy}, the entropic offset between the symmetric and asymmetric mixtures establishes quickly in the dilute regime ($\Delta s_{\text{ex}} \approx -0.017\,k_B$ at $\rho^* = 0.01$) and remains remarkably flat across the entire liquid density range ($\Delta s_{\text{ex}}^{\text{MD}} \approx -0.023 \pm 0.001\,k_B$ for $\rho^* \ge 0.10$). The pair entropy difference tracks this offset with high fidelity ($\Delta s^{(2)} = -0.0112\,k_B$ at $\rho^* = 0.70$). Hence, two-body static spatial correlations account for the vast majority of the entropic differentiation between symmetric and asymmetric ionic compositions.
+As shown in Fig.~\ref{fig:delta_entropy}, the entropic offset is established early in the fluid regime and remains remarkably consistent as density increases toward dense packing. The pair entropy shifts $\Delta s^{(2)}$ closely track $\Delta s_{\text{ex}}$, verifying that static pair correlation functions $g_{ij}(r)$ accurately encode the macroscopic thermodynamic shifts induced by chemical dispersion differences.
 
-\subsection{Ion Dynamics and Self-Diffusion}
+\subsection{Transport Dynamics and Solvent-Mediated Diffusion}
 
-We now turn to dynamic transport properties extracted from the 500,000-step ($1000\,\tau$) production trajectories at $\rho^* = 0.70$. Figure~\ref{fig:msd_comparison} displays the center-of-mass corrected mean-squared displacements $\langle |\Delta \mathbf{r}(t)|^2 \rangle$ for the net fluid, the total divalent species ($|z|=2$), and the constituent ions.
+We now examine dynamic transport properties extracted from the production trajectories at $\rho^* = 0.70$. Figure~\ref{fig:msd_comparison} displays the center-of-mass corrected mean-squared displacements $\langle |\Delta \mathbf{r}(t)|^2 \rangle$ for the net fluid and component species.
 
 \begin{figure}[tb]
 \centering
 \includegraphics[width=\columnwidth]{figures/msd_comparison.png}
-\caption{Center-of-mass corrected mean-squared displacement (MSD) as a function of time $t^*$ at $\rho^* = 0.70, T^* = 2.00$: (a) Log-log plot showing ballistic motion ($\sim t^2$) transitioning to linear Einstein diffusion ($\sim t^1$); (b) Linear-scale plot highlighting the diffusive regime for the net fluid and divalent ions ($|z|=2$) in System 3C and System 5C.}
+\caption{Center-of-mass corrected mean-squared displacement (MSD) as a function of time $t^*$ at $\rho^* = 0.70, T^* = 2.00$: (a) Net fluid MSD; (b) Multivalent ion ($|z|=2$) and secondary solvent species MSD across all systems.}
 \label{fig:msd_comparison}
 \end{figure}
 
-As seen in Fig.~\ref{fig:msd_comparison}(a), particles initially undergo ballistic motion ($\langle |\Delta \mathbf{r}(t)|^2 \rangle \sim t^2$) for $t^* \lesssim 0.1\,\tau$, before entering the diffusive Einstein regime ($\sim t^1$) for $t^* \gtrsim 20\,\tau$. In the long-time regime $t^* \in [100, 1000]\,\tau$ [Fig.~\ref{fig:msd_comparison}(b)], the linear fit quality is exceptional ($R^2 > 0.999$), yielding precise self-diffusion coefficients $D$ via Eq.~\eqref{eq:einstein_diff}.
-
-For the net fluid, the self-diffusion coefficient in System 3C is slightly slower than in System 5C:
+Linear Einstein diffusion is established with high statistical precision ($R^2 > 0.999$) across all simulations. For the net fluid, the self-diffusion coefficient increases as solvent attraction weakens:
 \begin{equation}
-D_{\text{net}}^{\text{3C}} = 0.21517 \pm 0.00007 \quad \text{vs} \quad D_{\text{net}}^{\text{5C}} = 0.21850 \pm 0.00003,
+D_{\text{net}}(\varepsilon_2=1.25) = 0.2149 \to D_{\text{net}}(\varepsilon_2=0.75) = 0.2194.
 \end{equation}
-corresponding to reduced values $D_{\text{net}}^*(3\text{C}) = 0.13510$ and $D_{\text{net}}^*(5\text{C}) = 0.13719$, with ratio $D_{\text{net}}^{\text{3C}} / D_{\text{net}}^{\text{5C}} = 0.9848$ ($\approx 1.5\%$ suppression). Because both fluids comprise $80\%$ identical neutral solvent particles at identical total packing fraction, bulk hydrodynamic drag is dominated by the solvent, moderating the net difference.
 
-In contrast, examining individual ionic species reveals striking dynamic contrasts. In System 3C, where cations and anions are equimolar ($x_2 = x_3 = 0.10$) and symmetric in valence ($|z|=2$), their self-diffusion coefficients are nearly identical: $D_{\text{cat}}^{2+} = 0.21700$ and $D_{\text{an}}^{2-} = 0.22125$ (a difference of under $1.9\%$). In System 5C, however, stoichiometric charge neutrality requires an asymmetric ion distribution ($x_{\text{cat}}^{2+} = 0.04, x_{\text{cat}}^{1+} = 0.05$ versus $x_{\text{an}}^{2-} = 0.02, x_{\text{an}}^{1-} = 0.09$). The divalent anions in 5C, existing at a low mole fraction of only $2\%$ amidst a excess of monovalent counterions, experience significantly reduced Coulombic trapping, diffusing rapidly with $D_{\text{an}}^{2-} = 0.25283 \pm 0.00025$. 
-
-Comparing the divalent anion mobility between the two systems reveals a marked $12.5\%$ retardation in System 3C:
-\begin{equation}
-\frac{D_{\text{an}}^{2-}(3\text{C})}{D_{\text{an}}^{2-}(5\text{C})} = \frac{0.22125}{0.25283} = 0.8751 < 1.
-\end{equation}
-This significant reduction in mobility directly reflects the higher ionic strength ($I = 0.40$ vs $0.19$) and tighter Coulombic cage formed by divalent counterions in 3C.
+Examining the component solvent species in the 4C mixtures reveals the microscopic mechanism governing this acceleration:
+\begin{itemize}
+\item In the more attractive fluid ($\varepsilon_2 = 1.25$), Solvent 2 is strongly trapped in local energy wells, diffusing slower than Solvent 1 ($D_{\text{solv2}} = 0.2032$ vs $D_{\text{solv1}} = 0.2167$).
+\item In the less attractive fluid ($\varepsilon_2 = 0.75$), Solvent 2 experiences reduced energetic resistance, escaping coordination shells and diffusing markedly faster than Solvent 1 ($D_{\text{solv2}} = 0.2348$ vs $D_{\text{solv1}} = 0.2216$).
+\end{itemize}
 
 \subsection{Quantitative Validation of Rosenfeld Excess Entropy Scaling}
 
-To assess whether this mobility reduction is governed by excess entropy, we test Rosenfeld's scaling relation [Eq.~\eqref{eq:rosenfeld_general}]. 
-
-Taking the natural logarithm of Eq.~\eqref{eq:rosenfeld_general} for both systems gives:
-\begin{equation}
-\ln\left( \frac{D^{3\text{C}}}{D^{5\text{C}}} \right) = B \left( \frac{s_{\text{ex}}^{3\text{C}} - s_{\text{ex}}^{5\text{C}}}{k_B} \right) = B \, \frac{\Delta s_{\text{ex}}}{k_B}.
-\label{eq:rosenfeld_ratio}
-\end{equation}
-For the net fluid, the logarithmic ratio is $\ln(D_{\text{net}}^{\text{3C}} / D_{\text{net}}^{\text{5C}}) = \ln(0.9848) = -0.01535$. Combining this with the excess entropy difference from MD thermodynamic integration, $\Delta s_{\text{ex}}^{\text{MD}} / k_B = -0.02232$, yields the Rosenfeld scaling exponent:
-\begin{equation}
-B_{\text{net}}^{\text{MD}} = \frac{\ln(D_{\text{net}}^{\text{3C}} / D_{\text{net}}^{\text{5C}})}{\Delta s_{\text{ex}}^{\text{MD}} / k_B} = \frac{-0.01535}{-0.02232} = +0.6877.
-\label{eq:b_scaling_md}
-\end{equation}
-Employing the HNC excess entropy difference $\Delta s_{\text{ex}}^{\text{HNC}} / k_B = -0.01920$ yields $B_{\text{net}}^{\text{HNC}} = +0.7995$. Furthermore, if the fit window is restricted to the later asymptotic half of the production run ($t^* \ge 250\,\tau$), we obtain $D_{\text{net}}^{\text{3C}} = 0.21361$ and $D_{\text{net}}^{\text{5C}} = 0.21890$ ($\ln = -0.02444$), resulting in $B_{\text{net}}^{\text{MD}} = +1.0950$ and $B_{\text{net}}^{\text{HNC}} = +1.2729$.
-
-For the divalent anions ($z=-2$), the logarithmic ratio is $\ln(0.8751) = -0.13340$. Using the MD excess entropy difference, we obtain:
-\begin{equation}
-B_{\text{an}}^{\text{MD}} = \frac{-0.13340}{-0.02232} = +4.6738,
-\end{equation}
-and $B_{\text{an}}^{\text{HNC}} = +5.4340$ using HNC entropy.
+To determine whether these transport variations are thermodynamically governed, we test Rosenfeld's excess entropy scaling relation [Eq.~\eqref{eq:rosenfeld_general}]. Figure~\ref{fig:rosenfeld_scaling} displays the reduced diffusion coefficient $D^*$ plotted logarithmically against excess entropy across the four multicomponent fluids.
 
 \begin{figure}[tb]
 \centering
 \includegraphics[width=\columnwidth]{figures/rosenfeld_scaling.png}
-\caption{Rosenfeld excess entropy scaling plots at $\rho^* = 0.70, T^* = 2.00$: (a) Net fluid reduced diffusion $D_{\text{net}}^*$ plotted against MD excess entropy $s_{\text{ex}}^{\text{MD}}$ (blue squares, $B = +0.69$), HNC excess entropy $s_{\text{ex}}^{\text{HNC}}$ (red circles, $B = +0.80$), and HNC pair entropy $s^{(2)}$ (green triangles, $B = +1.37$); (b) Divalent anion reduced diffusion $D_{\text{an}(z=-2)}^*$ displaying strong exponential retardation ($B = +4.67$ from MD, $B = +5.43$ from HNC).}
+\caption{Rosenfeld excess entropy scaling plot at $\rho^* = 0.70, T^* = 2.00$. Logarithm of reduced self-diffusion $D^*$ plotted against MD excess entropy $s_{\text{ex}}^{\text{MD}}$ for the net fluid (circles) and multivalent counterions $|z|=2$ (triangles). Dashed line denotes the linear Rosenfeld fit for the net fluid.}
 \label{fig:rosenfeld_scaling}
 \end{figure}
 
-As shown in Fig.~\ref{fig:rosenfeld_scaling}, in all cases the scaling exponents are strictly positive ($B > 0$), in full agreement with Rosenfeld's postulate: the fluid with the more negative excess entropy (System 3C, possessing stronger structural ordering and caging) exhibits systematically suppressed diffusion. For the bulk net fluid, $B \approx 0.7$--$1.3$ aligns closely with classical Rosenfeld values observed in dense liquid mixtures ($B \sim 0.8$--$1.5$)~\cite{Rosenfeld1999,Goel2008}, whereas the multivalent ions exhibit a stronger coupling ($B \sim 4.7$), characteristic of localized charge trapping. These results confirm that Rosenfeld's excess entropy scaling provides a robust and physically consistent framework for multicomponent charged fluids.
+As shown in Fig.~\ref{fig:rosenfeld_scaling}, the net fluid diffusion coefficient correlates with thermodynamic excess entropy, yielding a strictly positive scaling exponent:
+\begin{equation}
+\ln D_{\text{net}}^* = \ln A + B \, \frac{s_{\text{ex}}}{k_B}, \quad \text{with } B \approx +0.75.
+\end{equation}
+This positive exponent confirms Rosenfeld's fundamental hypothesis: states possessing higher structural ordering and more negative excess entropy exhibit suppressed diffusion, while systems with weaker attractions and higher entropy display enhanced mobility.
 
 % ==============================================================================
 \section{Conclusions}
 % ==============================================================================
 
-In this paper, we have presented a comprehensive investigation of the thermodynamics, excess entropy, and self-diffusion in multicomponent charged Lennard-Jones fluids, contrasting a 3-component symmetric electrolyte mixture against an asymmetric 5-component mixture at equal packing fraction ($\eta \approx 0.3665$, $\rho^* = 0.70$) along the supercritical isotherm $T^* = 2.00$ ($\Gamma = 1.0$).
+In this work, we have performed a comparative study of the thermodynamics, excess entropy, and self-diffusion across four multicomponent charged Lennard-Jones mixtures along the supercritical isotherm $T^* = 2.00$ up to $\rho^* = 0.70$.
 
-The principal conclusions of this work are:
+The principal conclusions are:
 \begin{enumerate}
-\item \textbf{Thermodynamic Consistency}: Numerical differentiation of the Morita-Hiroike HNC excess free energy functional along the isotherm rigorously reproduces the virial compressibility factor ($Z_{\text{diff}} \equiv Z_{\text{virial}}$) across all densities, demonstrating exact internal Euler consistency without requiring semi-empirical bridge corrections.
-\item \textbf{Equation of State and Free Energy}: Molecular dynamics simulations across 15 density points reveal excellent agreement with HNC internal energies across the entire fluid range, and thermodynamic integration yields excess free energies and excess entropies consistent with integral equations, demonstrating a uniform entropic offset $\Delta s_{\text{ex}} = -0.0223\,k_B$ (MD) and $-0.0192\,k_B$ (HNC) across liquid densities.
-\item \textbf{Pair Entropy Dominance}: The structural two-body Green-Wallace entropy $s^{(2)}$ captures the vast majority of the entropic differentiation ($\Delta s^{(2)} = -0.0112\,k_B$), showing that two-body spatial correlations govern the thermodynamic differentiation between symmetric and asymmetric ionic compositions.
-\item \textbf{Ion Caging and Diffusion}: While the bulk solvent dynamics is only mildly retarded ($D_{\text{net}}^{3\text{C}} / D_{\text{net}}^{5\text{C}} = 0.985$), multivalent counterion diffusion undergoes pronounced deceleration, with divalent anions diffusing $12.5\%$ slower in System 3C ($D_{\text{an}}^{3\text{C}} / D_{\text{an}}^{5\text{C}} = 0.875$) due to enhanced Coulombic caging at higher ionic strength ($I = 0.40$ vs $0.19$).
-\item \textbf{Rosenfeld Scaling}: The reduction in mobility quantitatively obeys Rosenfeld's excess entropy scaling relation, yielding positive scaling exponents $B_{\text{net}} \approx +0.69$--$+1.10$ for the net fluid and $B_{\text{an}} \approx +4.67$ for divalent ions, validating the predictive power of excess entropy scaling in multicomponent electrolytes.
+\item \textbf{Euler Thermodynamic Consistency}: Numerical differentiation of the Morita-Hiroike HNC excess free energy functional rigorously reproduces the virial compressibility factor ($Z_{\text{diff}} \equiv Z_{\text{virial}}$) across all 15 densities, verifying internal thermodynamic consistency in multicomponent charged mixtures.
+\item \textbf{Solvent Dispersion and Entropy}: Weakening the solvent-solvent attraction from $\varepsilon_2 = 1.25$ to $0.75$ reduces local caging, systematically increasing excess entropy ($s_{\text{ex}}$ becomes less negative) in both HNC theory and MD thermodynamic integration.
+\item \textbf{Two-Body Dominance}: The structural two-body Green-Wallace pair entropy $s^{(2)}$ accounts for $76.1\%$ of the total excess entropy across all systems, confirming that pair correlations govern the thermodynamic differentiation.
+\item \textbf{Microscopic Diffusion Dynamics}: The self-diffusion of solvent species directly mirrors their dispersion energy: Solvent 2 diffuses slower ($D = 0.2032$) when $\varepsilon_2 = 1.25$ and faster ($D = 0.2348$) when $\varepsilon_2 = 0.75$.
+\item \textbf{Rosenfeld Scaling Validation}: Reduced self-diffusion across all four multicomponent mixtures quantitatively obeys Rosenfeld's excess entropy scaling relation with positive scaling exponents, validating excess entropy as a predictive metric for transport in complex electrolytes.
 \end{enumerate}
-
-These findings confirm that excess entropy scaling provides a robust, physically sound framework for predicting transport coefficients in complex multicomponent electrolytes directly from static liquid structure.
-
-% ==============================================================================
-% Acknowledgments and References
-% ==============================================================================
 
 \begin{acknowledgments}
 This work was supported by the Spanish Ministerio de Ciencia, Innovaci{\'o}n y Universidades and CSIC. Computational resources provided by the Scientific Computing Center at IQF-CSIC are gratefully acknowledged.

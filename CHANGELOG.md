@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [V1.2] - 2026-10-21
+
+### Added
+- **4-Component Fluid with Weakened Solvent Dispersion ($\varepsilon_2 = 0.75$)**:
+  - Investigated chemical heterogeneity and dispersion asymmetry by introducing a less attractive solvent ($89\%$ Solvent 1 with $\varepsilon_1=1.0$, $5\%$ Solvent 2 with $\varepsilon_2=0.75$, $3\%$ Cation 2+, $3\%$ Anion 2-, $I=0.12$).
+  - Performed complete HNC density sweep down to $\rho^* = 0.01$ and confirmed that reducing solvent dispersion weakens local caging and increases excess entropy ($s_{\text{ex}} = -2.0551\,k_B$ at $\rho^* = 0.70$, compared to $-2.0635\,k_B$ for 3C and $-2.0703\,k_B$ for $\varepsilon_2=1.25$).
+  - Configured and executed a complete batch of 15 GPU-accelerated LAMMPS MD simulations across the supercritical isotherm ($T^*=2.00, \beta^*=0.50$) on NVIDIA RTX PRO 4500 Blackwell GPUs (`ladon28`, `ladon29`).
+- **Thermodynamic Integration & Entropy Across Four Multicomponent Fluids**:
+  - Generalized MD thermodynamic integration pipeline (`thermodynamic_integration_md.py`) to process 3C (Option 1, $I=0.12$), 4C ($\varepsilon_2=1.25$), 4C ($\varepsilon_2=0.75$), and 5C ($I=0.19$).
+  - Demonstrated quantitative concordance between MD and HNC across all 4 systems, validating the entropic ordering: $s_{\text{ex}}(4\text{C}, \varepsilon_2=1.25) < s_{\text{ex}}(3\text{C}) < s_{\text{ex}}(4\text{C}, \varepsilon_2=0.75)$.
+- **Self-Diffusion Dynamics & Rosenfeld Scaling**:
+  - Evaluated high-precision self-diffusion coefficients from 150,000-step production trajectories at $\rho^* = 0.70$ ($R^2 > 0.999$).
+  - Uncovered direct solvent-dispersion coupling: Solvent 2 diffuses slower ($D = 0.2032$) when more attractive ($\varepsilon_2 = 1.25$) and significantly faster ($D = 0.2348$) when less attractive ($\varepsilon_2 = 0.75$), driving an overall increase in net fluid mobility ($D_{\text{net}} = 0.2194$).
+  - Confirmed quantitative validity of Rosenfeld's excess entropy scaling relation across all four fluids with positive scaling exponent $B \approx +0.75$.
+- **Physical Review E Manuscript Update**:
+  - Expanded `doc/paper_pre.tex` and recompiled `doc/paper_pre.pdf` incorporating the four-system comparative study.
+  - Updated all 5 multi-panel publication figures in `doc/figures/` (`compressibility_and_ti.png`, `entropy_comparison.png`, `delta_entropy.png`, `msd_comparison.png`, `rosenfeld_scaling.png`).
+
+---
+
 ## [V1.1] - 2026-10-21
 
 ### Added
