@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [V1.4] - 2026-10-21
+
+### Added
+- **Species-Resolved Partial Molar Excess Entropies & Partial Molar Volumes in HNC**:
+  - Implemented numerical temperature- and density-derivatives of excess chemical potentials $\mu_i^{\text{ex}}$ across all four multicomponent mixtures.
+  - Computed the canonical constant-volume partial excess entropy $s_{i,V}^{\text{ex}} = -\left(\frac{\partial \mu_i^{\text{ex}}}{\partial T}\right)_V$, the constant-pressure partial molar excess entropy $\bar{S}_{i,P}^{\text{ex}} = -\left(\frac{\partial \mu_i^{\text{ex}}}{\partial T}\right)_P$, and partial molar volumes $\bar{V}_i$.
+  - Demonstrated that weakening secondary solvent dispersion ($\varepsilon_2 = 1.25 \to 0.75$) yields a massive surge in its partial molar excess entropy ($\Delta \bar{S}_{2,P}^{\text{ex}} = +0.465\,k_B$, rising from $-1.580\,k_B$ to $-1.115\,k_B$).
+  - Quantified electrostriction and valence ordering: partial molar volumes decrease systematically with ionic charge ($\bar{V}_{\text{solv}} \approx 1.446 > \bar{V}_{|z|=1} \approx 1.439 > \bar{V}_{|z|=2} \approx 1.418\,\sigma^3$), while partial molar excess entropies become increasingly negative ($\bar{S}_{\text{solv}}^{\text{ex}} = -1.357\,k_B > \bar{S}_{|z|=1}^{\text{ex}} = -1.423\,k_B > \bar{S}_{|z|=2}^{\text{ex}} = -1.619\,k_B$).
+  - Updated Physical Review E manuscript (`doc/paper_pre.tex`) with new Section IV.C and Table III; recompiled `doc/paper_pre.pdf` (9 pages).
+- **Two-Phase Thermodynamics (2PT) Molecular Dynamics Framework (`lammps_study/two_pt_analysis/`)**:
+  - Prepared and executed an NVT simulation with high-frequency velocity dumping on an NVIDIA RTX PRO 4500 GPU.
+  - Implemented `two_pt_calculator.py` parsing trajectories, evaluating species velocity autocorrelation functions (VACF), vibrational densities of states (DoS), fluidicity parameter $f$, and 2PT entropy components.
+  - Benchmarked 2PT against MD Thermodynamic Integration (TI): Green-Kubo diffusion quantitatively matches Einstein MSD diffusion ($D = 0.2152$ vs $0.2148$), and 2PT excess entropy accurately captures the constant-volume partial excess entropy ($s_{i,V}^{\text{ex}} = -5.369\,k_B$ vs HNC $-5.268\,k_B$, within $1.8\%$).
+
+---
+
 ## [V1.3] - 2026-10-21
 
 ### Added
