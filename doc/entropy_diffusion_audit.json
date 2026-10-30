@@ -1,0 +1,37 @@
+{
+  "provenance": "Reported values only; no new simulation or uncertainty estimate.",
+  "net_MD_three_points": {
+    "B": 1.0450377867638996,
+    "intercept": 0.43668302284219057,
+    "R2": 0.3913867484136445,
+    "n": 3
+  },
+  "net_HNC_three_points": {
+    "B": 1.4021624582395054,
+    "intercept": 1.3618187281384446,
+    "R2": 0.7803836904845889,
+    "n": 3
+  },
+  "net_MD_four_points": {
+    "B": 0.8665002839696287,
+    "intercept": 0.10289206947476404,
+    "R2": 0.2507609432077258,
+    "n": 4
+  },
+  "solvent_pair_entropy_six_points": {
+    "B": 1.0306186850693182,
+    "intercept": 0.1362673774273979,
+    "R2": 0.8741864688727758,
+    "n": 6
+  },
+  "ideal_mixing_entropy_per_kB": {
+    "system_3C": 0.2685563533342012,
+    "system_4C": 0.4638951839846953,
+    "system_4C_eps075": 0.4638951839846953,
+    "system_5C": 0.6564235463962114
+  },
+  "five_minus_three_total_entropy_per_kB": 0.38236719306201006,
+  "ion_5C_over_3C_table_II": 1.0680523213760726,
+  "ion_5C_over_3C_table_IV_MSD": 1.0044400592007894,
+  "ion_5C_over_3C_table_IV_GK": 0.9995093228655544
+}

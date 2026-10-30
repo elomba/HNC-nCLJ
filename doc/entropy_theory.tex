@@ -422,6 +422,10 @@ $\rho^*$ & $s_{\text{ex}}^{\text{3C}}/k_B$ & $s_{\text{ex}}^{\text{5C}}/k_B$ & $
 
 ---
 
+% Review note: this section describes historical, different compositions.
+\noindent\textbf{Composition and interpretation note (October 2026).}
+The transport comparison below concerns legacy compositions ($I=0.40$ and $0.19$), not the $I=0.12$ and $0.17$ mixtures in \texttt{paper\_pre.tex}. Its two-state inferred Rosenfeld exponent is not an independent scaling validation and must not be transferred to the current mixtures. The current manuscript and accompanying \texttt{entropy\_diffusion\_review.md} distinguish ideal mixing from excess entropy and document unresolved transport convergence and integration-path issues.
+
 \section{Molecular Dynamics Simulations and Rosenfeld Excess Entropy Scaling}
 
 \subsection{Motivation and Scaling Relation}
@@ -502,6 +506,7 @@ Table~\ref{tab:rosenfeld_diffusion} compiles the extracted self-diffusion coeffi
 \caption{Self-diffusion coefficients $D$, Rosenfeld reduced diffusion $D^* = D \rho^{1/3}/\sqrt{T}$, diffusion ratios, and scaling exponents $B$ for System 3C and System 5C at $\rho^* = 0.70, T^* = 2.00$ ($\Delta s_{\text{ex}} = -0.0192 \, k_B$).}
 \label{tab:rosenfeld_diffusion}
 \small
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{lccccccr}
 \toprule
 Species / Group & $D$ (3C) & $D^*$ (3C) & $D$ (5C) & $D^*$ (5C) & $D_{\text{3C}} / D_{\text{5C}}$ & $\ln(D_{\text{3C}}/D_{\text{5C}})$ & Rosenfeld $B$ \\
@@ -511,7 +516,8 @@ Net Fluid (all particles)  & 0.2210 & 0.1388 & 0.2089 & 0.1312 & 1.0578 & $+0.05
 Divalent Cation ($z=+2$)   & 0.1961 & 0.1231 & 0.1683 & 0.1057 & 1.1650 & $+0.1527$ & $-7.95$ \\
 \textbf{Divalent Anion ($z=-2$)}  & \textbf{0.1800} & \textbf{0.1130} & \textbf{0.2586} & \textbf{0.1624} & \textbf{0.6959} & $\mathbf{-0.3625}$ & $\mathbf{+18.88}$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \begin{figure}[htbp]
