@@ -10,9 +10,11 @@ import matplotlib.pyplot as plt
 
 DOC=Path(__file__).resolve().parent
 ROOT=DOC.parent/'ComponentEntropyStudy_20261030'
+PAIR=DOC.parent/'MDPairEntropyAssessment'/'results'/'summary.json'
 OUT=DOC/'figures'
 S=json.loads((ROOT/'results/summary.json').read_text())
 G=json.loads((ROOT/'results/diagnostics.json').read_text())
+P=json.loads(PAIR.read_text())
 assert S['complete'] and S['completed_replicas']==24
 ORDER=[('B3','baseline_3C'),('B5','mono_f010'),('U4','weak_f030_e025'),('L5','dispersion_split_d000'),('M5','dispersion_split_d025'),('H5','dispersion_split_d040'),('U6','mono_weak_uniform6C'),('H7','mono_weak_split7C')]
 COMPS={s['name']:s for s in json.loads((ROOT/'selected.json').read_text())}
@@ -85,6 +87,25 @@ for key in ['controlled','mono_controlled']:
         v=c['methods'][method]
         rrows.append([c['label'],model,f"{c['TI']['mean']:.5f}",f"{v['delta']['mean']:.5f}",fmt(v['bias_vs_TI'],5)])
 save_table('component_study_2pt_contrasts.tex',r'Controlled excess-entropy increments from TI and corrected classical revised 2PT. All entropy quantities are per particle in $k_B$. Bias is the paired difference between the 2PT and TI increments; brackets are nominal 95\% Student-$t$ intervals from three independent replica pairs (two degrees of freedom), without multiplicity correction. The primary partition is $\delta=1$; $\delta=1.5$ is an unfitted sensitivity.', 'tab:2pt_contrasts','llrrr',r'Comparison & Partition & TI $\Delta s_{\rm ex}/k_B$ & 2PT $\Delta s_{\rm ex}/k_B$ & Bias [95\% CI]',rrows)
+
+# Independent all-species pair-entropy analysis, based on trajectories rather than HNC RDFs.
+pstates=[]
+for code,_ in ORDER:
+    d=P['systems'][code]
+    pstates.append([code,f"{d['TI_s_ex']['mean']:.4f}",f"{d['s2_resolved']['mean']:.4f}",
+                    f"{100*d['pair_fraction_resolved']['mean']:.1f}"+r"\%",f"{d['remainder_resolved']['mean']:.4f}"])
+save_table('component_study_pair_entropy_states.tex',r'Full MD thermodynamic-integration excess entropy and directly calculated all-species pair entropy at $T^*=2$, $\rho^*=0.7$. Pair entropy uses the fine-core resolved RDF and is compared with TI state by state. The fraction is the ratio of state means and is descriptive. The residual is $s_{\rm ex}^{\rm TI}-s_2^{\rm MD}$; it contains higher-order correlations and estimator differences.', 'tab:pair_entropy_states','lrrrr',r'State & TI $s_{\rm ex}/k_B$ & MD $s_2/k_B$ & $s_2/s_{\rm ex}$ & Residual $(s_{\rm ex}-s_2)/k_B$',pstates)
+pcontrasts=[]
+for key,label in [('label_null','L5/U4'),('moderate_split','M5/U4'),('high_split','H5/U4'),('mono_high_split','H7/U6'),('high_vs_baseline','H5/B3'),('mono_high_vs_baseline','H7/B5'),('salt_addition','B5/B3')]:
+    d=P['contrasts'][key]
+    pcontrasts.append([label,fmt(d['delta_TI'],5),fmt(d['delta_s2_resolved'],5),
+                       fmt(d['delta_remainder_resolved'],5),
+                       f"{100*np.expm1(d['delta_log_D_plus']['mean']):+.1f}"+r"\%",
+                       f"{100*np.expm1(d['delta_log_D_minus']['mean']):+.1f}"+r"\%"])
+save_table('component_study_pair_entropy_contrasts.tex',r'Paired differences in full TI excess entropy, MD pair entropy, beyond-pair residual, and the individual probe diffusivities. Entropies are per particle in $k_B$. Diffusion entries are point percent changes from paired log ratios; their nominal 95\% intervals are discussed in the text. The identical-label split is an exact mechanical null.', 'tab:pair_entropy_contrasts','lrrrrr',r'Comparison & $\Delta s_{\rm ex}^{\rm TI}/k_B$ [95\% CI] & $\Delta s_2^{\rm MD}/k_B$ [95\% CI] & $\Delta(s_{\rm ex}-s_2)/k_B$ [95\% CI] & $\Delta D_{+2}$ & $\Delta D_{-2}$',pcontrasts)
+source_fig=DOC.parent/'MDPairEntropyAssessment'/'results'/'entropy_benchmark.pdf'
+shutil.copy2(source_fig,OUT/'component_pair_entropy_benchmark.pdf')
+shutil.copy2(DOC.parent/'MDPairEntropyAssessment'/'results'/'pair_entropy_species_diffusion.pdf',OUT/'component_pair_entropy_species_diffusion.pdf')
 for ext in ['pdf','png']:
     shutil.copy2(ROOT/f'two_pt_rehabilitation/entropy_validation.{ext}',OUT/f'component_2pt_validation.{ext}')
-print('Generated six data tables and three manuscript figures from completed summaries.')
+print('Generated pair-entropy tables and figure alongside the existing manuscript assets.')

@@ -1,0 +1,153 @@
+{
+  "pilot_job": "101030",
+  "records": [
+    {
+      "code": "B3",
+      "name": "baseline_3C",
+      "replica": 1,
+      "ideal": false,
+      "limit": 20,
+      "nframes": 20,
+      "n": 4000,
+      "nspecies": 3,
+      "dr": 0.01,
+      "nbins": 888,
+      "rmax": 8.88,
+      "box": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "seed": null,
+      "source": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/baseline_3C/replica_1/transport/positions.nc",
+      "source_bytes": 160161372,
+      "source_mtime_ns": 1793393370938286984,
+      "source_sha256": "e12ad2f2075b7b81f283a50bd8dbdaca47c4767944c046656e9054bf23f4e36b",
+      "kernel_sha256": "94022539eb39f1f9a864edd4bb4c03892d16f7acad1db5cdc3e1394bae5b10f2",
+      "extract_sha256": "380b4212fa9b24f49a9559cfbc855247bc3c4a0ce1d74dc8f1e7bbdfd10a9783",
+      "histogram_sha256": "206a43224cd9bffe387ed39603b439df5bc1c8a6e9d4f5da6d386dac14ef8579",
+      "host": "ladon18.ipa.iqf.csic.es",
+      "threads": 2,
+      "frame_histogram_seconds_mean": 0.07374944239854812,
+      "elapsed_seconds": 3.1827890686690807,
+      "species": [
+        {
+          "label": "solvent",
+          "q": 0,
+          "x": 0.94,
+          "eps": 1.0,
+          "mass": 1.0,
+          "sigma": 1.0
+        },
+        {
+          "label": "probe_plus2",
+          "q": 2,
+          "x": 0.03,
+          "eps": 1.0,
+          "mass": 1.0,
+          "sigma": 1.0
+        },
+        {
+          "label": "probe_minus2",
+          "q": -2,
+          "x": 0.03,
+          "eps": 1.0,
+          "mass": 1.0,
+          "sigma": 1.0
+        }
+      ]
+    },
+    {
+      "code": "H7",
+      "name": "mono_weak_split7C",
+      "replica": 1,
+      "ideal": false,
+      "limit": 20,
+      "nframes": 20,
+      "n": 4000,
+      "nspecies": 7,
+      "dr": 0.01,
+      "nbins": 888,
+      "rmax": 8.88,
+      "box": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "seed": null,
+      "source": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_weak_split7C/replica_1/transport/positions.nc",
+      "source_bytes": 160161372,
+      "source_mtime_ns": 1793417798933694396,
+      "source_sha256": "7b7bd2b399ea8c0c8c186ab1cb9496601b771c1b8b4a4cceee49e726da34e5a3",
+      "kernel_sha256": "94022539eb39f1f9a864edd4bb4c03892d16f7acad1db5cdc3e1394bae5b10f2",
+      "extract_sha256": "380b4212fa9b24f49a9559cfbc855247bc3c4a0ce1d74dc8f1e7bbdfd10a9783",
+      "histogram_sha256": "b7f5c081a0d8c93dd4590fdffe118714be86d1f210cf2bfb0aea949a8a8b84ba",
+      "host": "ladon18.ipa.iqf.csic.es",
+      "threads": 2,
+      "frame_histogram_seconds_mean": 0.07397448150441051,
+      "elapsed_seconds": 3.3427316676825285,
+      "species": [
+        {
+          "label": "solvent",
+          "q": 0,
+          "x": 0.54,
+          "eps": 1.0,
+          "mass": 1.0,
+          "sigma": 1.0
+        },
+        {
+          "label": "weak_A",
+          "q": 0,
+          "x": 0.15,
+          "eps": 0.01,
+          "mass": 1.0,
+          "sigma": 1.0
+        },
+        {
+          "label": "weak_B",
+          "q": 0,
+          "x": 0.15,
+          "eps": 0.81,
+          "mass": 1.0,
+          "sigma": 1.0
+        },
+        {
+          "label": "background_plus1",
+          "q": 1,
+          "x": 0.05,
+          "eps": 1.0,
+          "mass": 1.0,
+          "sigma": 1.0
+        },
+        {
+          "label": "background_minus1",
+          "q": -1,
+          "x": 0.05,
+          "eps": 1.0,
+          "mass": 1.0,
+          "sigma": 1.0
+        },
+        {
+          "label": "probe_plus2",
+          "q": 2,
+          "x": 0.03,
+          "eps": 1.0,
+          "mass": 1.0,
+          "sigma": 1.0
+        },
+        {
+          "label": "probe_minus2",
+          "q": -2,
+          "x": 0.03,
+          "eps": 1.0,
+          "mass": 1.0,
+          "sigma": 1.0
+        }
+      ]
+    }
+  ],
+  "predicted_histogram_seconds_per_2001_frames": [
+    147.5726342394948,
+    148.02293749032543
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "scope": "Existing fine-grid HNC full-pair entropy, not pair entropy measured from MD trajectories. Values per particle in k_B units; source HNC values rounded to four decimals.",
+  "sources": [
+    "ComponentEntropyStudy_20261030/hnc_fine_summary.json",
+    "ComponentEntropyStudy_20261030/results/summary.json"
+  ],
+  "states": {
+    "B3": {
+      "case": "baseline_3C",
+      "hnc_s2": -1.5706,
+      "hnc_s_ex": -2.0635,
+      "hnc_remainder": -0.4928999999999999,
+      "hnc_s2_over_s_ex": 0.7611339956384784,
+      "md_ti_s_ex_mean": -1.971012438639238
+    },
+    "B5": {
+      "case": "mono_f010",
+      "hnc_s2": -1.5731,
+      "hnc_s_ex": -2.0677,
+      "hnc_remainder": -0.49459999999999993,
+      "hnc_s2_over_s_ex": 0.7607970208444165,
+      "md_ti_s_ex_mean": -1.9742147703201642
+    },
+    "U4": {
+      "case": "weak_f030_e025",
+      "hnc_s2": -1.3947,
+      "hnc_s_ex": -1.8434,
+      "hnc_remainder": -0.4486999999999999,
+      "hnc_s2_over_s_ex": 0.7565910816968645,
+      "md_ti_s_ex_mean": -1.772087912632167
+    },
+    "L5": {
+      "case": "dispersion_split_d000",
+      "hnc_s2": -1.3947,
+      "hnc_s_ex": -1.8434,
+      "hnc_remainder": -0.4486999999999999,
+      "hnc_s2_over_s_ex": 0.7565910816968645,
+      "md_ti_s_ex_mean": -1.7716644913055912
+    },
+    "M5": {
+      "case": "dispersion_split_d025",
+      "hnc_s2": -1.3721,
+      "hnc_s_ex": -1.8102,
+      "hnc_remainder": -0.43809999999999993,
+      "hnc_s2_over_s_ex": 0.7579825433653741,
+      "md_ti_s_ex_mean": -1.7416953054017472
+    },
+    "H5": {
+      "case": "dispersion_split_d040",
+      "hnc_s2": -1.3197,
+      "hnc_s_ex": -1.7327,
+      "hnc_remainder": -0.4129999999999998,
+      "hnc_s2_over_s_ex": 0.7616436774975472,
+      "md_ti_s_ex_mean": -1.6688727752236898
+    },
+    "U6": {
+      "case": "mono_weak_uniform6C",
+      "hnc_s2": -1.3973,
+      "hnc_s_ex": -1.8478,
+      "hnc_remainder": -0.4505000000000001,
+      "hnc_s2_over_s_ex": 0.7561965580690551,
+      "md_ti_s_ex_mean": -1.7760298689392295
+    },
+    "H7": {
+      "case": "mono_weak_split7C",
+      "hnc_s2": -1.3222,
+      "hnc_s_ex": -1.737,
+      "hnc_remainder": -0.41480000000000006,
+      "hnc_s2_over_s_ex": 0.7611974668969488,
+      "md_ti_s_ex_mean": -1.6727202595906394
+    }
+  },
+  "contrasts": {
+    "L5-U4": {
+      "hnc_delta_s2": 0.0,
+      "hnc_delta_s_ex": 0.0,
+      "hnc_delta_remainder": 0.0,
+      "pair_fraction_of_hnc_increment": null,
+      "md_ti_delta_s_ex_mean": 0.0004234213265756903
+    },
+    "M5-U4": {
+      "hnc_delta_s2": 0.022599999999999953,
+      "hnc_delta_s_ex": 0.033199999999999896,
+      "hnc_delta_remainder": 0.010599999999999943,
+      "pair_fraction_of_hnc_increment": 0.6807228915662658,
+      "md_ti_delta_s_ex_mean": 0.0303926072304197
+    },
+    "H5-U4": {
+      "hnc_delta_s2": 0.07499999999999996,
+      "hnc_delta_s_ex": 0.11070000000000002,
+      "hnc_delta_remainder": 0.035700000000000065,
+      "pair_fraction_of_hnc_increment": 0.6775067750677501,
+      "md_ti_delta_s_ex_mean": 0.1032151374084771
+    },
+    "H7-U6": {
+      "hnc_delta_s2": 0.07509999999999994,
+      "hnc_delta_s_ex": 0.11080000000000001,
+      "hnc_delta_remainder": 0.035700000000000065,
+      "pair_fraction_of_hnc_increment": 0.6777978339350175,
+      "md_ti_delta_s_ex_mean": 0.10330960934859013
+    },
+    "B5-B3": {
+      "hnc_delta_s2": -0.0024999999999999467,
+      "hnc_delta_s_ex": -0.0041999999999999815,
+      "hnc_delta_remainder": -0.0017000000000000348,
+      "pair_fraction_of_hnc_increment": 0.5952380952380851,
+      "md_ti_delta_s_ex_mean": -0.003202331680926207
+    }
+  },
+  "physical_state_order_low_to_high_entropy": [
+    "B5",
+    "B3",
+    "U6",
+    "U4",
+    "M5",
+    "H7",
+    "H5"
+  ],
+  "same_hnc_order_for_s2_and_s_ex": true
+}

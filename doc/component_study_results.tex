@@ -12,6 +12,43 @@ Table~\ref{tab:new_states} reports the new dense-state results; these replace th
 
 Relative to their original baselines, H5 and H7 raise MD excess entropy by $0.30214k_B$ and $0.30149k_B$. The moderate split M5 raises it by $0.03039k_B$ relative to U4. Entropy changes induced by diversification are therefore substantially larger than the residual quadrature and averaging-window sensitivities assessed below.
 
+\subsection{MD Pair Entropy and the Beyond-Pair Contribution}
+
+We now evaluate Eq.~\eqref{eq:s2_definition} directly from the saved all-particle MD trajectories. Unlike the HNC result, this estimator uses sampled MD pair distributions. Labels with identical charge and interaction parameters are merged before forming $g_{ij}(r)$, and the finite-count ideal normalization excludes self pairs. Table~\ref{tab:pair_entropy_states} compares the resolved MD $s_2$ with the full TI excess entropy. Across the eight mixtures, $s_2$ accounts for approximately 80--82\% of the magnitude of $s_{\rm ex}$. It is a large structural contribution, but the remaining $s_{\rm ex}-s_2\simeq-0.32$ to $-0.36k_B$ per particle is not negligible and varies with composition.
+
+The HNC pair entropies are close to, but systematically less negative than, the resolved MD estimates by about $0.027$--$0.045k_B$ per particle. Integrating the exported fine-grid HNC RDFs reproduces the stored HNC $s_2$ values within $5.4\times10^{-5}k_B$, confirming the pair ordering and mixture factors used in that comparison. Representative probe--solvent RDFs show that the first-shell structures from HNC and MD are similar, while small differences in peak height and the first minimum remain (Fig.~\ref{fig:pair_entropy_hnc}). Agreement of HNC and MD pair entropies is therefore qualitative, not exact.
+
+\input{component_study_pair_entropy_states}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{../MDPairEntropyAssessment/results/hnc_md_probe_rdf.pdf}
+\caption{HNC and pooled three-replica MD radial distribution functions for a +2 probe and the primary neutral solvent in B3 and H5. Their first coordination shells agree closely, with modest differences in the first peak and minimum.}
+\label{fig:pair_entropy_hnc}
+\end{figure}
+
+Table~\ref{tab:pair_entropy_contrasts} shows that pair entropy preserves most of the controlled TI increments: $s_2$ captures about 82\% of the U4-to-M5 increase and 79\% of the U4-to-H5 and U6-to-H7 increases. For the exact U4/L5 relabeling, both MD pair entropy and all diffusion values are identical. The pair-only estimate therefore retains the qualitative entropy ordering in the physical dispersion series, but understates its full thermodynamic entropy change and leaves a composition-dependent residual.
+
+\input{component_study_pair_entropy_contrasts}
+
+Replacing TI excess entropy with MD pair entropy in the descriptive Rosenfeld regressions does not remove the positive trend. For the four no-monovalent states, the pair-entropy fits give $R^2=0.995$, $0.997$, $0.991$, and $0.995$ for $D_{\rm net}$, mean probe diffusion, $D_{+2}$, and $D_{-2}$, respectively. The corresponding three-state monovalent fits give $R^2=0.998$, $1.000$, $0.992$, and $0.989$. These sparse family regressions remain descriptive and cannot establish a universal scaling law. In the controlled U4-to-H5 comparison, the individual probe diffusivities rise by about 3.6\% and 6.1\%; in U6-to-H7 the point increases are similar but their replica intervals include zero. Using $s_2$ alone would therefore preserve the broad trend and main qualitative conclusion, while leaving the individual-ion inference provisional and shifting quantitative slopes. It would not justify discarding the beyond-pair residual.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/component_pair_entropy_benchmark.pdf}
+\caption{MD pair entropy compared with the full TI excess entropy. The left panel uses the uncorrected $\Delta r=0.02$ RDF estimator; the right panel uses the resolved fine-core estimate. The dotted line denotes equality.}
+\label{fig:pair_entropy_benchmark}
+\end{figure}
+
+Figure~\ref{fig:pair_entropy_species_diffusion} displays the reduced diffusivity of each probe sign against MD $s_2$. Both species show a positive ordering across the selected states, in agreement with the separate regressions above. The scatter and replica intervals also show why this trend does not settle the controlled ion comparison: the U6/H7 point estimates overlap substantially in diffusion despite their clear entropy difference.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/component_pair_entropy_species_diffusion.pdf}
+\caption{Separate reduced self-diffusion coefficients of the +2 and $-2$ probes versus the all-species MD pair entropy. Error bars show nominal 95\% absolute-state replica intervals and do not include finite-size or estimator systematics. Blue circles denote states without monovalent salt; red circles include monovalent salt. The exact L5 label split is omitted because it duplicates U4 mechanically.}
+\label{fig:pair_entropy_species_diffusion}
+\end{figure*}
+
 \subsection{Label Count, Ideal Mixing, and Physical Diversification}
 
 U4 and L5 provide an exact mechanical null. Splitting the secondary solvent into two identical labels increases formal ideal mixing entropy by $0.30\ln2=0.20794k_B$ per particle if the labels are treated as distinguishable. Nevertheless, their diffusion coefficients are exactly identical in every replica. The measured excess-entropy difference is only $+0.00042k_B$, with a nominal interval $[-0.00219,0.00304]k_B$, consistent with thermodynamic sampling. Component labels alone do not supply a mechanical driving variable for diffusion.

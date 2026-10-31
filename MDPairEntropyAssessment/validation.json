@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": {
+    "compiled_kernel_matches_independent_direct_distances": true,
+    "atom_permutation_translation_and_thread_invariance": true,
+    "exact_count_merger_and_single_species_recovery": true,
+    "analytic_ideal_rdf_normalization_and_zero_entropy": true,
+    "analytic_hard_core_integral_cross_pair_factor_and_allocation": true,
+    "zero_bin_limit_and_near_unity_stability": true,
+    "synthetic_identical_label_null": true
+  }
+}

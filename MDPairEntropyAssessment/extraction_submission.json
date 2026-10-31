@@ -1,0 +1,10 @@
+{
+  "job_id": "101032",
+  "array": "0-23%12",
+  "partition": "ladon_v4_short",
+  "cpus_per_task": 2,
+  "mem": "4G",
+  "submitted_utc": "2026-10-31T13:07:38.693672+00:00",
+  "purpose": "All 24 saved trajectories plus 24 matched independent ideal-point ensembles; RDF postprocessing only",
+  "script_sha256": "cda8e7fabcf7a0e75998601be5a14bb801179da5afb3a7f7e4e38c2a4277346f"
+}

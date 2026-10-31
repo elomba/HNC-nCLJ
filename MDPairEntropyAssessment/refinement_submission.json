@@ -1,0 +1,7 @@
+{
+  "job_id": "101057",
+  "dependency": "afterok:101032",
+  "array": "0-23%12",
+  "purpose": "Resolve observed short-range RDF binning error; existing MD only, plus matched ideal controls",
+  "submitted_utc": "2026-10-31T13:15:39.121891+00:00"
+}

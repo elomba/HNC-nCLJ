@@ -51,6 +51,8 @@ For mixtures, whether this relation describes individual charged species as well
 
 The entropy entering Eq.~\eqref{eq:rosenfeld_general} is the excess per particle relative to the ideal mixture at the same temperature, density, and composition. The ideal reference already includes $s_{\rm mix}^{\rm id}/k_B=-\sum_i x_i\ln x_i$. A greater number of species can therefore increase total entropy without increasing $s_{\rm ex}$ or changing any force. Distinguishing label multiplicity from physical interaction diversity is essential to testing a component-induced speedup.
 
+Rosenfeld scaling has also been applied to binary dense-plasma mixtures, while generalized tracer formulations show that mixture diffusion can depend on kinetic information beyond one bulk entropy coordinate~\cite{Rosenfeld1995,Krekelberg2009}. Recent mixture studies have tested entropy scaling across fluids~\cite{Schmitt2025}. In battery electrolytes, high-entropy formulations have been connected to enhanced lithium transport~\cite{Wang2023}; He \emph{et al.} report a Li-centered pair-entropy proxy correlated with Li diffusivity across four carbonate-electrolyte formulations~\cite{He2026}. That selected local pair statistic is distinct from the total thermodynamic excess entropy used here. These studies motivate separating ideal mixing, total excess entropy, and local solvation structure in a controlled model-mixture comparison.
+
 Our earlier four-mixture comparison identified an inconsistent LJ cutoff along the density-integration path and incompatible archived ion-transport estimates. The fixed-cutoff correction was material for absolute entropy but could not resolve species mobility. Here we replace the earlier transport evidence with a larger, independently replicated HNC-guided study, including an exact label-only null and physically diverse solvents at matched mean bare interaction amplitude. The original cutoff audit is retained in Appendix~\ref{app:cutoff}; its four-mixture transport and 2PT decompositions are not used in the present scaling analysis.
 
 We distinguish the particle-averaged self-diffusion $D_{\rm net}=\sum_i x_iD_i$ from mutual diffusion and conductivity. The divalent quantity is the average self-diffusion of the two probe signs, not motion of neutral ion pairs. The central tests are whether physical diversification raises MD excess entropy, whether the probes accelerate reproducibly, and whether their response is as strong as that of the mean fluid.
@@ -224,6 +226,26 @@ J. Phys.: Condens. Matter \textbf{11}, 5415 (1999).
 W.~P. Krekelberg, M.~J. Pond, G. Goel, V.~K. Shen, J.~R. Errington, and T.~M. Truskett,
 Phys. Rev. E \textbf{80}, 061205 (2009),
 \href{https://doi.org/10.1103/PhysRevE.80.061205}{doi:10.1103/PhysRevE.80.061205}.
+
+\bibitem{Rosenfeld1995}
+Y. Rosenfeld, E. Nardi, and Z. Zinamon,
+Phys. Rev. Lett. \textbf{75}, 2490 (1995),
+\href{https://doi.org/10.1103/PhysRevLett.75.2490}{doi:10.1103/PhysRevLett.75.2490}.
+
+\bibitem{Schmitt2025}
+S. Schmitt, H. Hasse, and S. Stephan,
+Nat. Commun. \textbf{16}, 2611 (2025),
+\href{https://doi.org/10.1038/s41467-025-57780-z}{doi:10.1038/s41467-025-57780-z}.
+
+\bibitem{Wang2023}
+Q. Wang \textit{et al.},
+Nat. Commun. \textbf{14}, 440 (2023),
+\href{https://doi.org/10.1038/s41467-023-36075-1}{doi:10.1038/s41467-023-36075-1}.
+
+\bibitem{He2026}
+L. He \textit{et al.},
+Mol. Syst. Des. Eng. \textbf{11}, 681 (2026),
+\href{https://doi.org/10.1039/D6ME00060F}{doi:10.1039/D6ME00060F}.
 
 \bibitem{Green1952}
 H.~S. Green,

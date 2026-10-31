@@ -15,7 +15,7 @@ python3 doc/generate_component_study_assets.py
 bash doc/build_pdfs.sh
 ```
 
-The build script accepts an optional document name (`paper_pre`, `entropy_theory`, `voronoi_entropy_work_plan`, or `entropy_diffusion_prior_work`) to rebuild one PDF; without arguments it builds the two manuscripts. The build script loads `texlive/20260310-GCC-13.2.0`. Run it on a configured cluster node if the local environment is slow or lacks the module.
+The build script accepts an optional document name (`paper_pre`, `entropy_theory`, `voronoi_entropy_work_plan`, `entropy_diffusion_prior_work`, or `md_pair_entropy_work_plan`) to rebuild one PDF; without arguments it builds the two manuscripts. The build script loads `texlive/20260310-GCC-13.2.0`. Run it on a configured cluster node if the local environment is slow or lacks the module.
 
 `voronoi_entropy_work_plan.tex` is a standalone handover plan for local Voronoi topology, chemical-neighborhood controls, comparison with TI and diffusion, and conditional cluster-entropy extrapolation. It includes the related electrolyte and graph-entropy references. Build it with `bash doc/build_pdfs.sh voronoi_entropy_work_plan`.
 
@@ -29,3 +29,19 @@ The approximately 5% controlled probe response is presented as provisional, incl
 ## Subsequent 2PT validation
 
 The completed rehabilitation tests are documented in [the 2PT report](../ComponentEntropyStudy_20261030/two_pt_rehabilitation/report.md). The corrected implementation passes internal/reference and label tests, but fails the study-wide quantitative TI benchmark. Both manuscripts now include `component_study_2pt.tex`, a generated controlled-increment table, the corrected entropy-validation figure, and a concluding assessment. The old 2PT tables remain excluded; the replicated MD/TI data are unchanged. The new assets use `two_pt_rehabilitation/summary.json` and `entropy_validation.pdf`.
+
+## Full-text assessment of He et al. (2026)
+
+The prior-work review now assesses the supplied `~/He2026.pdf` (10 pages, DOI `10.1039/D6ME00060F`), particularly section 2.2, equations 2–5 and figure 3 on journal pages 685–686. It distinguishes the selected Li-centered pair-entropy proxy from total TI entropy, reviews the four-formulation transport fit and causal controls, and updates the HNC/MD comparison. Supplementary information was not supplied or retrieved and remains an explicit audit limitation. The private source PDF is not copied into the repository.
+
+Source SHA-256: `be4efce4f955abc8b0e9a190593cf9b30bae9502ced66827cbd9afa4ec295c6c`.
+
+The prior-work review also compares the existing fine-grid HNC full-pair entropy with HNC total entropy. `hnc_pair_entropy_comparison.json` records the source summaries, state values and controlled contrasts. It preserves the distinction between this preliminary HNC comparison and a still-unperformed independent MD RDF/pair-entropy benchmark.
+
+## Completed independent MD pair-entropy study
+
+`../MDPairEntropyAssessment/results/report.md` documents the completed all-species MD RDF and pair-entropy analysis. The work used the existing 24 dense trajectories (eight mixtures, three replicas), plus 24 matched independent ideal-point controls; no new dynamics were required. The raw pair histograms were refined at short range after the initial bin-width sensitivity exceeded the planned resolution target. Results include finite-count normalization, jackknife bias correction and block sensitivity, radial/time/bin checks, species and pair-family allocations, TI comparison, HNC export/RDF checks, and separate +2/−2 diffusivity regressions. Slurm arrays 101032 and 101057 completed all tasks successfully.
+
+Numerical output and plots are in `../MDPairEntropyAssessment/results/`. The estimator and validation scripts are in `../MDPairEntropyAssessment/`; `protocol.json` records the analysis choices. The HNC RDF verification and representative MD/HNC RDF comparison are reproducible with `python MDPairEntropyAssessment/hnc_validation.py`; summary plots and tables are regenerated with `python MDPairEntropyAssessment/summarize.py`.
+
+The paper introduction now cites prior charged-mixture Rosenfeld scaling, generalized tracer scaling, mixture entropy-scaling work, and high-entropy electrolyte studies including the supplied He et al. (2026) article. The body includes generated MD pair-entropy state/contrast tables, an HNC/MD RDF figure, and an (s_2)-versus-TI figure. Pair entropy captures about 80--82% of state excess entropy and 79--82% of the controlled increments; the manuscript conclusions now state what would and would not change if only (s_2) were used.

@@ -1,0 +1,389 @@
+{
+  "scope": "Header-only inventory; no MD RDFs or pair entropies computed. Times as decoded by netCDF4 variable metadata.",
+  "trajectories": [
+    {
+      "case": "baseline_3C",
+      "replica": 1,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "baseline_3C",
+      "replica": 2,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "baseline_3C",
+      "replica": 3,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "mono_f010",
+      "replica": 1,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "mono_f010",
+      "replica": 2,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "mono_f010",
+      "replica": 3,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "weak_f030_e025",
+      "replica": 1,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "weak_f030_e025",
+      "replica": 2,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "weak_f030_e025",
+      "replica": 3,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "dispersion_split_d000",
+      "replica": 1,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "dispersion_split_d000",
+      "replica": 2,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "dispersion_split_d000",
+      "replica": 3,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "dispersion_split_d025",
+      "replica": 1,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "dispersion_split_d025",
+      "replica": 2,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "dispersion_split_d025",
+      "replica": 3,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "dispersion_split_d040",
+      "replica": 1,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "dispersion_split_d040",
+      "replica": 2,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "dispersion_split_d040",
+      "replica": 3,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "mono_weak_uniform6C",
+      "replica": 1,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "mono_weak_uniform6C",
+      "replica": 2,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "mono_weak_uniform6C",
+      "replica": 3,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "mono_weak_split7C",
+      "replica": 1,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "mono_weak_split7C",
+      "replica": 2,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    },
+    {
+      "case": "mono_weak_split7C",
+      "replica": 3,
+      "frames": 2001,
+      "atoms": 4000,
+      "first_time": 0.0,
+      "last_time": 1000.0000610351562,
+      "box_first": [
+        17.878070831298828,
+        17.878070831298828,
+        17.878070831298828
+      ],
+      "coordinate_variable": "unwrapped_coordinates",
+      "coordinate_dtype": "float32",
+      "bytes": 160161372
+    }
+  ]
+}

@@ -1,0 +1,310 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,longtable,array,microtype}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+\setlength{\emergencystretch}{2em}
+\title{Full Pair-Entropy Study from Existing MD Trajectories\\
+\large Protocol for the eight-mixture charged-fluid study}
+\author{EntropicFluids collaboration}
+\date{31 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+This protocol plans an independent MD determination of the complete all-species
+pair entropy $s_2$, selected probe-centered contributions, and their relationship
+to thermodynamic-integration (TI) entropy and self-diffusion. The primary study
+uses the existing eight compositions, three replicas each, at $T^*=2$ and
+$\rho^*=0.7$. All-particle positions permit extraction of every partial radial
+distribution function (RDF) without new MD. The main challenges are nonlinear
+histogram bias, rare ion-pair statistics, finite-size normalization, and radial
+convergence. The protocol defines checks and decision criteria before fitting
+entropy--diffusion relations. No new production simulations are submitted by
+this planning document.
+\end{abstract}
+
+\section{Questions, scope, and existing evidence}
+The primary question is whether replacing total excess entropy by full pair
+entropy preserves the conclusions of our replicated MD study. Secondary
+questions are whether the remainder $s_{\rm ex}^{\rm TI}-s_2^{\rm MD}$ changes
+with physical solvent diversification, and whether ion-centered structural
+contributions explain probe mobility better than the solvent-dominated bulk
+sum. Rosenfeld-type scaling~\cite{Rosenfeld1977} and its mixture/tracer
+extensions~\cite{Krekelberg2009} motivate these tests, but no universal relation
+is assumed. The local pair statistic described by He et al.~\cite{He2026}
+motivates a separate selected-pair comparison; it is not interchangeable
+with the full mixture entropy.
+
+Use all eight states B3, B5, U4, L5, M5, H5, U6, and H7, with three replicas
+per state. All contain 120 particles of each divalent sign, out of $N=4000$.
+Exact compositions and type definitions are in
+\path{ComponentEntropyStudy_20261030/selected.json}; the composition tables
+are reproduced in the existing reports. The primary contrasts are L5--U4
+(label null), M5--U4 and H5--U4 (moderate and strong solvent diversification),
+H7--U6 (diversification with monovalent background), and B5--B3 (salt addition).
+Broad baseline-to-design comparisons are secondary.
+
+Existing HNC outputs preserve the same qualitative ordering for full pair
+and total entropy. For H5--U4 and H7--U6, HNC pair increments are about
+$0.075k_B$ versus total HNC increments near $0.111k_B$. These preliminary
+numbers are recorded in \path{doc/hnc_pair_entropy_comparison.json}.
+They are hypotheses for an MD test, not MD pair-entropy measurements.
+The completed diffusion estimates, including the provisional approximately
+5\% controlled probe response, remain unchanged by this analysis.
+
+\section{Input data and feasibility}
+Each dense production trajectory is located under the study directory at
+\begin{quote}\small
+\path{md/<case>/replica_<r>/transport/positions.nc}.
+\end{quote}
+The files contain all-particle \path{unwrapped_coordinates}, IDs, types,
+frame times, cell origins, lengths, and angles. A header inventory is stored
+in \path{doc/md_pair_entropy_trajectory_inventory.json}. The standard record
+has 2001 frames, $N=4000$, and positions every $0.5\tau$ over $1000\tau$.
+The cubic box length is approximately $17.878\sigma$, giving a maximum
+complete spherical radius of approximately $8.939\sigma$.
+
+Use these position records, not the velocity files: the latter contain only
+subsets of neutral species. Resolve types and charges against the immutable
+input \path{transport/data.mixture}, \path{selected.json}, and replica
+manifest. Check frame IDs and sorting explicitly. Read time scale factors
+and box metadata through the NetCDF interface rather than assuming raw
+array values are already physical times.
+
+Primary structural averages use the final $500\tau$ of dense production,
+matching the TI averaging interval at the dense endpoint. Analyze the full
+$1000\tau$ and its two halves as stationarity/sampling sensitivities. First
+benchmark 20 frames from one replica of B3 and H7; then process all replicas
+with matched frame counts. Increase from 50 to 100, 200, 500, and, where
+needed, all approximately 1001 frames in the final half. All particles are
+retained; only frame thinning is allowed in the initial sampling pilot.
+
+A direct $N=4000$ calculation has 7,998,000 unordered pairs per frame.
+Full-frame analysis across 24 replicas therefore requires substantial
+postprocessing despite requiring no new dynamics. Measure time, memory,
+and I/O in the pilot before selecting CPU allocation or an offline GPU
+implementation. Stream coordinates and accumulate histograms in a compiled
+pair-distance kernel; avoid storing all distances or loading every trajectory
+at once. Parallelize independent replicas within measured resource limits.
+Do not rerun forces or electrostatics merely to obtain distance histograms.
+
+\section{RDF estimation and finite-system conventions}
+Wrap positions into the periodic box and calculate minimum-image separations.
+This is a static observable, so no COM subtraction is needed. Only the
+subsequent transport comparison uses the established common-system COM frame.
+Exclude self-pairs and count each physical pair once.
+
+For a bin $[r_k,r_{k+1})$, use its exact spherical shell volume
+\begin{equation}
+\Delta V_k=\frac{4\pi}{3}(r_{k+1}^3-r_k^3).
+\end{equation}
+If $H_{ab,k}$ is the unordered histogram accumulated over $F$ frames of a
+fixed-volume system, define the ideal-normalized finite-system RDF as
+\begin{equation}
+g_{ab,k}=\frac{H_{ab,k}}{F M_{ab}\Delta V_k/V},\qquad
+M_{ab}=\begin{cases}N_aN_b,&a\ne b,\\
+N_a(N_a-1)/2,&a=b.\end{cases}
+\end{equation}
+This convention gives unity in expectation for ideal random positions at
+fixed species counts. Document any conversion to the alternative bulk-density
+normalization, especially for small ionic populations. Do not let a diagonal
+$1-1/N_a$ offset accumulate as an apparent long-range entropy contribution.
+If the box varies, accumulate the frame-dependent ideal counts explicitly;
+our intended records are constant-volume and must be checked as such.
+
+Compute bins from zero to a common radius below the smallest half-box length.
+Use $\Delta r=0.02\sigma$ initially, with $0.01$, $0.04$, and where useful
+$0.08\sigma$ as resolution checks. Do not extend the spherical normalization
+beyond half the box. Record both raw counts and normalized RDFs, including
+metadata and counts for every species pair. Do not average RDFs from different
+replicas before estimating replica uncertainty.
+
+Mechanically identical secondary solvents in L5 must be merged for the primary
+physical-species calculation. Independently process an explicitly label-resolved
+version as a diagnostic. Nonlinear entropy estimates from noisy, subdivided
+histograms need not be exactly label invariant even when interactions are;
+merging the counts before estimating the physical RDF avoids that artifact.
+Check actual U4/L5 positional identity by ID, and also perform an exact
+synthetic split/merge on the same snapshots.
+
+\section{Entropy integrals and pair decomposition}
+For $I_{ab}(R)=\int_0^R\phi(g_{ab}(r))r^2\,dr$, where
+$\phi(g)=g\ln g-g+1$, calculate the full pair entropy
+\begin{equation}
+\frac{s_2(R)}{k_B}=-2\pi\rho\sum_{ab}x_ax_b I_{ab}(R).
+\end{equation}
+The sum is over ordered species pairs. With an unordered pair list, store
+\begin{equation}
+C_{aa}=-2\pi\rho x_a^2 I_{aa},\qquad
+C_{ab}=-4\pi\rho x_ax_b I_{ab}\quad(a<b),
+\end{equation}
+so that $s_2/k_B=\sum_{a\le b}C_{ab}$. This makes the cross-pair factor of two
+explicit. For histogram RDFs, integrate using exact radial bin weights
+$(r_{k+1}^3-r_k^3)/3$ rather than an inconsistent midpoint volume.
+At $g=0$, use $g\ln g=0$ and $\phi(0)=1$; do not discard empty core bins or
+apply an arbitrary density floor.
+
+Store full cumulative integrals and decompose them into neutral--neutral,
+neutral--ion, ion--ion, divalent-containing, and monovalent-containing pairs.
+Categories must be defined without overlap when their sum is compared with
+the total. A useful additional species-centered allocation is
+\begin{equation}
+\frac{s_2^{(a)}}{k_B}=-2\pi\rho\sum_bx_b I_{ab},\qquad
+s_2=\sum_ax_as_2^{(a)}.
+\end{equation}
+These are structural allocations, not partial molar entropy derivatives.
+Report $+2$ and $-2$ separately and their equal-population average.
+
+Define selected probe metrics carefully. The weighted central-probe allocation
+$\sum_{a\in\{+2,-2\}}x_as_2^{(a)}$ counts a probe--neutral term once in
+the ordered sum, whereas the union of all unordered pairs involving a probe
+contains both ordered directions of that cross term. They are distinct
+observables. Report both with explicit definitions rather than calling both
+local excess entropy. Compare them to the full sum and to the He et al.
+selected-pair construction only after resolving its normalization.
+
+\section{Bias, radial convergence, and mandatory validation}
+The function $\phi(g)$ is convex. Histogram noise therefore creates a negative
+bias in $s_2$, particularly in sparsely populated ionic bins and nominally flat
+tails. A small statistical error bar does not eliminate this systematic bias.
+Use a pooled RDF within each replica for the primary estimate: the entropy of
+the pooled RDF and the mean of entropies of small-block RDFs are different
+estimators. Blocks diagnose uncertainty and sample-size bias; the latter mean
+is not substituted silently for the former.
+
+Required checks are:
+\begin{enumerate}
+\item Independent ideal random-point samples, with the same box, counts,
+frame counts, binning, and normalization. The expectation of the RDF is one,
+but the plug-in entropy is generally negatively biased at finite sample size.
+Quantify this bias instead of assuming the observed ideal-gas entropy is zero.
+Do not subtract its measured bias from interacting data without validation.
+\item A small-frame independent direct-distance/histogram cross-check;
+translation, atom-order and type-code invariance; RDF symmetry;
+self-pair exclusion; exact pair-count bookkeeping; and recovery of the
+single-species formula when physical species are merged.
+\item Nonpositivity of every converged pair contribution, correct hard-core
+integration, total/species allocation additivity, and the exact synthetic
+label split/merge null. Statistical differences of label-resolved plug-in
+estimates must not be interpreted as physical entropy changes.
+\item Sample-count and bin-width convergence, raw rare-bin counts, first/second
+half stationarity, and effective correlation times. More closely spaced frames
+are not automatically independent configurations.
+\item Cumulative entropy curves $s_2(R)$ and pair-resolved tails. Compare
+$R=4,5,6,7,8\sigma$ and the allowed maximum, with particular attention to ionic
+pairs and the small controlled increments. Do not set $g=1$ beyond a chosen
+radius merely to force a plateau.
+\end{enumerate}
+
+An optional smooth or fitted tail must be fixed independently of TI or diffusion,
+validated on held-out radii, and reported separately from the directly sampled
+integral. HNC can guide a tail sensitivity but cannot serve as independent
+MD confirmation. If no radial plateau is resolved within the box, report a
+truncated $s_2(R)$ with a systematic limitation and plan a larger box.
+Also compare plausible finite-system RDF normalization conventions; an
+ideal-normalized RDF does not remove all finite-size effects in correlations.
+
+\section{Statistical analysis and comparison with TI and diffusion}
+Produce one converged estimate per independent replica. Use paired composition
+contrasts across the three matched replica indices, with nominal 95\%
+Student-$t$ intervals and two degrees of freedom, consistent with the current
+study. Within-replica block resampling or a validated block jackknife can
+quantify histogram uncertainty and bias, but cannot create additional MD
+replicas. Correlated frame or pair counts are not the sample size for the
+between-replica confidence interval. Retain covariance when comparing TI and
+$s_2$ from the same replica.
+
+The main thermodynamic outputs are $s_2^{\rm MD}$, $s_{\rm ex}^{\rm TI}$,
+$r_{\ge3}=s_{\rm ex}^{\rm TI}-s_2^{\rm MD}$, and their paired increments.
+Interpret $r_{\ge3}$ as the residual beyond the pair approximation under
+matched conventions; unresolved RDF, TI, finite-size, and tail errors also
+enter it. Evaluate $s_2/s_{\rm ex}$ only with uncertainty and a common
+normalization. Do not impose a 90\% pair fraction. Compare HNC and MD RDFs
+and $s_2$ at the same density, temperature, charges, composition, and potential
+convention; verify the input LJ shift/cutoff and numerical radial conventions.
+Do not mix HNC $s_2$ with MD total entropy when estimating the MD residual.
+
+For dynamics retain the existing primary 20--100$\tau$ MSD fitting window,
+with 10--50 and 50--200$\tau$ checks. Compare $\ln D^{\rm R}$ with full TI
+entropy, full MD $s_2$, and the predefined probe metrics. Use
+$D_i^{\rm R}=D_i\rho^{1/3}\sqrt{m_i/(k_BT)}$, with total number density.
+Assess mean self-diffusion $\sum_ix_iD_i$, each divalent sign, and the pooled
+probe mean separately. These are not conductivity or mutual diffusion.
+
+Exclude L5 from regression counts; fit fixed-ionic-strength composition families
+separately. With only seven physical states, restrict initial models to one
+entropy coordinate plus an intercept, show residuals and paired contrasts,
+and use leave-one-state-out or cross-background prediction. Uncertainty in
+both entropy and diffusion and sensitivity to individual states must be shown.
+A high $R^2$ from a few composition means is not evidence of a universal law.
+No RDF smoothing, radius, or structural definition is selected to maximize
+agreement with diffusion.
+
+\section{Execution stages, decisions, and deliverables}
+\begin{longtable}{@{}p{0.23\textwidth}p{0.71\textwidth}@{}}
+\toprule
+Stage & Work and decision\\
+\midrule
+\endhead
+A: inventory/pilot & Verify all 24 files, IDs, physical species, time windows,
+and boxes. Benchmark B3 and H7, establish a tested histogram kernel, and pass
+ideal-gas and synthetic-label checks before full processing.\\[3pt]
+B: all-pair RDFs & Process all eight states and three replicas. Increase frame
+counts and vary bins/radii until the selected contrasts are stable or a
+sampling limitation is demonstrated. Preserve histograms for reanalysis.\\[3pt]
+C: entropy benchmark & Compare MD $s_2$ and selected contributions with TI and
+HNC. Proposed practical targets are a 95\% half-width below $0.005k_B$ for
+controlled entropy increments and bin/frame/radial sensitivity below
+$0.002k_B$. These are design goals, not guarantees or a formal equivalence test.\\[3pt]
+D: transport assessment & Test whether entropy ordering, controlled contrasts,
+and descriptive diffusion relationships survive replacement of TI by pair
+entropy. Changing an entropy estimator does not resolve the existing uncertain
+5\% probe diffusion response.\\[3pt]
+E: conditional new MD & If sampling is limiting, extend dense records or add
+replicas. If radial/finite-size errors dominate, compare a second size, for
+example $N=8000$ at the same state and fractions, using the same physical LJ
+potential and controlled electrostatic accuracy. Submit only after a separate
+execution decision; no new jobs are required for the initial extraction.\\
+\bottomrule
+\end{longtable}
+
+The dense trajectories suffice for the primary entropy--diffusion question.
+Positions at all 19 TI densities are not established as available: the
+production writer records all-particle position trajectories at the dense
+transport stage. A density-dependent $s_2(\rho)$ extension therefore requires
+an inventory of any additional stored configurations or new sampling.
+Prioritize a few representative densities for B3, U4, H5, U6, and H7 only if
+the dense benchmark indicates a scientific need. Higher concentration and
+size/charge asymmetry are later transfer studies, not prerequisites for the
+current all-pair calculation.
+
+Write a separate analysis directory, for example
+\path{MDPairEntropyAssessment/}, containing a protocol/configuration file,
+source and trajectory checksums, software versions, per-replica raw pair
+counts and RDFs, cumulative pair integrals, full and selected $s_2$ values,
+noise/tail/bin/frame checks, paired contrast intervals, TI residuals, and
+transport-comparison plots. Preserve machine-readable CSV/JSON summaries
+and the exact frame manifest. The final report should explicitly decide
+whether pair entropy changes the qualitative conclusions, quantitative
+increments, or species-versus-bulk interpretation, and identify any questions
+that remain unresolved rather than forcing agreement with the HNC expectation.
+
+\begin{thebibliography}{9}
+\small
+\bibitem{Rosenfeld1977}
+Y. Rosenfeld, \textit{Phys. Rev. A} \textbf{15}, 2545--2549 (1977).
+\href{https://doi.org/10.1103/PhysRevA.15.2545}{doi:10.1103/PhysRevA.15.2545}.
+\bibitem{Krekelberg2009}
+W. P. Krekelberg et al., ``Generalized Rosenfeld scalings for tracer diffusivities
+in not-so-simple fluids: Mixtures and soft particles,'' \textit{Phys. Rev. E}
+\textbf{80}, 061205 (2009).
+\href{https://doi.org/10.1103/PhysRevE.80.061205}{doi:10.1103/PhysRevE.80.061205}.
+\bibitem{He2026}
+L. He et al., ``Bridging thermodynamics and ion transport in lithium batteries
+via molecular design of high-entropy electrolytes,''
+\textit{Molecular Systems Design \& Engineering} \textbf{11}, 681--690 (2026).
+\href{https://doi.org/10.1039/D6ME00060F}{doi:10.1039/D6ME00060F}.
+See the full-text assessment in \path{doc/entropy_diffusion_prior_work.tex}.
+\end{thebibliography}
+\end{document}

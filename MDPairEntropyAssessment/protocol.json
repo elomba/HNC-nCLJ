@@ -1,0 +1,61 @@
+{
+  "created_utc": "2026-10-31T13:02:30.601634+00:00",
+  "base_commit": "df22f7a643178753614252e551b1fa1ef301b75c",
+  "primary": "Raw entropy from pooled, ideal-normalized RDFs; no fitting to TI or transport. Each independent replica remains separate.",
+  "n_replicas": 24,
+  "density": 0.7,
+  "temperature": 2.0,
+  "n_particles": 4000,
+  "fine_dr": 0.01,
+  "nbins": 888,
+  "rmax": 8.88,
+  "primary_dr": 0.02,
+  "primary_frames": "1001..2000 inclusive (1000 frames, approximately times 500.5..1000 tau); exclude the initial time-zero endpoint.",
+  "half_stationarity": "early frames 1..1000 vs late frames 1001..2000; full frames 1..2000",
+  "sensitivities": {
+    "dr": [
+      0.01,
+      0.02,
+      0.04,
+      0.08
+    ],
+    "rmax": [
+      4.0,
+      5.0,
+      6.0,
+      7.0,
+      8.0,
+      8.88
+    ],
+    "late_frame_counts": [
+      50,
+      100,
+      200,
+      500,
+      1000
+    ],
+    "jackknife_blocks": [
+      10,
+      20,
+      40
+    ],
+    "normalization": [
+      "ideal",
+      "bulk"
+    ]
+  },
+  "bias_correction": "Delete-equal-block jackknife sensitivity; primary block count 20. Report raw and corrected estimates. Validate against independent ideal point ensembles and sample-count convergence, not closeness to TI.",
+  "ideal_ensembles": "One independent 2001-frame random-point record for every case/replica; same type counts and box; seed 731000+job_index; same pipeline and windows.",
+  "physical_label_groups": "Merge species sharing q,epsilon,mass,sigma before estimating primary RDF entropy. Retain label-resolved sensitivity.",
+  "precision_targets": {
+    "controlled_increment_95CI_half_width": 0.005,
+    "bin_frame_radial_sensitivity": 0.002
+  },
+  "no_new_MD": "Existing trajectories only. Manuscripts remain untouched while this study runs.",
+  "resolution_refinement": {
+    "recorded_utc": "2026-10-31T13:15:04.290070+00:00",
+    "trigger": "Initial B3 mean jackknife-corrected .01 vs .02 bin difference .002752 kB, above .002 practical resolution target. U4 difference .002389 kB. This is a bin-resolution criterion, not a TI comparison.",
+    "action": "All 24 MD and matched ideal controls: extract dr=.0025 to R=3.2 on the 1000 late frames. Combine refined core with original measured dr=.01 outer RDF to R=8.88. Rebin core to .005/.01/.02/.04/.08 and apply identical block checks.",
+    "reporting": "Keep original raw .02 result; report .005-core/.01-tail jackknife sensitivity with .0025-core check. No smoothing, fitted tail, or tuning against TI or D."
+  }
+}

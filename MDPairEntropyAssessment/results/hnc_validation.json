@@ -1,0 +1,58 @@
+{
+  "B3": {
+    "hnc_name": "baseline_3C",
+    "stored_s2": -1.5706,
+    "rdf_integrated_s2": -1.5706147611327648,
+    "difference": -1.4761132764773421e-05,
+    "rdf_file": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/hnc/fine/baseline_3C/RDFhncr.dat"
+  },
+  "B5": {
+    "hnc_name": "mono_f010",
+    "stored_s2": -1.5731,
+    "rdf_integrated_s2": -1.5731044115659147,
+    "difference": -4.411565914796967e-06,
+    "rdf_file": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/hnc/fine/mono_f010/RDFhncr.dat"
+  },
+  "U4": {
+    "hnc_name": "weak_f030_e025",
+    "stored_s2": -1.3947,
+    "rdf_integrated_s2": -1.3946904087697418,
+    "difference": 9.591230258232386e-06,
+    "rdf_file": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/hnc/fine/weak_f030_e025/RDFhncr.dat"
+  },
+  "L5": {
+    "hnc_name": "dispersion_split_d000",
+    "stored_s2": -1.3947,
+    "rdf_integrated_s2": -1.3946904087697425,
+    "difference": 9.591230257566252e-06,
+    "rdf_file": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/hnc/fine/dispersion_split_d000/RDFhncr.dat"
+  },
+  "M5": {
+    "hnc_name": "dispersion_split_d025",
+    "stored_s2": -1.3721,
+    "rdf_integrated_s2": -1.3720514796268433,
+    "difference": 4.8520373156835106e-05,
+    "rdf_file": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/hnc/fine/dispersion_split_d025/RDFhncr.dat"
+  },
+  "H5": {
+    "hnc_name": "dispersion_split_d040",
+    "stored_s2": -1.3197,
+    "rdf_integrated_s2": -1.3196811291720931,
+    "difference": 1.8870827906969367e-05,
+    "rdf_file": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/hnc/fine/dispersion_split_d040/RDFhncr.dat"
+  },
+  "U6": {
+    "hnc_name": "mono_weak_uniform6C",
+    "stored_s2": -1.3973,
+    "rdf_integrated_s2": -1.3972469844187605,
+    "difference": 5.301558123949057e-05,
+    "rdf_file": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/hnc/fine/mono_weak_uniform6C/RDFhncr.dat"
+  },
+  "H7": {
+    "hnc_name": "mono_weak_split7C",
+    "stored_s2": -1.3222,
+    "rdf_integrated_s2": -1.3222264352375994,
+    "difference": -2.6435237599375938e-05,
+    "rdf_file": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/hnc/fine/mono_weak_split7C/RDFhncr.dat"
+  }
+}
