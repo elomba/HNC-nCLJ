@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **HNC numerical regression test**: `make test` now runs the 3-component solver in a temporary directory and checks thermodynamics, RDF, and structure factors against current references, while retaining historical structure checks against `baseline_results/`.
 - **Agent configuration**: `AGENTS.md` (shared guidance for Codex and Claude Code), `CLAUDE.md` importing it, and the `/rebuild-manuscript` Claude Code skill (`.claude/skills/rebuild-manuscript/`).
 - **Python linting**: correctness-focused `ruff.toml` for the study and analysis scripts.
 

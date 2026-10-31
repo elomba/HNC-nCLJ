@@ -139,6 +139,11 @@ To run the automated validation test:
 ```bash
 make test
 ```
+This runs the solver in a temporary directory and compares thermodynamics, RDF,
+and structure factors with `tests/reference/`. It also checks the 3-component
+structure against the historical `baseline_results/` data. After an intentional,
+explained numerical change, regenerate the current references with
+`python3 tests/regression.py --update-reference`.
 
 To clean build artifacts:
 ```bash

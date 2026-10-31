@@ -31,6 +31,11 @@ log.lammps
 
 # Keep reference baseline, doc, and example files
 !baseline_results/
+!tests/reference/
+!tests/reference/*/
+!tests/reference/*/Thermohncr.dat
+!tests/reference/*/RDFhncr.dat
+!tests/reference/*/skhnc.dat
 !examples/
 !5C/datosLJ.hncr
 !5C/Thermohncr.dat

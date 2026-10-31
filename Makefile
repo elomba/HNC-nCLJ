@@ -107,9 +107,7 @@ $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
 test: all
-	@echo "Running test calculation with datosLJ.hncr..."
-	@$(BIN_DIR)/$(TARGET) datosLJ.hncr
-	@echo "Test completed successfully."
+	python3 tests/regression.py
 
 clean:
 	rm -rf $(OBJ_DIR) *.mod
@@ -122,6 +120,6 @@ help:
 	@echo "Usage:"
 	@echo "  make              - Build optimized release executable (bin/hncr_nclj)"
 	@echo "  make MODE=debug   - Build with debugging flags and runtime checks"
-	@echo "  make test         - Run test calculation with sample input"
+	@echo "  make test         - Run numerical regression checks in temporary directories"
 	@echo "  make clean        - Remove object and module files"
 	@echo "  make distclean    - Remove build artifacts, binaries, and calculation outputs"
