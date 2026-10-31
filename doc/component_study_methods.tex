@@ -1,0 +1,60 @@
+% Shared methods for the replicated study in both manuscripts.
+\section{HNC-Guided Replicated Molecular Dynamics Study}
+\label{sec:new_study}
+
+\subsection{Composition Design and Controls}
+
+The new study tests whether adding physically distinct components can raise excess entropy and accelerate unchanged divalent probes. All selected mixtures have $x_{+2}=x_{-2}=0.03$, equal masses and nominal diameters, $T^*=2$, and target density $\rho^*=0.7$. Table~\ref{tab:new_compositions} defines the eight states. B3 and B5 reproduce the compositions of the original three-component and monovalent-background five-component baselines. The new solvent mixtures contain 30\% secondary neutral material, rather than the 5\% used in the earlier four-component dispersion comparison; they are distinct physical states.
+
+\input{component_study_compositions}
+
+Thirty-five integer-charge, mole-fraction, and dispersion candidates were screened with HNC on 2048 radial points with $\Delta r=0.01\sigma$. All converged. The eight selected candidates were refined on 4096 points with $\Delta r=0.005\sigma$. Their excess entropies agree with the coarse results at the reported $10^{-4}k_B$ precision. The first 20 sampled low-wavevector structure-factor matrices were positive for these states; this is a screening diagnostic, not a proof of phase stability. Charge-only candidates did not provide the desired large positive excess-entropy signal, so the replicated MD effort concentrates on solvent diversification and the original salt-addition comparison.
+
+U4 contains one secondary neutral solvent with $\varepsilon=0.25$. L5 splits that solvent into equal populations of mechanically identical labels. M5 and H5 instead split it into two physically distinct solvents with respective $\varepsilon$ pairs $(0.0625,0.5625)$ and $(0.01,0.81)$. Under geometric mixing, all four states have
+\begin{equation}
+\sum_i x_i\sqrt{\varepsilon_i}=0.85,\qquad
+\sum_{ij}x_ix_j\varepsilon_{ij}=0.85^2=0.7225.
+\label{eq:matched_amplitude}
+\end{equation}
+Their ion fraction, ionic strength, nominal sizes, and masses are also identical. U6/H7 repeat the uniform/diverse comparison with 5\% of each monovalent sign, retaining the same mean bare pair amplitude. Equation~\eqref{eq:matched_amplitude} does not fix actual potential energy, local solvation, effective excluded volume, or friction: the distribution of interactions still changes. H5/H7 are deliberately strong model perturbations, while M5 is a moderate counterpart.
+
+\subsection{Simulation and Entropy Integration}
+
+LAMMPS simulations~\cite{Plimpton1995} use $N=4000$, including 120 probes of each divalent sign. Each composition has three independent replicas, with seeds 64123, 76237, and 91817. Within each replica index, compositions share initial particle positions and probe identities, enabling paired comparisons. Species assignments are random on a perturbed cubic lattice, followed by energy minimization. All particles are integrated with a single Nos\'e--Hoover $NVT$ thermostat, damping time $0.1\tau$, and timestep $0.002\tau$.
+
+Each replica covers 19 densities:
+\begin{align}
+\rho^*={}&0.001,0.0025,0.005,0.01,0.02,0.05,\nonumber\\
+&0.10,0.15,0.20,0.25,0.30,0.35,\nonumber\\
+&0.40,0.45,0.50,0.55,0.60,0.65,0.70.
+\end{align}
+Every state uses the same LJ potential, cut and shifted at $2.5\sigma$, with no tail correction. PPPM accuracy is $10^{-5}$; the real-space Coulomb cutoff is $5(0.7/\rho^*)^{1/3}\sigma$, below half the box length. Only the numerical electrostatic splitting changes with density. It must be distinguished from a change in the LJ Hamiltonian, which invalidated the original density-integration path. The Coulomb energy prefactor is one, giving $\lambda_B/\sigma=0.5$ at $T^*=2$.
+
+The 18 lower-density stages use 50\,000 equilibration and 100\,000 production steps each. At $\rho^*=0.7$, 100\,000 equilibration steps precede 500\,000 production steps ($1000\tau$); this transport run supplies the final thermodynamic point. All 24 allocations and 456 state stages completed and passed output verification.
+
+Entropy integration uses the final half of production at each density. The default all-particle temperature has $3N-3$ kinetic degrees of freedom after removal of global momentum. In reduced units, the configurational pressure reference is
+\begin{equation}
+Z_{\rm ref}=1+\frac{\langle P\rangle-\rho(1-1/N)\langle T\rangle}{\rho T_0},\qquad T_0=2.
+\label{eq:config_pressure}
+\end{equation}
+Subtracting the sampled kinetic contribution and restoring the analytic ideal term removes its finite-$N$ offset and sampling noise from the excess EOS. It does not remove finite-size effects in configurational correlations.
+
+For $a_{\rm ex}=A_{\rm ex}/(Nk_BT_0)$, define $y=\sqrt{\rho^*}$ and integrate
+\begin{equation}
+a_{\rm ex}(\rho^*)=\int_0^{\sqrt{\rho^*}}\frac{2[Z_{\rm ref}(y^2)-1]}{y}\,dy.
+\label{eq:new_ti}
+\end{equation}
+The Debye--H\"uckel endpoint is finite in this variable:
+\begin{equation}
+F(0)=-\frac{[4\pi\lambda_B^*\sum_i x_iq_i^2]^{3/2}}{12\pi}.
+\label{eq:new_endpoint}
+\end{equation}
+A cubic spline through this endpoint and the simulated densities gives $a_{\rm ex}$, followed by $s_{\rm ex}/k_B=\langle U_{\rm ex}\rangle/(Nk_BT_0)-a_{\rm ex}$. Shape-preserving interpolation and alternative production-averaging windows test sensitivity. The ideal reference is always the ideal mixture at the same composition; its mixing entropy is excluded from $s_{\rm ex}$.
+
+\subsection{Transport Estimators and Replica Uncertainty}
+
+Unwrapped particle positions are recorded every $0.5\tau$ for the full dense production run. The same whole-system center-of-mass displacement is subtracted from every particle. Multiple time origins, approximately 200 per lag, provide species MSDs out to $250\tau$. A linear slope divided by six over 20--100$\tau$ is primary; 10--50$\tau$ and 50--200$\tau$ are sensitivity windows. At every lag and for the fitted coefficients, $D_{\rm net}=\sum_i x_iD_i$ is checked. Since both probe populations are equal, $D_{\rm probe}=(D_{+2}+D_{-2})/2$; this is a mean self-diffusion coefficient, not diffusion of a neutral bound pair.
+
+Velocities sampled every $0.01\tau$ during the final $100\tau$ permit species VACF/Green--Kubo checks, using the recorded whole-system COM velocity. All ionic velocities and up to 200 representative particles of each neutral species are retained. Integrals at 5 and $10\tau$ are diagnostics; the short velocity record does not establish a precise long-time plateau. Low-wavevector concentration fluctuations are monitored as a homogeneity diagnostic.
+
+Uncertainty comes from independent replicas, not overlapping MSD origins. Absolute-state intervals use Student-$t$ statistics across three replicas. Composition effects use paired entropy differences and paired $\ln(D_a/D_b)$, with nominal 95\% intervals and two degrees of freedom. Percent changes and interval endpoints are obtained by exponentiation. No multiple-comparison correction is applied; finite-size and estimator bias are outside these intervals. L5 is an exact mechanical duplicate of U4 and is never counted as another independent state in scaling fits.

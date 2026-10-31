@@ -1,0 +1,25 @@
+{
+  "primary": "classical signed R2PT, partition exponent delta=1, Gaussian VACF taper tau=10, equal partial volumes 1/rho",
+  "density": 0.7,
+  "temperature": 2.0,
+  "independent_replicas_per_state": 3,
+  "systems": "all eight completed compositions, 24 existing trajectories",
+  "mechanical_label_handling": "merge exactly identical mechanical species before estimating entropy; retain per-label diagnostic for L5",
+  "velocity_sampling": "all retained ions; first 200 retained IDs per distinct neutral interaction; same IDs in U4/L5 null",
+  "spectral_estimator": "full biased finite-record autocorrelation, optional Gaussian taper, cosine transform through Nyquist, explicit equipartition normalization by C(0)",
+  "window_sensitivity_tau": [3,5,10,20,null],
+  "time_segments": ["full_100tau","first_50tau","last_50tau"],
+  "partition_exponent_sensitivity": [1,1.5],
+  "entropy_reference": "classical ideal mixture at same total density, temperature and composition; arbitrary h cancels; no quantum correction",
+  "reference_volume_sensitivity": "volume-conserving +/-10% changes in probe or secondary-solvent partial volume, purely a model stress test",
+  "no_fitting_to_TI": true,
+  "practical_validation_thresholds": {
+    "exact_mode_count_reconstruction_and_reference_tests": 1e-10,
+    "mean_absolute_entropy_bias_kB": 0.05,
+    "mean_controlled_increment_bias_kB": 0.02,
+    "mean_spectral_D_vs_MSD_relative_difference": 0.05,
+    "mean_entropy_span_tau5_10_20_kB": 0.02
+  },
+  "statistical_intervals": "nominal 95% paired-replica Student-t intervals, df=2; halves and overlapping origins are sensitivities, not independent replicas",
+  "scope_limit": "equal-partial-volume mixture approximation is tested, not asserted exact for these electrolytes; signed residual is R2PT bookkeeping, not a nonnegative physical mode population"
+}

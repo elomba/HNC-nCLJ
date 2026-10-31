@@ -1,0 +1,66 @@
+[
+  {
+    "name": "baseline_3C",
+    "MSD_max_absolute_difference": 4.875651123281699e-06,
+    "velocity_particles": 440,
+    "coordinate_frames": 5,
+    "velocity_frames": 201,
+    "low_density_and_dense_passed": true
+  },
+  {
+    "name": "mono_f010",
+    "MSD_max_absolute_difference": 4.761110109274824e-06,
+    "velocity_particles": 840,
+    "coordinate_frames": 5,
+    "velocity_frames": 201,
+    "low_density_and_dense_passed": true
+  },
+  {
+    "name": "weak_f030_e025",
+    "MSD_max_absolute_difference": 3.89504777476013e-06,
+    "velocity_particles": 640,
+    "coordinate_frames": 5,
+    "velocity_frames": 201,
+    "low_density_and_dense_passed": true
+  },
+  {
+    "name": "dispersion_split_d000",
+    "MSD_max_absolute_difference": 4.7579024426980254e-06,
+    "velocity_particles": 840,
+    "coordinate_frames": 5,
+    "velocity_frames": 201,
+    "low_density_and_dense_passed": true
+  },
+  {
+    "name": "dispersion_split_d025",
+    "MSD_max_absolute_difference": 4.4775529044471796e-06,
+    "velocity_particles": 840,
+    "coordinate_frames": 5,
+    "velocity_frames": 201,
+    "low_density_and_dense_passed": true
+  },
+  {
+    "name": "dispersion_split_d040",
+    "MSD_max_absolute_difference": 4.7596825545337396e-06,
+    "velocity_particles": 840,
+    "coordinate_frames": 5,
+    "velocity_frames": 201,
+    "low_density_and_dense_passed": true
+  },
+  {
+    "name": "mono_weak_uniform6C",
+    "MSD_max_absolute_difference": 4.692546079709814e-06,
+    "velocity_particles": 1040,
+    "coordinate_frames": 5,
+    "velocity_frames": 201,
+    "low_density_and_dense_passed": true
+  },
+  {
+    "name": "mono_weak_split7C",
+    "MSD_max_absolute_difference": 4.602960670396783e-06,
+    "velocity_particles": 1240,
+    "coordinate_frames": 5,
+    "velocity_frames": 201,
+    "low_density_and_dense_passed": true
+  }
+]

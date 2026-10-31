@@ -1,0 +1,21 @@
+{
+  "completed_utc": "2026-10-31T10:40:56.314099+00:00",
+  "existing_trajectories_analyzed": 24,
+  "new_MD_jobs_submitted": 0,
+  "archived_implementation_sha256": {
+    "lammps_study/two_pt_analysis/run_multisystem_2pt.py": "b242a92879afbe62555fa4139106478702708dc52d1a9418e900290fd6d91f9a",
+    "lammps_study/two_pt_analysis/analyze_extended_2pt.py": "bf251fdc6a0701ad3646a26afa57dd6a379b9a180350bf519d8044854b54101b",
+    "lammps_study/two_pt_analysis/two_pt_calculator.py": "e92c8d886c68eac07fec2b4d1a74766f49488929f98f4226036b9e96063dd7c8"
+  },
+  "protocol_sha256": "b5f5023c1383f6173065572510f34a40681c8ab22857b6728c3e867be97dafaf",
+  "literature_pdf_sha256": "53b439f2eb706614b165b5dc1f027281f31afd89287cd262da719c7fdd0995ab",
+  "literature_pdf_url": "https://arxiv.org/pdf/1711.02041",
+  "raw_trajectory_provenance": "cache/*.json: source size/mtime, manifest and COM-file checksums, retained IDs, corrected velocity hashes",
+  "changes": [
+    "correct normalized diffusivity density scaling and prefactor",
+    "apply gas fraction to gas entropy",
+    "consistent absolute-classical-entropy minus ideal-mixture reference",
+    "signed residual and analytical Lorentzian tail instead of positive-part clipping",
+    "complete Nyquist-band spectrum and documented COM/kinetic normalization"
+  ]
+}

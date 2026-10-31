@@ -1,0 +1,14 @@
+[
+  {
+    "directory": "ComponentEntropyStudy_20261030/cutoff_benchmark/coulomb_5/transport",
+    "timesteps_per_second": 170.825
+  },
+  {
+    "directory": "ComponentEntropyStudy_20261030/cutoff_benchmark/coulomb_8/transport",
+    "timesteps_per_second": 139.139
+  },
+  {
+    "directory": "ComponentEntropyStudy_20261030/dilute_cutoff_benchmark/rho_0.0010",
+    "timesteps_per_second": 626.716
+  }
+]

@@ -1,0 +1,8 @@
+md/
+smoke/
+hnc/
+__pycache__/
+*.nc
+cutoff_benchmark/
+dilute_cutoff_benchmark/
+results/.aggregate.lock

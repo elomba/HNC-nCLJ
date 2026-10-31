@@ -1,0 +1,146 @@
+[
+  {
+    "name": "ce_baseline_3C_r1",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/baseline_3C/replica_1",
+    "composition": "baseline_3C",
+    "replica": 1
+  },
+  {
+    "name": "ce_baseline_3C_r2",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/baseline_3C/replica_2",
+    "composition": "baseline_3C",
+    "replica": 2
+  },
+  {
+    "name": "ce_baseline_3C_r3",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/baseline_3C/replica_3",
+    "composition": "baseline_3C",
+    "replica": 3
+  },
+  {
+    "name": "ce_mono_f010_r1",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_f010/replica_1",
+    "composition": "mono_f010",
+    "replica": 1
+  },
+  {
+    "name": "ce_mono_f010_r2",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_f010/replica_2",
+    "composition": "mono_f010",
+    "replica": 2
+  },
+  {
+    "name": "ce_mono_f010_r3",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_f010/replica_3",
+    "composition": "mono_f010",
+    "replica": 3
+  },
+  {
+    "name": "ce_weak_f030_e025_r1",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/weak_f030_e025/replica_1",
+    "composition": "weak_f030_e025",
+    "replica": 1
+  },
+  {
+    "name": "ce_weak_f030_e025_r2",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/weak_f030_e025/replica_2",
+    "composition": "weak_f030_e025",
+    "replica": 2
+  },
+  {
+    "name": "ce_weak_f030_e025_r3",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/weak_f030_e025/replica_3",
+    "composition": "weak_f030_e025",
+    "replica": 3
+  },
+  {
+    "name": "ce_dispersion_split_d000_r1",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/dispersion_split_d000/replica_1",
+    "composition": "dispersion_split_d000",
+    "replica": 1
+  },
+  {
+    "name": "ce_dispersion_split_d000_r2",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/dispersion_split_d000/replica_2",
+    "composition": "dispersion_split_d000",
+    "replica": 2
+  },
+  {
+    "name": "ce_dispersion_split_d000_r3",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/dispersion_split_d000/replica_3",
+    "composition": "dispersion_split_d000",
+    "replica": 3
+  },
+  {
+    "name": "ce_dispersion_split_d025_r1",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/dispersion_split_d025/replica_1",
+    "composition": "dispersion_split_d025",
+    "replica": 1
+  },
+  {
+    "name": "ce_dispersion_split_d025_r2",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/dispersion_split_d025/replica_2",
+    "composition": "dispersion_split_d025",
+    "replica": 2
+  },
+  {
+    "name": "ce_dispersion_split_d025_r3",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/dispersion_split_d025/replica_3",
+    "composition": "dispersion_split_d025",
+    "replica": 3
+  },
+  {
+    "name": "ce_dispersion_split_d040_r1",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/dispersion_split_d040/replica_1",
+    "composition": "dispersion_split_d040",
+    "replica": 1
+  },
+  {
+    "name": "ce_dispersion_split_d040_r2",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/dispersion_split_d040/replica_2",
+    "composition": "dispersion_split_d040",
+    "replica": 2
+  },
+  {
+    "name": "ce_dispersion_split_d040_r3",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/dispersion_split_d040/replica_3",
+    "composition": "dispersion_split_d040",
+    "replica": 3
+  },
+  {
+    "name": "ce_mono_weak_uniform6C_r1",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_weak_uniform6C/replica_1",
+    "composition": "mono_weak_uniform6C",
+    "replica": 1
+  },
+  {
+    "name": "ce_mono_weak_uniform6C_r2",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_weak_uniform6C/replica_2",
+    "composition": "mono_weak_uniform6C",
+    "replica": 2
+  },
+  {
+    "name": "ce_mono_weak_uniform6C_r3",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_weak_uniform6C/replica_3",
+    "composition": "mono_weak_uniform6C",
+    "replica": 3
+  },
+  {
+    "name": "ce_mono_weak_split7C_r1",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_weak_split7C/replica_1",
+    "composition": "mono_weak_split7C",
+    "replica": 1
+  },
+  {
+    "name": "ce_mono_weak_split7C_r2",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_weak_split7C/replica_2",
+    "composition": "mono_weak_split7C",
+    "replica": 2
+  },
+  {
+    "name": "ce_mono_weak_split7C_r3",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_20261030/md/mono_weak_split7C/replica_3",
+    "composition": "mono_weak_split7C",
+    "replica": 3
+  }
+]

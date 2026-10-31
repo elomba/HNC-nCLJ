@@ -1,0 +1,16 @@
+{
+  "HNC_executable_sha256": "cc5fc4260d9576f72ac90e354ad937ef009081fad8352ae6c1bdc0a593b3b2f7",
+  "code_sha256": {
+    "screen_hnc.py": "fbb6e9d920a485f9f0c4cfa1897e345b7d4a8634b3e6d9ad9d478c1607dfda1b",
+    "prepare_md.py": "e277b998f238f0f4a09511c849b01147ae1bb74b384bdded4ad0dea14c0202e9",
+    "verify_run.py": "037b30efb230153d769996303112a12a8a797209bb7686347d2401cc58b8c0eb",
+    "submit.py": "a65926972132e5175853542582ecef143ecaf2e4a248207ec0c4c9ce07696755",
+    "analyze.py": "0946a586768520c20b37ac73727859764a10e2702948a9b24921bf3c345b271b",
+    "write_plan.py": "f07e63cfd78d45f040cfd80f7a6a6ccbb0b6843a2f5bfd26a05d2ede9330cb4d",
+    "check_smoke.py": "24017dc31ce6e829793b6868ab42b129c8917376c3c9c3a7a2f274479dff2cb5",
+    "benchmark_cutoff.py": "667790e566c6a9c9968a363d1279a32d8a70ed26cb850e44f1c603788bad93c5",
+    "benchmark_dilute.py": "9e51dc2e4ae8cdfde54864e8c76720f8a63ff6b1d4f1779578b085b5a2e3fe1f"
+  },
+  "git_head": "50c96089f9cd8b61dcfd36b8970a3fa20548e8fd",
+  "note": "Working-tree study code hashes and per-allocation input/data hashes identify the submitted model."
+}

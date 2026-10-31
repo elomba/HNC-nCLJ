@@ -1,0 +1,6 @@
+cache/
+__pycache__/
+*.log
+sources/*.pdf
+sources/*.png
+sources/*.txt

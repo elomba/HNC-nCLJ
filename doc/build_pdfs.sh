@@ -8,7 +8,15 @@ if [[ -f /lib64/libz.so.1 ]]; then
     export LD_PRELOAD="/lib64/libz.so.1${LD_PRELOAD:+:$LD_PRELOAD}"
 fi
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
-for document in paper_pre entropy_theory; do
+documents=("$@")
+if [[ ${#documents[@]} -eq 0 ]]; then
+    documents=(paper_pre entropy_theory)
+fi
+for document in "${documents[@]}"; do
+    case "$document" in
+        paper_pre|entropy_theory) ;;
+        *) echo "Unknown document: $document" >&2; exit 1 ;;
+    esac
     for pass in 1 2 3; do
         echo "Building ${document}, pass ${pass}"
         pdflatex -interaction=nonstopmode -halt-on-error "${document}.tex" > "${document}.build.log" 2>&1

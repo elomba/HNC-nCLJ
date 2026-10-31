@@ -1,0 +1,9 @@
+{
+  "fluidicity_matches_original_polynomial": true,
+  "delta_invariant_to_length_and_time_units": true,
+  "OU_spectrum_mode_count_and_GK_limit": true,
+  "analytic_Lorentzian_entropy_tail": true,
+  "ideal_gas_limit": true,
+  "classical_reference_h_cancels": true,
+  "identical_label_split_and_mixing_reference_cancel": true
+}

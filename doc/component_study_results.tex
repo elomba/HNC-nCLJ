@@ -1,0 +1,70 @@
+% Shared results; numeric tables are generated directly from completed summaries.
+\section{Results and Discussion of the Replicated Study}
+\label{sec:results}
+
+\subsection{Higher Excess Entropy Selected by HNC}
+
+Table~\ref{tab:new_states} reports the new dense-state results; these replace the earlier single-trajectory transport estimates as the evidence for component-dependent mobility. The corresponding absolute-state intervals are given in Table~\ref{tab:new_intervals}. HNC successfully selects higher-excess-entropy liquids: H5 relative to U4 has $\Delta s_{\rm ex}=+0.1107k_B$ in HNC and $+0.10322k_B$ in MD. With monovalent background, H7 relative to U6 gives $+0.1108k_B$ and $+0.10331k_B$, respectively. Absolute HNC entropies remain more negative than MD by approximately $0.064$--$0.093k_B$ per particle. Agreement of increments is better than agreement of absolute values.
+
+\input{component_study_states}
+\input{component_study_intervals}
+\input{component_study_contrasts}
+
+Relative to their original baselines, H5 and H7 raise MD excess entropy by $0.30214k_B$ and $0.30149k_B$. The moderate split M5 raises it by $0.03039k_B$ relative to U4. Entropy changes induced by diversification are therefore substantially larger than the residual quadrature and averaging-window sensitivities assessed below.
+
+\subsection{Label Count, Ideal Mixing, and Physical Diversification}
+
+U4 and L5 provide an exact mechanical null. Splitting the secondary solvent into two identical labels increases formal ideal mixing entropy by $0.30\ln2=0.20794k_B$ per particle if the labels are treated as distinguishable. Nevertheless, their diffusion coefficients are exactly identical in every replica. The measured excess-entropy difference is only $+0.00042k_B$, with a nominal interval $[-0.00219,0.00304]k_B$, consistent with thermodynamic sampling. Component labels alone do not supply a mechanical driving variable for diffusion.
+
+M5 and H5 have the same mole fractions and ideal mixing entropy as L5, but different interactions. Thus the L5/M5/H5 entropy differences are interaction-induced excess changes, not additional ideal mixing. Adding monovalent salt to the baseline, B3$\to$B5, increases the ideal mixing contribution by $0.38787k_B$ but slightly \emph{lowers} excess entropy: $\Delta s_{\rm ex}=-0.00320k_B$, interval $[-0.00543,-0.00097]k_B$. Neither mean diffusion ($+0.12\%$) nor probe diffusion ($+1.79\%$) has a resolved change. More charged components therefore do not by themselves guarantee higher excess entropy or faster probes.
+
+\subsection{Divalent-Ion Enhancement: Large and Controlled Changes}
+
+The largest design changes produce clear increases in divalent-ion mobility. H5/B3 gives $+20.05\%$, interval $[14.30,26.09]\%$, while H7/B5 gives $+17.79\%$, interval $[11.17,24.81]\%$. Both signs independently increase at the primary window: $+16.8\%$ for $+2$ and $+23.4\%$ for $-2$ in H5/B3, and $+18.0\%$ and $+17.6\%$ in H7/B5. All four separate-sign paired nominal intervals exclude zero. These comparisons also alter mean interaction strength and local friction, so entropy is a correlate rather than an isolated causal variable.
+
+The more controlled diversification comparison gives a smaller response. U4$\to$H5 preserves charged composition, ionic strength, masses, nominal diameters, and mean bare pair amplitude. Mean diffusion increases by $9.47\%$, interval $[8.96,9.97]\%$, whereas probe diffusion increases by $4.81\%$, interval $[0.60,9.19]\%$. With monovalent background, U6$\to$H7 increases mean diffusion by $8.37\%$, interval $[7.31,9.44]\%$, and probe diffusion by $5.20\%$, interval $[-6.14,17.92]\%$. The latter ion effect is unresolved. The moderate split gives a clear mean increase of $2.99\%$, but its $1.48\%$ probe increase is also unresolved. The ions respond less strongly than the solvent-dominated mean.
+
+\subsection{Rosenfeld-Like Correlation and Its Limits}
+
+Figure~\ref{fig:new_scaling} shows a positive entropy--mobility trend for both the mean and divalent probes. All masses, temperatures and densities are equal, so $D_i^R=D_i\rho^{1/3}/\sqrt{T}$ differs from $D_i$ by the same constant; diffusion ratios are unchanged. Descriptive unweighted fits of composition means to
+\begin{equation}
+\ln D_i^R=\ln A_i+B_i s_{\rm ex}/k_B
+\label{eq:new_scaling}
+\end{equation}
+give $B_{\rm net}=0.80$ and $B_{\rm probe}=0.62$ for B3/U4/M5/H5, and $0.78$ and $0.55$ for B5/U6/H7. All four fits have $R^2>0.99$. These fits contain only four or three composition means, exclude the duplicate L5 state, and do not incorporate uncertainty in both coordinates; the high $R^2$ is descriptive rather than an independent validation of a universal law.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/component_entropy_diffusion.pdf}
+\caption{Rosenfeld-reduced mean and divalent-probe self-diffusion versus replicated MD excess entropy. Vertical axes are logarithmic. Blue circles: no monovalent background; red squares: 5\% of each monovalent sign. Bars are nominal 95\% absolute-state replica intervals. L5 coincides exactly with U4 in transport and is omitted as a duplicate. The broad positive trend does not fix the slope of controlled composition changes.}
+\label{fig:new_scaling}
+\end{figure*}
+
+The controlled local response differs from the broad-family fit. For H5/U4, $\Delta\ln D/\Delta(s_{\rm ex}/k_B)$ is approximately $0.88$ for the mean and $0.46$ for probes; H7/U6 gives approximately $0.78$ and $0.49$. The probe response is weaker than the mean response under the same intervention. Mean self-diffusion assigns only 6\% weight to divalent particles and cannot determine their mobility separately. The new results support a restricted entropy--mobility association for both observables, while neither component count nor a single bulk entropy establishes a universal species law. No association-lifetime mechanism has yet been measured in this study.
+
+\subsection{Estimator Sensitivity and Charge-Sign Symmetry}
+
+The controlled ion point estimates remain positive, approximately 4--6\%, across the MSD windows (Table~\ref{tab:new_windows} and Fig.~\ref{fig:new_windows}). However, H5/U4 loses nominal significance over 50--200$\tau$: $+3.94\%$, interval $[-8.44,18.00]\%$. H7/U6 is unresolved in all three windows. Accordingly the approximately 5\% ion effect is a provisional trend, not a converged precise enhancement. VACF integrals support the broad mobility ordering, but do not independently resolve such a small effect with the present final-$100\tau$ records.
+
+\input{component_study_windows}
+
+\begin{figure}[tb]
+\centering
+\includegraphics[width=\linewidth]{figures/component_window_sensitivity.pdf}
+\caption{Controlled divalent-ion diffusion changes and nominal paired 95\% intervals for alternative MSD windows. The point estimates are consistently positive, but statistical significance is sensitive to the fitting window and monovalent background.}
+\label{fig:new_windows}
+\end{figure}
+
+Charge-sign symmetry remains a convergence diagnostic. The B3 model is invariant under global charge reversal, yet its primary-window estimate gives $D_{+2}-D_{-2}=0.01039$, nominal replica interval $[0.00291,0.01786]$. The other states have sign-difference intervals containing zero. Generated inputs use identical masses and LJ parameters for both probe signs, random probe assignments, one all-particle thermostat, and a common COM frame; no sign-dependent input parameter was found. The B3 asymmetry nevertheless flags remaining sampling or uncertainty-estimation limitations. Pooling the signs does not remove that concern. It also does not explain away the large baseline contrasts, for which each sign separately increases.
+
+Across all 24 replicas, switching from cubic to shape-preserving interpolation changes dense-state entropy by at most $0.00032k_B$. Retaining all or 75\% of production instead of the final half changes it by at most $0.00165k_B$. These sensitivities are small relative to the $0.103k_B$ diversification increments, but they do not bound finite-size bias or error below the lowest simulated density. Low-wavevector species concentration-fluctuation diagnostics remain of order unity, approximately 0.48--1.80 for individual replica/species values, with no large enhancement in the selected mixtures. One box size and these trajectory lengths cannot exclude slower segregation or establish phase stability.
+
+\input{component_study_2pt}
+
+\subsection{Further Discriminating Checks}
+
+The first priority is longer independent matched replicas of U4/H5 and U6/H7, together with extended B3 sampling to resolve the charge-sign flag. Next, repeat matched states with $N=8000$ or $16000$ at fixed density and composition. Box-size effects need not cancel between liquids with different viscosity. Particle-size variation is a separate perturbation of packing, contact electrostatic coupling, and friction and should not be conflated with this box-size test.
+
+Existing trajectories permit probe--solvent and probe--ion RDFs, coordination populations, association lifetimes, and exchange-time analysis. Species-resolved pair entropy could help explain local mobility, but is not a thermodynamic partial molar entropy or a replacement for total excess entropy. These measurements would test local caging and association mechanisms without inferring kinetics from static entropy alone.
+
+After convergence tests, increasing $x_{+2}=x_{-2}$ symmetrically, for example to 0.06 or 0.10, would strengthen the ionic contribution and alter screening and association. Uniform/diverse solvents should be compared at matched concentration and ionic strength within each pair, with HNC re-screening and homogeneity checks. Several densities and temperatures at fixed composition, and states with matched excess entropy but different compositions, would distinguish state-point scaling from composition-induced correlations.

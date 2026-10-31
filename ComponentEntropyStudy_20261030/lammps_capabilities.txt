@@ -1,0 +1,226 @@
+
+Large-scale Atomic/Molecular Massively Parallel Simulator - 4 Jul 2026
+Git info (develop / patch_4Jul2026-17-g59c575a219)
+
+Usage example: /home/e.lomba/lammps_latest/build/lmp -var t 300 -echo screen -in in.alloy
+
+List of command-line options supported by this LAMMPS executable:
+
+-echo none/screen/log/both  : echoing of input script (-e)
+-help                       : print this help message (-h)
+-in none/filename           : read input from file or stdin (default) (-i)
+-kokkos on/off ...          : turn KOKKOS mode on or off (-k)
+-log none/filename          : where to send log output (-l)
+-mdi '<mdi flags>'          : pass flags to the MolSSI Driver Interface
+-mpicolor color             : which exe in a multi-exe mpirun cmd (-m)
+-cite                       : select citation reminder style (-c)
+-nocite                     : disable citation reminder (-nc)
+-nonbuf                     : disable screen/logfile buffering (-nb)
+-package style ...          : invoke package command (-pk)
+-partition size1 size2 ...  : assign partition sizes (-p)
+-plog basename              : basename for partition logs (-pl)
+-pscreen basename           : basename for partition screens (-ps)
+-restart2data rfile dfile ... : convert restart to data file (-r2data)
+-restart2dump rfile dgroup dstyle dfile ...
+                            : convert restart to dump file (-r2dump)
+-restart2info rfile         : print info about restart rfile (-r2info)
+-reorder topology-specs     : processor reordering (-r)
+-screen none/filename       : where to send screen output (-sc)
+-skiprun                    : skip loops in run and minimize (-sr)
+-suffix gpu/intel/kk/opt/omp: style suffix to apply (-sf)
+-var varname value          : set index style variable (-v)
+
+OS: Linux "AlmaLinux 9.8 (Olive Jaguar)" 5.14.0-687.12.1.el9_8.x86_64 x86_64
+
+Compiler: PGI C++ 25.3 with OpenMP 5.1
+C++ standard: C++17
+Embedded fmt library version: 10.2.0
+Embedded JSON class version: 3.12.0
+
+MPI v3.1: Open MPI v4.1.7rc1, package: Open MPI qa@sky3 Distribution, ident: 4.1.7rc1, repo rev: v4.1.5-176-g6d9519e4c3, Unreleased developer copy
+
+Accelerator configuration:
+
+GPU package API: CUDA
+GPU package precision: mixed
+
+Compatible GPU present: yes
+
+FFT information:
+
+FFT precision  = double
+FFT engine  = mpiFFT
+FFT library = KISS
+
+Active compile time flags:
+
+-DLAMMPS_GZIP
+-DLAMMPS_SMALLBIG
+sizeof(smallint): 32-bit
+sizeof(imageint): 32-bit
+sizeof(tagint):   32-bit
+sizeof(bigint):   64-bit
+
+Available compression formats:
+
+Extension: .gz     Command: gzip
+Extension: .bz2    Command: bzip2
+Extension: .zst    Command: zstd
+Extension: .xz     Command: xz
+Extension: .lzma   Command: xz
+Extension: .lz4    Command: lz4
+Extension: .br     Command: brotli
+Extension: .7z     Command: 7z
+
+
+Installed packages:
+
+EXTRA-PAIR GPU KSPACE MOLECULE NETCDF RIGID
+
+List of individual style options included in this LAMMPS executable
+
+* Atom styles:
+
+angle           atomic          body            bond            charge
+ellipsoid       full            hybrid          line            molecular
+sphere          template        tri
+
+* Integrate styles:
+
+respa           verlet
+
+* Minimize styles:
+
+cg              fire/old        fire            hftn            quickmin
+sd
+
+* Pair styles:
+
+beck            beck/gpu        bondval         bondval/vec     born
+born/coul/dsf   born/coul/long  born/coul/long/gpu              born/coul/msm
+born/coul/wolf  born/coul/wolf/gpu              born/gauss      born/gpu
+buck            buck/coul/cut   buck/coul/cut/gpu               buck/coul/long
+buck/coul/long/gpu              buck/coul/msm   buck/gpu
+buck/long/coul/long             buck/mdf        cosine/squared  coul/ctip
+coul/cut        coul/cut/global coul/cut/gpu    coul/debye      coul/debye/gpu
+coul/diel       coul/dsf        coul/dsf/gpu    coul/esp        coul/exclude
+coul/long       coul/long/gpu   coul/msm        coul/slater/cut coul/slater/long
+coul/slater/long/gpu            coul/streitz    coul/wolf       meam/c
+reax            reax/c          mesont/tpm      awpmd/cut       dispersion/d3
+e3b             gauss           gauss/cut       gauss/gpu       harmonic/cut
+hbond/dreiding/lj               hbond/dreiding/morse            hybrid
+hybrid/omp      hybrid/molecular                hybrid/molecular/omp
+hybrid/overlay  hybrid/overlay/omp              hybrid/scaled
+hybrid/scaled/omp               lennard/mdf     lj96/cut        lj96/cut/gpu
+lj/charmm/coul/charmm           lj/charmm/coul/charmm/gpu
+lj/charmm/coul/charmm/implicit  lj/charmm/coul/long
+lj/charmm/coul/long/gpu         lj/charmm/coul/msm
+lj/charmmfsw/coul/charmmfsh     lj/charmmfsw/coul/long          lj/cubic
+lj/cubic/gpu    lj/cut          lj/cut/coul/cut lj/cut/coul/cut/gpu
+lj/cut/coul/debye               lj/cut/coul/debye/gpu           lj/cut/coul/dsf
+lj/cut/coul/dsf/gpu             lj/cut/coul/esp lj/cut/coul/long
+lj/cut/coul/long/gpu            lj/cut/coul/msm lj/cut/coul/msm/gpu
+lj/cut/coul/wolf                lj/cut/gpu      lj/cut/sphere   lj/cut/tip4p/cut
+lj/cut/tip4p/long               lj/cut/tip4p/long/gpu           lj/expand
+lj/expand/coul/long             lj/expand/coul/long/gpu         lj/expand/gpu
+lj/expand/sphere                lj/gromacs      lj/gromacs/coul/gromacs
+lj/gromacs/gpu  lj/long/coul/long               lj/long/tip4p/long
+lj/mdf          lj/pirani       lj/relres       lj/smooth       lj/smooth/gpu
+lj/smooth/linear                lj/sf           ljlambda        mie/cut
+mie/cut/gpu     momb            morse           morse/gpu
+morse/smooth/linear             nm/cut          nm/cut/coul/cut nm/cut/coul/long
+nm/cut/split    pedone          soft            soft/gpu        table
+table/gpu       tip4p/cut       tip4p/long      ufm             ufm/gpu
+wf/cut          yukawa          yukawa/gpu      zbl             zbl/gpu
+zero
+
+* Bond styles:
+
+fene            fene/expand     gromos          harmonic        hybrid
+morse           quartic         table           zero
+
+* Angle styles:
+
+charmm          cosine          cosine/squared  harmonic        hybrid
+table           zero
+
+* Dihedral styles:
+
+charmm          charmmfsw       harmonic        hybrid          multi/harmonic
+opls            table           zero
+
+* Improper styles:
+
+cvff            harmonic        hybrid          umbrella        zero
+
+* KSpace styles:
+
+esp             ewald           ewald/dipole    ewald/dipole/spin
+ewald/disp      ewald/disp/dipole               ewald/gpu       zero
+msm             msm/cg          pppm            pppm/cg         pppm/dipole
+pppm/dipole/spin                pppm/disp       pppm/disp/tip4p pppm/gpu
+pppm/rk         pppm/stagger    pppm/tip4p
+
+* Fix styles
+
+adapt           addforce        ave/atom        ave/chunk       ave/correlate
+ave/grid        ave/histo       ave/histo/weight                ave/time
+aveforce        balance         box/relax       cmap            deform
+deposit         atc             ave/spatial     ave/spatial/sphere
+lb/pc           lb/rigid/pc/sphere              nve/awpmd       poems
+reax/c/bonds    reax/c/species  dt/reset        efield          ehex
+enforce2d       evaporate       external        gravity         halt
+heat            ilves           indent          langevin        lineforce
+momentum        move            nph             nph/sphere      npt
+npt/gpu         npt/sphere      nve             nve/gpu         nve/limit
+nve/noforce     nve/sphere      nvt             nvt/gpu         nvt/sllod
+nvt/sphere      pair            planeforce      press/berendsen press/langevin
+print           property/atom   rattle          recenter        restrain
+rigid           rigid/nph       rigid/nph/small rigid/npt       rigid/npt/small
+rigid/nve       rigid/nve/small rigid/nvt       rigid/nvt/small rigid/small
+set             setforce        shake           spring          spring/chunk
+spring/self     store/force     store/state     temp/berendsen  temp/rescale
+thermal/conductivity            tune/kspace     vector          viscous
+wall/harmonic   wall/harmonic/outside           wall/harmonic/returned
+wall/lj1043     wall/lj126      wall/lj93       wall/morse      wall/reflect
+wall/region     wall/table
+
+* Compute styles:
+
+aggregate/atom  angle           angle/local     angmom/chunk    bond
+bond/local      centro/atom     centroid/stress/atom            chunk/atom
+chunk/spread/atom               cluster/atom    cna/atom        com
+com/chunk       coord/atom      count/type      mesont          dihedral
+dihedral/local  dipole          dipole/chunk    displace/atom   erotate/rigid
+erotate/sphere  erotate/sphere/atom             fragment/atom   global/atom
+group/group     gyration        gyration/chunk  heat/flux       improper
+improper/local  inertia/chunk   ke              ke/atom         ke/rigid
+msd             msd/chunk       omega/chunk     orientorder/atom
+pair            pair/local      pe              pe/atom         pressure
+property/atom   property/chunk  property/grid   property/local  rdf
+reduce          reduce/chunk    reduce/region   rigid/local     slice
+stress/atom     temp            temp/chunk      temp/com        temp/deform
+temp/partial    temp/profile    temp/ramp       temp/region     temp/sphere
+torque/chunk    vacf            vacf/chunk      vcm/chunk
+
+* Region styles:
+
+block           cone            cylinder        ellipsoid       intersect
+plane           prism           sphere          union
+
+* Dump styles:
+
+atom            cfg             custom          atom/mpiio      cfg/mpiio
+custom/mpiio    xyz/mpiio       grid            grid/vtk        local
+netcdf          xyz
+
+* Command styles
+
+angle_write     balance         change_box      create_atoms    create_bonds
+create_box      delete_atoms    delete_bonds    box             kim_init
+kim_interactions                kim_param       kim_property    kim_query
+reset_ids       reset_atom_ids  reset_mol_ids   message         server
+dihedral_write  displace_atoms  info            minimize        read_data
+read_dump       read_restart    replicate       rerun           run
+set             velocity        write_coeff     write_data      write_dump
+write_molecule  write_restart

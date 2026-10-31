@@ -1,0 +1,1937 @@
+[
+  {
+    "name": "baseline_3C",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.94,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Original 3C probe electrolyte",
+    "family": "baseline",
+    "n_components": 3,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 0.2685563533342012,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "labels_4C",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.64,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "solvent_label",
+        "q": 0,
+        "x": 0.3,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mechanically identical neutral-label split; exact null control",
+    "family": "labels",
+    "n_components": 4,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 0.8572090608191681,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "mono_f005",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.8899999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.025,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.025,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Symmetric monovalent salt addition; not an ionic-strength control",
+    "family": "monovalent",
+    "n_components": 5,
+    "I": 0.145,
+    "ion_fraction": 0.11,
+    "mixing_entropy": 0.4985525430126927,
+    "q2": 0.29,
+    "q4": 1.01
+  },
+  {
+    "name": "mono_f010",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.84,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Symmetric monovalent salt addition; not an ionic-strength control",
+    "family": "monovalent",
+    "n_components": 5,
+    "I": 0.16999999999999998,
+    "ion_fraction": 0.16,
+    "mixing_entropy": 0.6564235463962114,
+    "q2": 0.33999999999999997,
+    "q4": 1.06
+  },
+  {
+    "name": "mono_f020",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.74,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.1,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.1,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Symmetric monovalent salt addition; not an ionic-strength control",
+    "family": "monovalent",
+    "n_components": 5,
+    "I": 0.22,
+    "ion_fraction": 0.26,
+    "mixing_entropy": 0.89372826109811,
+    "q2": 0.44,
+    "q4": 1.16
+  },
+  {
+    "name": "asym13_f004_t000",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.8999999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.01,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 0.18,
+    "ion_fraction": 0.1,
+    "mixing_entropy": 0.45646637671072304,
+    "q2": 0.36,
+    "q4": 1.7999999999999998
+  },
+  {
+    "name": "asym13_f004_t025",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.8999999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.0225,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.0075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.0075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.0025,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 7,
+    "I": 0.18,
+    "ion_fraction": 0.1,
+    "mixing_entropy": 0.47895978249547533,
+    "q2": 0.36,
+    "q4": 1.7999999999999998
+  },
+  {
+    "name": "asym13_f004_t050",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.8999999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.015,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.005,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.015,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.005,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 7,
+    "I": 0.18,
+    "ion_fraction": 0.1,
+    "mixing_entropy": 0.48419226393312087,
+    "q2": 0.36,
+    "q4": 1.7999999999999998
+  },
+  {
+    "name": "asym13_f004_t100",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.8999999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.01,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 0.18,
+    "ion_fraction": 0.1,
+    "mixing_entropy": 0.45646637671072304,
+    "q2": 0.36,
+    "q4": 1.7999999999999998
+  },
+  {
+    "name": "asym13_f010_t000",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.84,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.07500000000000001,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.025,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 0.27,
+    "ion_fraction": 0.16,
+    "mixing_entropy": 0.6433423428020976,
+    "q2": 0.54,
+    "q4": 3.06
+  },
+  {
+    "name": "asym13_f010_t025",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.84,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.05625000000000001,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.018750000000000003,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.018750000000000003,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.00625,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 7,
+    "I": 0.27,
+    "ion_fraction": 0.16,
+    "mixing_entropy": 0.6995758572639784,
+    "q2": 0.54,
+    "q4": 3.06
+  },
+  {
+    "name": "asym13_f010_t050",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.84,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.037500000000000006,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.0125,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.037500000000000006,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.0125,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 7,
+    "I": 0.27,
+    "ion_fraction": 0.16,
+    "mixing_entropy": 0.7126570608580921,
+    "q2": 0.54,
+    "q4": 3.06
+  },
+  {
+    "name": "asym13_f010_t100",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.84,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.07500000000000001,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.025,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 0.27,
+    "ion_fraction": 0.16,
+    "mixing_entropy": 0.6433423428020976,
+    "q2": 0.54,
+    "q4": 3.06
+  },
+  {
+    "name": "asym13_f020_t000",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.74,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.15000000000000002,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 0.42000000000000004,
+    "ion_fraction": 0.26,
+    "mixing_entropy": 0.8675658539098825,
+    "q2": 0.8400000000000001,
+    "q4": 5.16
+  },
+  {
+    "name": "asym13_f020_t025",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.74,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.11250000000000002,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.037500000000000006,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.037500000000000006,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.0125,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 7,
+    "I": 0.42000000000000004,
+    "ion_fraction": 0.26,
+    "mixing_entropy": 0.9800328828336442,
+    "q2": 0.8400000000000001,
+    "q4": 5.16
+  },
+  {
+    "name": "asym13_f020_t050",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.74,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.07500000000000001,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.025,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.07500000000000001,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.025,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 7,
+    "I": 0.42000000000000004,
+    "ion_fraction": 0.26,
+    "mixing_entropy": 1.0061952900218716,
+    "q2": 0.8400000000000001,
+    "q4": 5.16
+  },
+  {
+    "name": "asym13_f020_t100",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.74,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.15000000000000002,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Mix conjugate 1:3 salts at fixed solvent, probes, ion fraction and ALL even charge moments",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 0.42000000000000004,
+    "ion_fraction": 0.26,
+    "mixing_entropy": 0.8675658539098825,
+    "q2": 0.8400000000000001,
+    "q4": 5.16
+  },
+  {
+    "name": "weak_f010_e025",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.84,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_solvent",
+        "q": 0,
+        "x": 0.1,
+        "eps": 0.25,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Weak neutral solvent: fixed probes/I, changed dispersion interactions",
+    "family": "weak_solvent",
+    "n_components": 4,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 0.5871088283402168,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "weak_f010_e050",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.84,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_solvent",
+        "q": 0,
+        "x": 0.1,
+        "eps": 0.5,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Weak neutral solvent: fixed probes/I, changed dispersion interactions",
+    "family": "weak_solvent",
+    "n_components": 4,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 0.5871088283402168,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "weak_f010_e075",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.84,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_solvent",
+        "q": 0,
+        "x": 0.1,
+        "eps": 0.75,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Weak neutral solvent: fixed probes/I, changed dispersion interactions",
+    "family": "weak_solvent",
+    "n_components": 4,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 0.5871088283402168,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "weak_f030_e025",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.6399999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_solvent",
+        "q": 0,
+        "x": 0.3,
+        "eps": 0.25,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Weak neutral solvent: fixed probes/I, changed dispersion interactions",
+    "family": "weak_solvent",
+    "n_components": 4,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 0.8572090608191681,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "weak_f030_e050",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.6399999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_solvent",
+        "q": 0,
+        "x": 0.3,
+        "eps": 0.5,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Weak neutral solvent: fixed probes/I, changed dispersion interactions",
+    "family": "weak_solvent",
+    "n_components": 4,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 0.8572090608191681,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "weak_f030_e075",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.6399999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_solvent",
+        "q": 0,
+        "x": 0.3,
+        "eps": 0.75,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Weak neutral solvent: fixed probes/I, changed dispersion interactions",
+    "family": "weak_solvent",
+    "n_components": 4,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 0.8572090608191681,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "dispersion_split_d000",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.64,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_A",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.25,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_B",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.25,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Same neutral fraction and mean sqrt(epsilon) as weak_f030_e025; delta=0 is label-only",
+    "family": "matched_dispersion",
+    "n_components": 5,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 1.0651532149871517,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "dispersion_split_d010",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.64,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_A",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.16000000000000003,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_B",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.36,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Same neutral fraction and mean sqrt(epsilon) as weak_f030_e025; delta=0 is label-only",
+    "family": "matched_dispersion",
+    "n_components": 5,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 1.0651532149871517,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "dispersion_split_d025",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.64,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_A",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.0625,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_B",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.5625,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Same neutral fraction and mean sqrt(epsilon) as weak_f030_e025; delta=0 is label-only",
+    "family": "matched_dispersion",
+    "n_components": 5,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 1.0651532149871517,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "dispersion_split_d040",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.64,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_A",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.009999999999999995,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_B",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.81,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Same neutral fraction and mean sqrt(epsilon) as weak_f030_e025; delta=0 is label-only",
+    "family": "matched_dispersion",
+    "n_components": 5,
+    "I": 0.12,
+    "ion_fraction": 0.06,
+    "mixing_entropy": 1.0651532149871517,
+    "q2": 0.24,
+    "q4": 0.96
+  },
+  {
+    "name": "asym13_f040_t000",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.5399999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.30000000000000004,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.1,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "High-concentration conjugate-salt control; fixed ALL even charge moments within each f family",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 0.7200000000000002,
+    "ion_fraction": 0.4600000000000001,
+    "mixing_entropy": 1.1345843397252455,
+    "q2": 1.4400000000000004,
+    "q4": 9.360000000000001
+  },
+  {
+    "name": "asym13_f040_t050",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.5399999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.15000000000000002,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.15000000000000002,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "High-concentration conjugate-salt control; fixed ALL even charge moments within each f family",
+    "family": "conjugate_salts",
+    "n_components": 7,
+    "I": 0.7200000000000002,
+    "ion_fraction": 0.4600000000000001,
+    "mixing_entropy": 1.4118432119492235,
+    "q2": 1.4400000000000004,
+    "q4": 9.360000000000001
+  },
+  {
+    "name": "asym13_f040_t100",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.5399999999999999,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.30000000000000004,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.1,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "High-concentration conjugate-salt control; fixed ALL even charge moments within each f family",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 0.7200000000000002,
+    "ion_fraction": 0.4600000000000001,
+    "mixing_entropy": 1.1345843397252455,
+    "q2": 1.4400000000000004,
+    "q4": 9.360000000000001
+  },
+  {
+    "name": "asym13_f060_t000",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.33999999999999997,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.44999999999999996,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.15,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "High-concentration conjugate-salt control; fixed ALL even charge moments within each f family",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 1.02,
+    "ion_fraction": 0.66,
+    "mixing_entropy": 1.2210852197365345,
+    "q2": 2.04,
+    "q4": 13.56
+  },
+  {
+    "name": "asym13_f060_t050",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.33999999999999997,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.22499999999999998,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus3",
+        "q": -3,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.22499999999999998,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "High-concentration conjugate-salt control; fixed ALL even charge moments within each f family",
+    "family": "conjugate_salts",
+    "n_components": 7,
+    "I": 1.02,
+    "ion_fraction": 0.6599999999999999,
+    "mixing_entropy": 1.6369735280725015,
+    "q2": 2.04,
+    "q4": 13.56
+  },
+  {
+    "name": "asym13_f060_t100",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.33999999999999997,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.44999999999999996,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus3",
+        "q": 3,
+        "x": 0.15,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "High-concentration conjugate-salt control; fixed ALL even charge moments within each f family",
+    "family": "conjugate_salts",
+    "n_components": 5,
+    "I": 1.02,
+    "ion_fraction": 0.66,
+    "mixing_entropy": 1.2210852197365345,
+    "q2": 2.04,
+    "q4": 13.56
+  },
+  {
+    "name": "mono_weak_uniform6C",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.54,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_solvent",
+        "q": 0,
+        "x": 0.3,
+        "eps": 0.25,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Monovalent-background counterpart at fixed I=.17 and divalent fractions; mean LJ amplitude matched across uniform/split",
+    "family": "monovalent_dispersion",
+    "n_components": 6,
+    "I": 0.16999999999999998,
+    "ion_fraction": 0.16,
+    "mixing_entropy": 1.2038990577812398,
+    "q2": 0.33999999999999997,
+    "q4": 1.06
+  },
+  {
+    "name": "mono_weak_split7C",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.54,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_A",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.01,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_B",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.81,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.03,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Monovalent-background counterpart at fixed I=.17 and divalent fractions; mean LJ amplitude matched across uniform/split",
+    "family": "monovalent_dispersion",
+    "n_components": 7,
+    "I": 0.16999999999999998,
+    "ion_fraction": 0.16,
+    "mixing_entropy": 1.4118432119492235,
+    "q2": 0.33999999999999997,
+    "q4": 1.06
+  }
+]
