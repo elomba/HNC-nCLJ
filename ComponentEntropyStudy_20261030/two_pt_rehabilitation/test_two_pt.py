@@ -25,7 +25,7 @@ checks['OU_spectrum_mode_count_and_GK_limit']=True
 # Integral of Lorentzian times classical oscillator weight is analytic, including its tail.
 a=3.;S0=6*a/np.pi  # total modes of this Lorentzian are 3
 for h in [.1,1.,10.]:
- numeric=quad(lambda v:S0/(1+(a*v)**2)*(1-np.log(h*v/T)),0,np.inf,epsabs=1e-9)[0]
+ numeric=quad(lambda v,h=h:S0/(1+(a*v)**2)*(1-np.log(h*v/T)),0,np.inf,epsabs=1e-9)[0]
  assert abs(numeric-3*(1+np.log(a*T/h)))<1e-8
 checks['analytic_Lorentzian_entropy_tail']=True
 # Exact gas limit: f=1,gamma=0, gas and total spectra coincide, excess tends to zero.

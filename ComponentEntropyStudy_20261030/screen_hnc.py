@@ -74,7 +74,7 @@ def solve(c,fine=False):
     start=time.monotonic()
     try:
         with (folder/'stdout.log').open('w') as f:
-            result=subprocess.run([str(BINARY),'input.hncr'],cwd=folder,stdout=f,stderr=subprocess.STDOUT,
+            subprocess.run([str(BINARY),'input.hncr'],cwd=folder,stdout=f,stderr=subprocess.STDOUT,
                                   env=env,timeout=600,check=True)
         log=(folder/'stdout.log').read_text()
         arr=np.loadtxt(folder/'Thermohncr.dat',comments='#',ndmin=2)

@@ -114,7 +114,6 @@ def run(folder,force=False):
                     for which in ['probe','secondary']:
                         sel=[i for i in main if groups[i][which]]
                         if not sel:continue
-                        rest=[i for i in main if i not in sel]
                         xs=sum(groups[i]['x'] for i in sel);xr=1-xs
                         for shift in [-.1,.1]:
                             value=0.;weighted_volume=0

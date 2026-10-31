@@ -203,10 +203,10 @@ def main():
                                old_new_thermo_identical=bool(np.array_equal(new,old))))
         new=np.array(matrix);old=np.array(old_matrix)
         q2=.34 if system=='system_5C' else .24
-        methods={'legacy':legacy,'screened_cubic':lambda r,z:screened(r,z,q2),
-                 'screened_pchip':lambda r,z:screened(r,z,q2,'pchip'),
+        methods={'legacy':legacy,'screened_cubic':lambda r,z,q2=q2:screened(r,z,q2),
+                 'screened_pchip':lambda r,z,q2=q2:screened(r,z,q2,'pchip'),
                  'legacy_fixed_T_pressure':legacy,
-                 'DH_B_anchor':lambda r,z:anchored(r,z,q2)}
+                 'DH_B_anchor':lambda r,z,q2=q2:anchored(r,z,q2)}
         new_z=new[:,2]/(RHO*TEMP)
         af={name:func(RHO,new[:,3] if name=='legacy' else new_z) for name,func in methods.items()}
         a_old=legacy(RHO,old[:,3]);s_old=old[:,4]/TEMP-a_old

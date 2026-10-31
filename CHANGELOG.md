@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **HNC numerical regression test**: `make test` now runs the 3-component solver in a temporary directory and checks thermodynamics, RDF, and structure factors against current references, while retaining historical structure checks against `baseline_results/`.
 - **Agent configuration**: `AGENTS.md` (shared guidance for Codex and Claude Code), `CLAUDE.md` importing it, and the `/rebuild-manuscript` Claude Code skill (`.claude/skills/rebuild-manuscript/`).
 - **Python linting**: correctness-focused `ruff.toml` for the study and analysis scripts.
+- **TI excess-entropy check** in `EntropyComparison/scripts/thermodynamic_integration.py`: `comparison_summary.txt` now tabulates s_ex(HNC) vs s_ex(TI) (max |diff| 0.0025 kB for 3C, 0.0042 kB for 5C, both at rho*=0.01); `comparison_data.csv` gains appended columns `s_ex_ti_3c, s_ex_ti_5c, delta_u_ex, delta_u_c, delta_z`. All pre-existing output is byte-identical.
+
+### Fixed
+- All ruff findings in the analysis scripts (loop-variable binding in lambdas, unused variables, bare `except`, raw docstring, explicit `check=False`). No numerical results change; provenance scripts were checked with ruff and `py_compile` but not re-executed.
 
 ---
 

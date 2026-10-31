@@ -26,7 +26,7 @@ for row in rows:
         state=states.get(last[str(d)]['job_id'],'')
         assert state.split()[0] in ['FAILED','CANCELLED','TIMEOUT','OUT_OF_MEMORY','NODE_FAIL'],(d,state)
     subprocess.run(['bash','-n',str(d/'job.sbatch')],check=True)
-    res=subprocess.run(['sbatch','--test-only',str(d/'job.sbatch')],capture_output=True,text=True)
+    res=subprocess.run(['sbatch','--test-only',str(d/'job.sbatch')],capture_output=True,text=True,check=False)
     assert res.returncode==0,(d,res.stderr)
     pending.append(row)
 print('Validated allocations:',len(pending),flush=True)

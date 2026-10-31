@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+r"""
 Script: thermodynamic_integration.py
 Description: Performs thermodynamic integration along the density isotherm:
              A_ex(rho)/(N*k_B*T) = \int_0^rho [(Z(rho') - 1)/rho'] d rho'
@@ -163,6 +163,26 @@ def main():
         f.write("----------------------------------------------------------------------------------------------------\n")
         print("----------------------------------------------------------------------------------------------------")
 
+        entropy_check_header = (
+            "\nConsistency Check: HNC vs Thermodynamic Integration Excess Entropy (s_ex):\n"
+            "----------------------------------------------------------------------------------------------------\n"
+            " rho   | s_ex_hnc(3C) s_ex_ti(3C) Diff(3C) | s_ex_hnc(5C) s_ex_ti(5C) Diff(5C)\n"
+            "----------------------------------------------------------------------------------------------------\n"
+        )
+        f.write(entropy_check_header)
+        print(entropy_check_header, end='')
+        for i, r in enumerate(d3['rho']):
+            diff3 = d3['s_ex'][i] - s_ex_ti_3c[i]
+            diff5 = d5['s_ex'][i] - s_ex_ti_5c[i]
+            line = (
+                f"{r:5.2f} | {d3['s_ex'][i]:12.4f} {s_ex_ti_3c[i]:11.4f} {diff3:+8.4f} | "
+                f"{d5['s_ex'][i]:12.4f} {s_ex_ti_5c[i]:11.4f} {diff5:+8.4f}\n"
+            )
+            f.write(line)
+            print(line, end='')
+        f.write("----------------------------------------------------------------------------------------------------\n")
+        print("----------------------------------------------------------------------------------------------------")
+
     # CSV output
     csv_path = os.path.join(results_dir, 'comparison_data.csv')
     csv_data = np.column_stack([
@@ -174,11 +194,13 @@ def main():
         a_ti_3c, a_ti_5c,
         d3['s_ex'], d5['s_ex'], delta_s_ex,
         d3['s2'], d5['s2'], delta_s2,
-        d3['xc'], d5['xc']
+        d3['xc'], d5['xc'],
+        s_ex_ti_3c, s_ex_ti_5c, delta_u_ex, delta_u_c, delta_z
     ])
     csv_header = (
         "rho,z_3c,z_5c,u_ex_3c,u_ex_5c,u_c_3c,u_c_5c,a_hnc_3c,a_hnc_5c,"
-        "a_ti_3c,a_ti_5c,s_ex_3c,s_ex_5c,delta_s_ex,s2_3c,s2_5c,delta_s2,xc_3c,xc_5c"
+        "a_ti_3c,a_ti_5c,s_ex_3c,s_ex_5c,delta_s_ex,s2_3c,s2_5c,delta_s2,xc_3c,xc_5c,"
+        "s_ex_ti_3c,s_ex_ti_5c,delta_u_ex,delta_u_c,delta_z"
     )
     np.savetxt(csv_path, csv_data, delimiter=',', header=csv_header, comments='', fmt='%.6f')
     print(f"\nSaved CSV data: {csv_path}")

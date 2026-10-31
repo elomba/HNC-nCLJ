@@ -99,7 +99,7 @@ def transport(folder,c):
 def analyze_replica(folder):
     m=json.loads((folder/'manifest.json').read_text());c=m['composition']
     assert not m.get('smoke'),folder
-    rhos=np.array(m['densities']);r=[];means=[];windows=[]
+    rhos=np.array(m['densities']);means=[];windows=[]
     for rho in rhos:
         d=folder/('transport' if np.isclose(rho,.7) else f'rho_{rho:.4f}')
         assert (d/'verified.json').exists(),d

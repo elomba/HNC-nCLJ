@@ -12,7 +12,7 @@ WORK_DIR = "/home/e.lomba/EntropicFLuids/EntropyComparison/system_5C_partial"
 os.makedirs(WORK_DIR, exist_ok=True)
 
 # 1. First run beta sweep at rho = 0.7000: beta in [0.4950, 0.5000, 0.5050]
-input_beta = f"""5-Component System (Solvent + 1:1 and 2:2 Electrolytes): Beta Sweep
+input_beta = """5-Component System (Solvent + 1:1 and 2:2 Electrolytes): Beta Sweep
 4096 0.005 5.0d-7 0.5 10000.0 0.05
 100 5.0d-7
 5
@@ -51,7 +51,7 @@ subprocess.run([BIN, "input_beta.hncr"], cwd=WORK_DIR, check=True)
 os.system(f"cp {WORK_DIR}/Thermohncr.dat {WORK_DIR}/Thermo_beta.dat")
 
 # 2. Now run rho sweep at beta = 0.5000: rho in [0.6950, 0.7000, 0.7050]
-input_rho = f"""5-Component System (Solvent + 1:1 and 2:2 Electrolytes): Rho Sweep
+input_rho = """5-Component System (Solvent + 1:1 and 2:2 Electrolytes): Rho Sweep
 4096 0.005 5.0d-7 0.5 10000.0 0.05
 100 5.0d-7
 5
@@ -96,7 +96,7 @@ def parse_thermo(filename):
                 try:
                     vals = [float(p) for p in parts]
                     data.append(vals)
-                except:
+                except ValueError:
                     pass
     return np.array(data)
 
@@ -140,7 +140,7 @@ gamma_V = (P_beta[2] - P_beta[0]) / (T_beta[0] - T_beta[2])  # note T decreases 
 P_rho = d_rho[:, 1] * d_rho[:, 3] / d_rho[:, 2]
 dP_drho = (P_rho[2] - P_rho[0]) / (rhos[2] - rhos[0])
 
-print(f"\nEOS Properties at rho=0.70, T=2.00:")
+print("\nEOS Properties at rho=0.70, T=2.00:")
 print(f"  gamma_V = (dP/dT)_V = {gamma_V:.4f}")
 print(f"  (dP/drho)_T = {dP_drho:.4f}")
 
