@@ -1,0 +1,8 @@
+# Correctness-focused lint for the study/analysis Python scripts.
+# Style rules are intentionally off: the scripts are research provenance.
+target-version = "py311"
+extend-exclude = ["lammps_study", "**/__pycache__"]
+
+[lint]
+select = ["E9", "F", "B", "E722", "W605", "PLW1510"]
+ignore = ["F401", "B905", "B007"]  # harmless in analysis scripts; re-enable when cleaning a file

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+- **Agent configuration**: `AGENTS.md` (shared guidance for Codex and Claude Code), `CLAUDE.md` importing it, and the `/rebuild-manuscript` Claude Code skill (`.claude/skills/rebuild-manuscript/`).
+- **Python linting**: correctness-focused `ruff.toml` for the study and analysis scripts.
+
+---
+
 ## [V1.7] - 2026-10-21
 
 ### Changed
