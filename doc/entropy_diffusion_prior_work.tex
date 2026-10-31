@@ -1,0 +1,443 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,longtable,array,microtype}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+\setlength{\emergencystretch}{2em}
+\title{Prior Work and Its Connection to Our HNC/MD Study\\
+\large Entropy, diffusion, and structural diversity in charged mixtures}
+\author{EntropicFluids collaboration}
+\date{31 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+This review collects the prior work discussed in connection with the
+EntropicFluids study: excess-entropy scaling in simple and charged mixtures,
+high-entropy electrolytes, and Voronoi/graph estimates of structural entropy.
+It distinguishes what these studies establish from what remains to be tested
+in our model mixtures. The general idea that multicomponent electrolytes can
+show enhanced ion mobility already has direct precedent. The potential value
+of the present study lies in its controlled comparisons, independent
+thermodynamic-integration benchmark, and distinction between species labels,
+interaction diversity, and probe-ion motion.
+\end{abstract}
+
+\section{Scope and terminology}
+This is an annotated literature assessment rather than a systematic review
+or a claim of priority. References include the studies discussed previously
+and supporting methodological sources. The companion
+\path{voronoi_entropy_work_plan.tex} gives the proposed analysis protocol;
+this document supplies the scientific context.
+
+Three entropy notions must remain distinct. Ideal compositional mixing has
+entropy per particle $s_{\rm mix}^{\rm id}=-k_B\sum_i x_i\ln x_i$.
+Thermodynamic excess entropy is
+\begin{equation}
+s_{\rm ex}=\frac{S-S_{\rm id,mix}(T,\rho,\{x_i\})}{N},
+\end{equation}
+so that the ideal mixing term cancels against the same-composition reference.
+Finally, a graph or local-environment entropy describes the diversity of a
+chosen structural representation. A solvation-state entropy is likewise
+conditional on the chosen definition of a solvation state. These quantities
+can correlate without being interchangeable. In the glass literature,
+configurational entropy often refers specifically to basin multiplicity
+after separating vibrational entropy, which is another distinct target.
+
+\section{Excess entropy and diffusion in mixtures}
+\subsection{Rosenfeld: foundations and charged-mixture precedent}
+Rosenfeld's original work~\cite{Rosenfeld1977} motivates an approximate
+relation between reduced transport and excess entropy. For self-diffusion,
+write
+\begin{equation}
+D_i^{\rm R}=D_i\rho^{1/3}\sqrt{m_i/(k_BT)},\qquad
+\ln D_i^{\rm R}\simeq a_i+b_i s_{\rm ex}/k_B.
+\end{equation}
+This representation is useful empirically; it does not imply that changing
+any contribution called entropy must accelerate every species.
+
+Rosenfeld, Nardi, and Zinamon~\cite{Rosenfeld1995} developed a corresponding-states
+hard-sphere description of diffusion in binary dense-plasma mixtures, tested
+against molecular dynamics of asymmetric ionic mixtures. Charged-mixture
+entropy--diffusion connections therefore have a long history. Their plasma
+setting differs from our explicit neutral solvent with oppositely charged
+probe ions, but a broad claim of introducing entropy scaling to charged
+mixtures would be inappropriate.
+
+Dyre's perspective~\cite{Dyre2018} explains the connection with hidden scale
+invariance and isomorph theory, while reviewing failures of universality.
+Its practical implication here is that a successful fit over a restricted
+composition range is evidence of an empirical relation, not an exact law
+covering changes in Hamiltonian or composition.
+
+\subsection{Individual-species diffusion: Krekelberg et al. (2009)}
+Krekelberg et al.~\cite{Krekelberg2009} studied tracer diffusivities in
+hard-sphere and Gaussian-core model fluids, including mixtures with
+size asymmetry and nonadditive interactions. Their generalized Rosenfeld
+reduction uses interaction information and dilute-limit thermodynamic and
+transport behavior. It captures many composition effects, but encounters
+limitations when the component diffusivities decouple strongly.
+
+This is the main precedent for our distinction between the composition-weighted
+mean self-diffusion and divalent-ion self-diffusion. Ordinary Rosenfeld units
+and the generalized reduction are different constructions. Our measurements
+should not be described as a test of their generalized prediction unless
+its required dilute-limit quantities are actually calculated. A weak
+species-level correlation with one bulk entropy is not intrinsically
+inconsistent with mixture scaling research.
+
+\subsection{A predictive mixture framework: Schmitt et al. (2025)}
+Schmitt, Hasse, and Stephan~\cite{Schmitt2025} combine entropy scaling,
+limiting pure-component and infinite-dilution transport properties, and
+mixing rules to describe self-diffusion and mutual diffusion in binary
+mixtures. Mixture entropy is supplied by an equation of state. They test
+model and real-fluid systems, and emphasize that a general single-variable
+mixture dependence does not persist.
+
+Their work shows how entropy can remain useful even when it is insufficient
+alone. It also reinforces a necessary distinction: our
+$D_{\rm net}=\sum_i x_iD_i$ is a weighted mean of self-diffusion coefficients,
+not a mutual-diffusion coefficient or an electrical conductivity. A direct
+comparison with their predictive framework would require additional mixture
+transport information and an extension beyond the binary demonstrations.
+
+\section{High-entropy electrolytes: the closest application precedents}
+\subsection{Wang et al.: multisalts and enhanced lithium mobility (2023)}
+Wang et al.~\cite{Wang2023} compare a four-salt lithium electrolyte with
+single-salt counterparts at matched total salt concentration. Experiments
+and MD support altered solvation and enhanced lithium mobility, alongside
+improved battery performance. The paper explicitly recognizes the challenge
+of separating the effect of entropy from the properties of the selected
+chemical components.
+
+This closely matches the motivation of our simulations. However, chemical
+substitution changes interactions as well as compositional diversity. The
+reported association is therefore not, by itself, evidence that ideal mixing
+entropy independently causes a mobility increase. Our identical-interaction
+label control and controlled distribution of solvent interactions address
+that attribution problem in a simpler setting.
+
+A related paper by Wang et al.~\cite{WangAdvanced2023} examines entropy-driven
+multisalt electrolytes, including solubility, solvation, interphase stability,
+and lower-temperature operation. It broadens the application context but
+is a separate paper from Ref.~\cite{Wang2023}; their findings should not be
+combined into a single bibliographic attribution.
+
+\subsection{He et al.: an explicit Rosenfeld connection (2026)}
+He et al.~\cite{He2026} propose multi-anion lithium electrolytes and report
+that lithium self-diffusion follows classical Rosenfeld scaling with excess
+entropy. Their abstract separately identifies solvation-configurational
+entropy and excess entropy. Of the identified papers, this is the closest
+to the broad hypothesis of our study.
+
+The publisher's abstract and bibliographic record were verified, but the
+full article was not accessible during preparation. No conclusion is made
+here about their entropy estimator, treatment of mixing, statistical precision,
+or causal controls. These must be examined before asserting methodological
+differences. The existence of this paper nevertheless rules out presenting
+the general connection between high-entropy electrolyte design and Rosenfeld
+scaling as a new idea.
+
+\section{Voronoi and graph-based structural entropy}
+\subsection{Local topology and its implementation}
+Lazar, Han, and Srolovitz~\cite{Lazar2015} describe a Voronoi-topological
+framework for classifying local atomic structure. The VoroTop
+implementation~\cite{LazarToolkit} makes this approach accessible for
+atomistic configurations. Graph connectivity resolves distinctions that
+coordination numbers or simple face-count indices can miss. These sources
+support the structural representation; they do not by themselves validate
+an absolute thermodynamic-entropy estimator for our mixtures.
+
+\subsection{Yoon et al.: topological entropy and transport (2019)}
+Yoon et al.~\cite{Yoon2019} classify complete Voronoi-cell graph topologies
+using Weinberg vectors and calculate a Shannon entropy from their frequencies.
+For repulsive soft-sphere fluids, they compare this descriptor with TI excess
+entropy and reduced transport. They use an ideal-gas topological reference
+and address unseen structural types. The relation to thermodynamic entropy
+is interaction dependent, and neighboring-cell correlations remain important.
+
+This is the closest methodological precedent for testing topology against
+our TI and diffusion results. It motivates a structural benchmark rather
+than assuming that the raw local Shannon entropy equals $s_{\rm ex}/k_B$.
+In our mixtures, a further question is whether geometry alone misses changes
+in the charge and species identities of neighboring particles. That is an
+inference motivating our proposed colored-neighborhood analysis, not a
+result already established by this reference.
+
+\subsection{Zhou and Milner: cluster-entropy extrapolation (2016)}
+Zhou and Milner~\cite{Zhou2016} classify Voronoi-derived clusters using graph
+isomorphism. They estimate subsystem structural entropy and its growth with
+particle number; the slope gives an entropy per particle. Their hard-particle
+results are consistent with previous configurational-entropy estimates from
+thermodynamic integration.
+
+This goes beyond a histogram of isolated cell types by analyzing larger
+structures. Its transfer to attractive charged liquids requires separate
+validation: graph-equivalent configurations can have different distances,
+energies, and within-class phase-space volumes. Sampling rare graph classes
+also becomes harder as cluster size grows. The companion plan therefore
+makes extrapolation conditional on adequate class coverage, a stable
+entropy-growth regime, and an explicit definition of the entropy target.
+A stable graph-entropy slope alone is not proof of equality to liquid excess
+entropy.
+
+\subsection{Molecular-liquid applications}
+Abdulkareem U and Madhurima~\cite{Abdulkareem2024} use Voronoi entropy to
+characterize hydrogen-bonded liquids and binary alcohol mixtures. This
+establishes broader use of structural-diversity measures in molecular
+mixtures. It is not a direct demonstration that they provide absolute excess
+entropy or a universal ion-diffusion predictor. The issue year is 2024;
+the article became available online in November 2023.
+
+\section{The 2PT comparison and its limits}
+Sun et al.~\cite{Sun2017} reanalyze the two-phase thermodynamic approach to
+liquid entropy. Lai et al.~\cite{Lai2012} extend 2PT treatment to mixtures.
+These are the methodological sources for our corrected classical spectral
+assessment, not independent validations of the present charged mixtures.
+
+Our rehabilitation tests pass internal normalization and reference checks,
+but retain composition-dependent discrepancies against TI. In particular,
+the primary corrected estimate overstates the controlled entropy increment
+with monovalent background by approximately $0.036k_B$ per particle.
+Consequently TI remains our primary entropy coordinate. A static Voronoi/graph
+comparison has the advantage that it does not take a diffusion coefficient
+as input, whereas the 2PT gas/solid partition is informed by diffusion.
+Agreement between 2PT entropy and diffusion therefore has a different
+interpretation from an independently calculated static-structure correlation.
+
+\section{How the prior work connects to our HNC/MD study}
+\subsection{The role of HNC and the independent MD test}
+Our workflow uses hypernetted-chain (HNC) calculations to screen charge,
+composition, and solvent-interaction candidates for higher excess entropy,
+then tests selected states with independent MD thermodynamics and transport.
+The successful entropy ordering is a validation of the screening for these
+candidates, not an exact prediction of their dynamics. In the completed study,
+HNC absolute entropies are more negative than TI values by approximately
+$0.064$--$0.093k_B$ per particle; controlled diversification increments agree
+more closely: about $0.1107$--$0.1108k_B$ from HNC versus
+$0.1032$--$0.1033k_B$ from MD/TI.
+
+This makes the thermodynamic and kinetic steps separately assessable.
+Agreement of HNC with TI is distinct from agreement of an entropy-based
+mobility forecast with measured $D_i$. HNC does not directly provide
+self-diffusion coefficients in the present implementation. A species-specific
+mobility prediction requires an additional dynamical assumption or model.
+The screened candidate set also does not establish a global composition optimum.
+
+\subsection{Connection to the five closest entropy--diffusion precedents}
+The links below are our assessment of how the cited studies inform this
+project; they are not claims that those authors examined our particular
+controls or divalent-solvent model.
+\begin{longtable}{@{}p{0.25\textwidth}p{0.69\textwidth}@{}}
+\toprule
+Prior work & Connection and distinction for the present calculations\\
+\midrule
+\endhead
+Rosenfeld, Nardi, and Zinamon (1995)~\cite{Rosenfeld1995} &
+Establishes an early charged-mixture precedent for entropy-based diffusion
+modeling. Our neutral solvent, oppositely charged probes, and physical
+solvent-diversification controls address a different setting; charged-mixture
+scaling itself is not new.\\[3pt]
+Krekelberg et al. (2009)~\cite{Krekelberg2009} &
+Provides the main context for tracer mobility and component decoupling.
+It motivates comparing bulk and probe responses separately. Our ordinary
+reduced-diffusion plots do not implement their generalized dilute-limit
+scaling, so disagreement with a simple bulk-entropy correlation would not
+by itself falsify their model.\\[3pt]
+Wang et al. (2023)~\cite{Wang2023} &
+Directly motivates the multispecies-electrolyte question: can composition
+and solvation diversity improve ion motion? Our simpler model adds a label
+null and matched mean bare interaction amplitude. These help examine
+attribution, while actual energy, friction, and local solvation still change.\\[3pt]
+Schmitt, Hasse, and Stephan (2025)~\cite{Schmitt2025} &
+Shows how mixture entropy can support diffusion prediction when supplemented
+by limiting transport properties and mixing rules. This supports using HNC
+as thermodynamic input while recognizing that it supplies only part of a
+predictive transport model. Their binary framework is not directly applied
+here to our multicomponent charged mixtures.\\[3pt]
+He et al. (2026)~\cite{He2026} &
+The closest broad application precedent: high-entropy electrolyte design
+with an explicit reported Rosenfeld relation for lithium self-diffusion.
+Our contribution must be framed around controlled tests and limitations,
+not discovery of that general connection. Detailed methodological differences
+remain to be established from their full article.\\
+\bottomrule
+\end{longtable}
+
+\subsection{What this implies for the original question}
+An increase in the number of components can increase ideal mixing entropy
+without changing forces, as our U4/L5 control demonstrates. To affect
+mobility, physical diversification must change the mechanical environment;
+that change may simultaneously alter excess entropy and diffusion. Our broad
+mixture trends are consistent with an entropy--mobility association, including
+for the divalent probes. They do not show that an ideal mixing contribution
+causes faster motion, or that one bulk entropy determines each species'
+diffusivity. The smaller controlled probe response remains less certain than
+the corresponding entropy and solvent-dominated mean-diffusion changes.
+
+\section{Assessment of the present study's contribution}
+The following statements concern our completed calculations, not the external
+papers. All states have $N=4000$, $T^*=2$, $\rho^*=0.7$, and 3\% of each
+divalent sign, with three replicas. The TI reference is the ideal mixture
+of the same composition. The LJ Hamiltonian is held fixed along each density
+integration path.
+
+\begin{longtable}{@{}p{0.27\textwidth}p{0.67\textwidth}@{}}
+\toprule
+Finding or control & Interpretation in light of prior work\\
+\midrule
+\endhead
+Identical-label splitting & U4 and L5 have identical interactions. Their
+formal ideal mixing entropy differs, while diffusion is identical and TI
+entropy agrees within sampling uncertainty. Component labels alone supply
+no mechanical acceleration.\\[3pt]
+Broad design changes & Higher-excess-entropy solvent designs increase pooled
+divalent self-diffusion by about 18--20\% relative to the baselines. This
+supports an association but also changes mean interactions and local friction.\\[3pt]
+Controlled interaction diversity & At fixed charged composition, nominal
+sizes, masses, ionic strength, and mean bare LJ amplitude, strong solvent
+splitting raises TI entropy by about $0.103k_B$. Probe diffusion increases
+by about 5\% in point estimates, with unresolved replica or fitting-window
+uncertainty. Actual energy and friction are not held fixed.\\[3pt]
+Species versus bulk response & The controlled increase in weighted mean
+self-diffusion is about 8--9\%, larger than the probe response. Broad
+entropy--diffusion trends exist for both, but a single bulk entropy does
+not determine each species' mobility.\\[3pt]
+Independent entropy benchmark & TI permits a direct assessment of HNC,
+2PT, and prospective graph descriptors. Passing internal consistency tests
+is distinct from agreeing quantitatively with TI across compositions.\\
+\bottomrule
+\end{longtable}
+
+These controls provide a plausible contribution alongside the existing
+literature. The appropriate claim is a controlled examination of the
+entropy--mobility association and its limits in model charged mixtures.
+The present evidence does not demonstrate causation by entropy, universality
+across mixtures, or a converged small enhancement of probe mobility under
+every controlled intervention.
+
+For the Voronoi follow-up, the main opportunity is to distinguish local
+packing from chemical organization around the probes, and to determine
+whether either adds explanatory value beyond TI and pair entropy. Even a
+negative benchmark can be useful if a descriptor tracks solvent-dominated
+mean diffusion but misses probe behavior. A focused pilot is justified;
+cluster extrapolation should follow only after its sampling requirements
+and entropy interpretation are demonstrated.
+
+\subsection*{Local sources and reproducibility}
+The completed numerical evidence is in the study directory
+\path{ComponentEntropyStudy_20261030/}. Relevant files within it are:
+\begin{itemize}
+\item \path{results/conclusions.md};
+\item \path{results/summary.json} and \path{results/diagnostics.json};
+\item \path{two_pt_rehabilitation/report.md}.
+\end{itemize}
+The proposed analysis is documented separately in
+\path{doc/voronoi_entropy_work_plan.tex}.
+The prior-work assessment does not replace a full reading of the primary
+papers or establish that no equivalent controlled study exists elsewhere.
+
+\begin{thebibliography}{99}
+\small
+\bibitem{Rosenfeld1977}
+Y. Rosenfeld, ``Relation between the transport coefficients and the internal
+entropy of simple systems,'' \textit{Phys. Rev. A} \textbf{15}, 2545--2549 (1977).
+\href{https://doi.org/10.1103/PhysRevA.15.2545}{doi:10.1103/PhysRevA.15.2545}.
+
+\bibitem{Rosenfeld1995}
+Y. Rosenfeld, E. Nardi, and Z. Zinamon, ``Corresponding States Hard-Sphere Model
+for the Diffusion Coefficients of Binary Dense-Plasma Mixtures,''
+\textit{Phys. Rev. Lett.} \textbf{75}, 2490 (1995).
+\href{https://doi.org/10.1103/PhysRevLett.75.2490}{doi:10.1103/PhysRevLett.75.2490}.
+
+\bibitem{Krekelberg2009}
+W. P. Krekelberg, M. J. Pond, G. Goel, V. K. Shen, J. R. Errington, and
+T. M. Truskett, ``Generalized Rosenfeld scalings for tracer diffusivities in
+not-so-simple fluids: Mixtures and soft particles,'' \textit{Phys. Rev. E}
+\textbf{80}, 061205 (2009).
+\href{https://doi.org/10.1103/PhysRevE.80.061205}{doi:10.1103/PhysRevE.80.061205};
+\href{https://arxiv.org/abs/0910.0280}{accessible preprint}.
+
+\bibitem{Schmitt2025}
+S. Schmitt, H. Hasse, and S. Stephan, ``Entropy scaling for diffusion
+coefficients in fluid mixtures,'' \textit{Nature Communications}
+\textbf{16}, 2611 (2025).
+\href{https://doi.org/10.1038/s41467-025-57780-z}{doi:10.1038/s41467-025-57780-z}.
+
+\bibitem{Wang2023}
+Q. Wang, C. Zhao, J. Wang, Z. Yao, S. Wang, S. G. H. Kumar, S. Ganapathy,
+S. Eustace, X. Bai, B. Li, and M. Wagemaker,
+``High entropy liquid electrolytes for lithium batteries,''
+\textit{Nature Communications} \textbf{14}, 440 (2023).
+\href{https://doi.org/10.1038/s41467-023-36075-1}{doi:10.1038/s41467-023-36075-1}.
+
+\bibitem{He2026}
+L. He, Y. Lin, J. Li, H. Su, H. Liu, C. Yang, and C. Lian,
+``Bridging thermodynamics and ion transport in lithium batteries via molecular
+design of high-entropy electrolytes,'' \textit{Molecular Systems Design \&
+Engineering} \textbf{11}, 681--690 (2026).
+\href{https://doi.org/10.1039/D6ME00060F}{doi:10.1039/D6ME00060F}.
+First published 19 May 2026; abstract-level comparison in this review.
+
+\bibitem{Yoon2019}
+T. J. Yoon, M. Y. Ha, E. A. Lazar, W. B. Lee, and Y.-W. Lee,
+``Topological extension of the isomorph theory based on the Shannon entropy,''
+\textit{Phys. Rev. E} \textbf{100}, 012118 (2019).
+\href{https://doi.org/10.1103/PhysRevE.100.012118}{doi:10.1103/PhysRevE.100.012118};
+\href{https://arxiv.org/abs/1901.02772}{accessible preprint}.
+
+\bibitem{Lazar2015}
+E. A. Lazar, J. Han, and D. J. Srolovitz, ``A topological framework for local
+structure analysis in condensed matter,'' \textit{Proceedings of the National
+Academy of Sciences USA} \textbf{112}, E5769--E5776 (2015).
+\href{https://doi.org/10.1073/pnas.1505788112}{doi:10.1073/pnas.1505788112};
+\href{https://arxiv.org/abs/1508.05937}{accessible preprint}.
+
+\bibitem{LazarToolkit}
+E. A. Lazar, ``VoroTop: Voronoi Cell Topology Visualization and Analysis
+Toolkit,'' \textit{Modelling and Simulation in Materials Science and
+Engineering} \textbf{26}, 015011 (2018; published online December 2017).
+\href{https://doi.org/10.1088/1361-651X/aa9a01}{doi:10.1088/1361-651X/aa9a01};
+\href{https://arxiv.org/abs/1804.04221}{accessible preprint};
+\href{https://www.vorotop.org/}{software and documentation}.
+
+\bibitem{Zhou2016}
+Y. Zhou and S. T. Milner, ``Structural entropy of glassy systems from graph
+isomorphism,'' \textit{Soft Matter} \textbf{12}, 7281--7288 (2016).
+\href{https://doi.org/10.1039/C6SM01355D}{doi:10.1039/C6SM01355D}.
+Primary source for cluster-entropy extrapolation.
+
+\bibitem{Abdulkareem2024}
+Abdulkareem U and V. Madhurima, ``Understanding complexity of hydrogen-bonded
+liquids through Voronoi entropy,'' \textit{Chemical Physics Impact}
+\textbf{8}, 100403 (2024; available online 30 November 2023).
+\href{https://doi.org/10.1016/j.chphi.2023.100403}{doi:10.1016/j.chphi.2023.100403}.
+
+\bibitem{Sun2017}
+T. Sun, J. Xian, H. Zhang, Z. Zhang, and Y. Zhang,
+``Two-phase thermodynamic model for computing entropies of liquids reanalyzed,''
+\textit{J. Chem. Phys.} \textbf{147}, 194505 (2017).
+\href{https://doi.org/10.1063/1.5001798}{doi:10.1063/1.5001798};
+\href{https://arxiv.org/abs/1711.02041}{accessible preprint}.
+
+\bibitem{Lai2012}
+P.-K. Lai, C.-M. Hsieh, and S.-T. Lin,
+``Rapid determination of entropy and free energy of mixtures from molecular
+dynamics simulations with the two-phase thermodynamic model,''
+\textit{Phys. Chem. Chem. Phys.} \textbf{14}, 15206--15213 (2012).
+\href{https://doi.org/10.1039/C2CP42011B}{doi:10.1039/C2CP42011B}.
+
+\bibitem{Dyre2018}
+J. C. Dyre, ``Perspective: Excess-entropy scaling,''
+\textit{J. Chem. Phys.} \textbf{149}, 210901 (2018).
+\href{https://doi.org/10.1063/1.5055064}{doi:10.1063/1.5055064};
+\href{https://jcdyre.dk/2018_JCP_149_210901.pdf}{author-hosted full text}.
+
+\bibitem{WangAdvanced2023}
+Q. Wang, C. Zhao, Z. Yao, J. Wang, F. Wu, S. G. H. Kumar, S. Ganapathy,
+S. Eustace, X. Bai, B. Li, J. Lu, and M. Wagemaker,
+``Entropy-Driven Liquid Electrolytes for Lithium Batteries,''
+\textit{Advanced Materials} \textbf{35}, 2210677 (2023).
+\href{https://doi.org/10.1002/adma.202210677}{doi:10.1002/adma.202210677}.
+\end{thebibliography}
+\end{document}

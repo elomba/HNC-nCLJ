@@ -15,9 +15,11 @@ python3 doc/generate_component_study_assets.py
 bash doc/build_pdfs.sh
 ```
 
-The build script accepts an optional document name (`paper_pre`, `entropy_theory`, or `voronoi_entropy_work_plan`) to rebuild one PDF; without arguments it builds the two manuscripts. The build script loads `texlive/20260310-GCC-13.2.0`. Run it on a configured cluster node if the local environment is slow or lacks the module.
+The build script accepts an optional document name (`paper_pre`, `entropy_theory`, `voronoi_entropy_work_plan`, or `entropy_diffusion_prior_work`) to rebuild one PDF; without arguments it builds the two manuscripts. The build script loads `texlive/20260310-GCC-13.2.0`. Run it on a configured cluster node if the local environment is slow or lacks the module.
 
 `voronoi_entropy_work_plan.tex` is a standalone handover plan for local Voronoi topology, chemical-neighborhood controls, comparison with TI and diffusion, and conditional cluster-entropy extrapolation. It includes the related electrolyte and graph-entropy references. Build it with `bash doc/build_pdfs.sh voronoi_entropy_work_plan`.
+
+`entropy_diffusion_prior_work.tex` is the separate annotated literature review covering entropy scaling, ionic mixtures, high-entropy electrolytes, Voronoi/graph entropy, cluster extrapolation, and 2PT. It distinguishes published findings from our assessment and summarizes the contribution and limits of the current calculations. Build it with `bash doc/build_pdfs.sh entropy_diffusion_prior_work`.
 
 The new study replaces the previous single-trajectory diffusion, incompatible ion-transport tables, unverified species-entropy/2PT comparisons, and old scaling fits in the research manuscript. The LJ-cutoff audit remains in its appendix. The theory report retains explicitly historical HNC benchmark tables for different compositions, corrects the interpretation of their dilute endpoint, and replaces the former two-state transport claim with the new study. Historical benchmark values are not mixed with the new replica data.
 
