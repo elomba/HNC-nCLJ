@@ -1,0 +1,488 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=24mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,booktabs,longtable,array}
+\usepackage{enumitem,microtype}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+\setlist{nosep,leftmargin=*}
+\setlength{\emergencystretch}{2em}
+\newcommand{\sex}{s_{\mathrm{ex}}}
+\newcommand{\Hv}{H_{\mathrm V}}
+\newcommand{\study}{\path{ComponentEntropyStudy_20261030/}\allowbreak}
+\title{Voronoi and Graph Entropy in Multicomponent Charged Liquids\\
+\large Work plan for an independent structural assessment}
+\author{EntropicFluids collaboration}
+\date{31 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+This plan proposes a staged analysis of existing molecular-dynamics trajectories:
+first local Voronoi topology and chemical neighborhoods, then, if sampling permits,
+cluster-entropy extrapolation. Thermodynamic integration (TI) remains the reference
+for excess entropy. The objectives are to determine whether structural diversity
+tracks TI entropy, whether environments around unchanged divalent ions explain
+their mobility, and whether adding physically distinct components has effects
+beyond adding species labels. No additional MD is required for the initial pilot.
+The protocol below is proposed work, not a report of completed Voronoi calculations.
+\end{abstract}
+
+\section{Scientific questions and prior work}
+Rosenfeld scaling relates reduced transport to excess entropy~\cite{Rosenfeld1977}.
+Charged-mixture applications precede the present study~\cite{Rosenfeld1995}.
+Generalized tracer scaling has been tested in model mixtures, with limitations
+when component mobilities decouple~\cite{Krekelberg2009}. More recent mixture
+modeling uses entropy together with limiting transport properties and mixing
+rules; one bulk entropy is not generally a unique predictor of each diffusion
+coefficient~\cite{Schmitt2025}.
+
+For electrolytes, Wang et al. connect multiple salts, altered solvation, and
+enhanced lithium mobility~\cite{Wang2023}. He et al. explicitly report a
+Rosenfeld relation for lithium self-diffusion in multi-anion
+electrolytes~\cite{He2026}. These motivate comparison, but do not establish a
+universal causal effect of component count. Only the abstract and bibliographic
+record of Ref.~\cite{He2026} were accessible during preparation of this plan;
+its entropy estimator and controls must be checked in the full paper before
+making a detailed methodological comparison.
+
+Two graph approaches should be distinguished:
+\begin{enumerate}
+\item \textbf{Local cell topology.} Yoon et al.~\cite{Yoon2019} classify Voronoi
+cells by their complete graph topology, using Weinberg vectors, and compare
+topological Shannon entropy with TI entropy and transport in repulsive
+soft-sphere fluids. Their entropy conversion is interaction dependent; rare
+types and correlations between adjacent cells matter. This is the closest
+precedent for the initial pilot. The underlying topology framework and an
+implementation are described in Refs.~\cite{Lazar2015,LazarToolkit}.
+\item \textbf{Cluster entropy.} Zhou and Milner~\cite{Zhou2016} classify
+Voronoi-derived clusters by graph isomorphism and estimate structural entropy
+per particle from the growth of subsystem entropy with particle number.
+They benchmark hard-particle systems against previous configurational-entropy
+estimates from TI. This motivates the more expensive second stage, but does
+not prove equivalence to excess entropy in our attractive, charged mixtures.
+\end{enumerate}
+Voronoi entropy has also been used for hydrogen-bonded liquids and binary
+mixtures~\cite{Abdulkareem2024}; that application illustrates structural
+characterization rather than a general absolute-entropy prescription.
+
+The proposed contribution is a benchmark across controlled charged mixtures,
+with an exact label control and independent TI and diffusion data. The literature
+search establishes precedent, not priority for every element of this design.
+
+\section{Entropy definitions and comparison rules}
+The reference is classical excess entropy per particle relative to the ideal
+mixture at the same temperature, density, and composition:
+\begin{equation}
+\sex = \frac{S-S_{\mathrm{id,mix}}}{N},\qquad
+\frac{\sex}{k_B}=\frac{U_{\mathrm{ex}}}{Nk_BT}
+-\frac{A_{\mathrm{ex}}}{Nk_BT}.
+\end{equation}
+Ideal mixing, $-k_B\sum_i x_i\ln x_i$, is excluded. Do not substitute the
+excess entropy of mixing relative to pure liquids for this quantity.
+
+For a chosen local topological class $\alpha$, define the dimensionless
+information entropy
+\begin{equation}
+\Hv=-\sum_\alpha p_\alpha\ln p_\alpha.
+\end{equation}
+This describes the diversity of a coarse structural representation. It is not
+automatically $\sex/k_B$, and summing single-cell entropies omits correlations.
+Likewise, glass configurational entropy, which counts basins after separating
+vibrational motion, is a different target from our full liquid excess entropy.
+
+Use a simulated ideal-gas point ensemble with the same periodic geometry and
+the identical estimator to define an optional topological reference
+$\Delta H_{\mathrm V}=\Hv-H_{\mathrm{V,id}}$. Do not assume that subtracting
+this reference makes it a thermodynamic excess entropy. If chemical colors
+are used, match their composition in the reference. Any fitted mapping to TI
+must be explicitly called a calibration and tested on excluded compositions.
+
+The completed classical 2PT assessment follows
+Refs.~\cite{Sun2017,Lai2012}. Its internal checks passed, but its absolute
+bias varies with composition and it overestimates one controlled TI increment.
+Keep it as a secondary comparator. In particular, diffusion enters its spectral
+partition, whereas the proposed static graph descriptors do not use velocities.
+
+\section{Systems, existing evidence, and priorities}
+All states have $N=4000$, $T^*=2$, $\rho^*=0.7$, $x_{+2}=x_{-2}=0.03$,
+unit masses and nominal diameters, and three replicas. Ions and primary neutral
+solvent have $\varepsilon=1$. Unlike LJ amplitudes follow geometric mixing.
+The shifted LJ cutoff is fixed at $2.5\sigma$ throughout TI; electrostatics use
+PPPM at tolerance $10^{-5}$. The parameter $I=\tfrac12\sum_i x_iq_i^2$ below
+is dimensionless; it is not a molar ionic strength.
+
+\begin{table}[ht]
+\centering\small
+\caption{Composition map. Secondary fractions and amplitudes correspond in order.
+The monovalent fraction is for each sign; all rows also contain 3\% of each divalent sign.}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Code & Primary $x$ & Secondary $x$ & Secondary $\varepsilon$ & $x_{\pm1}$ & $I$\\
+\midrule
+B3 & .94 & --- & --- & 0 & .12\\
+B5 & .84 & --- & --- & .05 & .17\\
+U4 & .64 & .30 & .25 & 0 & .12\\
+L5 & .64 & .15+.15 & .25, .25 & 0 & .12\\
+M5 & .64 & .15+.15 & .0625, .5625 & 0 & .12\\
+H5 & .64 & .15+.15 & .01, .81 & 0 & .12\\
+U6 & .54 & .30 & .25 & .05 & .17\\
+H7 & .54 & .15+.15 & .01, .81 & .05 & .17\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{enumerate}
+\item \textbf{Mandatory null: U4/L5.} Identical interactions, with one secondary
+solvent split into two labels. Formal ideal mixing changes by
+$0.30\ln2=0.20794$ per particle in units of $k_B$; diffusion is identical in
+the completed trajectories. TI differences are consistent with sampling noise.
+Verify positional identity by ID rather than assuming it from equal diffusion.
+Also create a synthetic label split of the exact same snapshots to guarantee
+an exact implementation test.
+\item \textbf{Primary contrasts: H5--U4 and H7--U6.} Both TI increments are
+approximately $+0.1033k_B$. Primary-window probe diffusion increases by
+4.81\% and 5.20\%, respectively. The former loses nominal significance in
+the late MSD window; the latter is unresolved across replicas. These small
+effects must not be described as established merely because a structural
+descriptor changes significantly.
+\item \textbf{Moderate perturbation: M5--U4.} TI increases by $0.0304k_B$;
+the approximately 1.5\% probe response is unresolved. Include this case to
+avoid selecting only large structural changes.
+\item \textbf{Broad references: B3/U4/H5 and B5/U6/H7.} Baseline-to-design
+probe increases are about 20\% and 18\%. These comparisons change mean
+interaction strength and supply range, rather than an isolated component-count
+test. B3/B5 also changes ionic strength and is a secondary contrast.
+\end{enumerate}
+
+U4/L5/M5/H5 have identical $\sum_i x_i\sqrt{\varepsilon_i}=0.85$ and mean
+bare pair amplitude $\sum_{ij}x_ix_j\varepsilon_{ij}=0.7225$; U6/H7 also
+share these values. Actual energy, effective excluded volume, solvation, and
+friction need not match. L5 is a duplicate control, not another independent
+state in regressions. The pilot should cover all eight states if processing
+is inexpensive; otherwise begin with U4/L5/H5/U6/H7 and B3, then add M5/B5
+before drawing study-wide conclusions.
+
+\section{Data handover and reproducibility}
+Paths are relative to the repository root; raw trajectories remain local and
+are not included in the Git repository. Supply them separately to the analyst.
+\begin{itemize}
+\item \study\texttt{selected.json}: exact species definitions and case names.
+\item \study\texttt{md/<case>/replica\_<r>/transport/positions.nc}:
+all-particle, unwrapped positions every $0.5\tau$ over $1000\tau$ production.
+Read stored IDs, types, frame times, and box information explicitly; do not
+infer atom ordering from row number.
+\item Corresponding \texttt{transport/data.mixture}, \texttt{in.run}, and
+replica \texttt{manifest.json}: charges/type mapping, box, inputs, and provenance.
+\item \texttt{results/summary.json}, \texttt{results/diagnostics.json}, and
+\texttt{results/conclusions.md} under \study: TI and transport comparisons,
+intervals, estimator sensitivities, and interpretation.
+\item \texttt{md/<case>/replica\_<r>/replica\_result.json} and
+\texttt{transport/msd\_multi\_origin.csv}: replica-level reference values.
+\item \study\texttt{two\_pt\_rehabilitation/}: corrected 2PT methods,
+replica results, \texttt{summary.json}, and \texttt{report.md}.
+\end{itemize}
+Case directories are B3: \path{baseline_3C}; B5: \path{mono_f010};
+U4: \path{weak_f030_e025}; L5: \path{dispersion_split_d000};
+M5: \path{dispersion_split_d025}; H5: \path{dispersion_split_d040};
+U6: \path{mono_weak_uniform6C}; H7: \path{mono_weak_split7C}.
+
+Record source commit, checksums, tool versions, all tessellation/graph options,
+selected frame IDs, random seeds, and estimator settings. Retain canonical
+graph identifiers and type counts, not just entropy estimates. Write new
+outputs to a separate directory such as \texttt{VoronoiEntropyAssessment/}.
+Use the colleague's validated tools; the scientific definitions below should
+be agreed before comparing descriptor values with diffusion.
+
+\section{Stage A: local structural pilot}
+\subsection{Geometry and graph validation}
+Wrap coordinates into each frame's periodic box before tessellation; preserve
+the unwrapped record for displacement analysis. Tessellate \emph{all} particles,
+then condition statistics on the central species. Tessellating only ions would
+measure a different neighborhood and is not the primary protocol. Equal nominal
+diameters motivate ordinary Voronoi cells initially. Weighted cells, if used
+later, require an explicit radius convention and sensitivity analysis.
+
+Validate periodic cells by checking that volumes sum to the box volume,
+adjacency is reciprocal, and results are invariant under translation, atom
+ordering, and type-code renaming. Distinguish the edge graph of a single
+polyhedron from a particle-adjacency graph. Canonicalization must resolve graph
+isomorphism exactly; a hash or face-count vector alone is not a complete
+topological identifier. Check any treatment of tiny faces or near-degenerate
+vertices on a fixed subset before selecting a primary convention.
+
+Use instantaneous configurations as primary. Quenching is an optional,
+separately identified inherent-structure analysis; it changes the target and
+must not silently replace liquid configurations.
+
+\subsection{Descriptors and controls}
+Produce the following for the full liquid and separately for $+2$, $-2$, and
+each mechanically distinct neutral species:
+\begin{enumerate}
+\item Full uncolored cell-topology frequencies and $\Hv$; retain face-count
+and coordination distributions as simpler diagnostic summaries.
+\item Cell volume, surface area, and shape distributions. These capture metric
+information discarded by topology; report their moments without treating a
+bin-dependent differential entropy as an absolute thermodynamic entropy.
+\item Neighbor composition and charge distributions around the central ion.
+If supported, calculate colored neighborhood graph classes. Specify precisely
+whether colors belong to faces (neighbor particles) or nodes of a particle
+graph, and canonicalize colors consistently with graph automorphisms.
+\item Geometry-only, charge-only, and full mechanical-species versions, with
+mechanically identical L5 labels merged in the physical-species version.
+Also report label-resolved L5 as a deliberate bookkeeping diagnostic.
+\end{enumerate}
+
+At fixed coordinates, permute species labels while preserving counts and
+holding the selected central ion identity fixed for ion-centered statistics.
+Use multiple seeded permutations, preferably at least 100 for the pilot.
+This is a chemical-association null, not an equilibrium realization of the
+charged Hamiltonian. Compare actual and randomized conditional neighborhood
+distributions to expose ordering beyond composition. Keep purely combinatorial
+color diversity separate from geometry. Entropy differences against permutation
+controls are structural statistics, not automatically thermodynamic contributions.
+
+\subsection{Sampling and uncertainty}
+Start with 100 frames evenly spaced over each dense production trajectory;
+repeat with 200 and 400 frames if available and needed. Increase separation
+or use blocks after measuring correlation of representative topology and
+coordination observables. All 4000 particles can contribute to bulk statistics,
+but only 120 ions per sign occur per frame and neighboring cells are correlated.
+
+Report raw entropy, bias-corrected estimates supported by the tools, singleton
+fractions, discovery curves, and rare-type coverage. An unseen-type estimator
+does not create independent samples. Repeat with matched sample sizes and
+thinning. If entropy continues to grow with sample count, report an unresolved
+estimate rather than selecting the apparent plateau. Include independent
+ideal-gas point ensembles with the same pipeline; their topology can require
+much more sampling than the dense liquid.
+
+Keep replicas separate throughout estimation. Use paired differences across
+the three replica indices for composition contrasts; report nominal 95\%
+Student-$t$ intervals with two degrees of freedom. Block resampling within
+replicas diagnoses temporal uncertainty but does not turn cells, overlapping
+clusters, frames, or permutations into independent MD replicas. Check first
+and second trajectory halves for stationarity. Monitor cation/anion symmetry;
+the existing baseline transport asymmetry is a sampling flag.
+
+\section{Stage B: thermodynamic and transport assessment}
+Compare descriptor \emph{increments} first, particularly H5--U4 and H7--U6.
+Then compare absolute-state ordering against TI, HNC, and corrected 2PT.
+Calculate the independent pair contribution from species RDFs where feasible:
+\begin{equation}
+\frac{s_2}{k_B}=-2\pi\rho\sum_{ij}x_ix_j
+\int_0^\infty [g_{ij}(r)\ln g_{ij}(r)-g_{ij}(r)+1]r^2\,dr.
+\end{equation}
+The sum is over ordered species pairs. Document finite-box cutoff, binning,
+normalization, and tail sensitivity; merging identical labels must preserve
+the result. This gives a simple structural baseline before crediting graph
+analysis with additional predictive information.
+
+For transport use the existing common-system-COM MSD estimates:
+\begin{equation}
+D_{\mathrm{net}}=\sum_i x_iD_i,\quad
+D_{\mathrm{probe}}=\tfrac12(D_{+2}+D_{-2}),\quad
+D_i^{\mathrm R}=D_i\rho^{1/3}\sqrt{m_i/(k_BT)}.
+\end{equation}
+Use total number density in the reduction. At common $T$, $\rho$, and mass,
+diffusion ratios are unchanged by it. Neither $D_{\mathrm{net}}$ nor
+$D_{\mathrm{probe}}$ is conductivity, mutual diffusion, or diffusion of a
+bound neutral ion pair. Retain the primary 20--100$\tau$ MSD fit and the
+10--50 and 50--200$\tau$ sensitivity windows.
+
+Compare $\ln D_i^{\mathrm R}$ with bulk topology and ion-centered descriptors.
+Keep fixed-$I$ families separate; exclude L5 from fit counts. With only seven
+physical states, a high training $R^2$ is weak evidence. Limit models to one
+descriptor plus an intercept initially; show residuals, paired contrasts,
+leave-one-state-out errors, and transfer between the two salt backgrounds.
+Do not select descriptors or graph parameters by maximizing agreement with
+diffusion and then present that agreement as an independent test.
+
+As an optional mechanistic extension, relate an ion's initial environment to
+its subsequent squared displacement at fixed lags (e.g., 5, 20, and $50\tau$),
+with the same whole-system COM correction as the reference analysis. Call
+this conditional mobility, not a local self-diffusion coefficient. Analyze
+within each state so that between-state differences cannot create a spurious
+local association. Neighbor persistence may help distinguish geometric packing
+from chemical residence effects; the $0.5\tau$ output spacing limits short-time
+transition and residence-time resolution.
+
+\section{Stage C: conditional cluster-entropy extrapolation}
+Proceed only after Stage A passes the label and convergence checks and the
+analyst demonstrates adequate graph-count coverage. First reproduce a small
+hard-particle benchmark using the cluster construction and entropy convention
+of Zhou and Milner~\cite{Zhou2016}. Their full method must be consulted for
+cluster selection, boundary treatment, and corrections; the schematic formula
+below is not a replacement implementation.
+
+For a fixed, documented rule for selecting connected $n$-particle neighborhoods,
+estimate canonical graph-class probabilities and
+\begin{equation}
+H_G(n)=-\sum_g p_n(g)\ln p_n(g),\qquad
+h_G(n)=H_G(n+1)-H_G(n).
+\end{equation}
+Begin with an adaptive sequence such as $n=2,3,4,5,6,8,10$, extending only
+while class coverage remains credible. Rooted and unrooted graphs, graph-radius
+and nearest-$n$ neighborhoods, and induced versus boundary-completed graphs
+define different distributions: select one primary convention and document
+all alternatives. Preserve periodic adjacency before extracting local clusters.
+Distinguish clusters sampled around probes from bulk clusters; their entropy
+slopes have different conditioning.
+
+Evaluate uncolored graphs first, followed by charge/species colors with merged
+identical labels. Apply the same ideal-gas and fixed-composition permutation
+references. Check sample-size growth for every $n$: saturation of observed
+entropy at roughly the logarithm of the number of sampled clusters is a
+coverage failure, not physical convergence.
+
+A defensible extensive regime would have stable $h_G(n)$ or stable fitted
+slopes under changes of fit range, trajectory half, sample size, and replica.
+Test boundary corrections rather than presuming exact linearity for small
+clusters. Require at least four consecutive, adequately sampled integer sizes
+for a provisional slope fit. If a converged regime cannot be reached before
+rare graphs dominate, stop and report finite-cluster information statistics.
+Do not force an infinite-size extrapolation.
+
+Even a stable slope is entropy of the chosen graph representation. In an
+energetic liquid, configurations with the same graph can have different
+distances, energies, and vibrational phase-space volumes. The missing
+within-class information must be accounted for, or the result retained as
+structural entropy. A TI calibration is an empirical mapping and requires
+held-out tests. It does not establish an exact statistical-mechanical identity.
+
+\section{Decisions, deliverables, and follow-up}
+\begin{longtable}{@{}p{0.25\textwidth}p{0.69\textwidth}@{}}
+\toprule
+Checkpoint & Required evidence and action\\
+\midrule
+\endhead
+Implementation & Periodicity and invariance checks pass; a synthetic label split
+leaves geometry and merged-color results identical to numerical precision.
+Audit actual U4/L5 snapshots before interpreting any discrepancy.\\[3pt]
+Sampling & Discovery curves, thinning, halves, and replica analyses are stable
+at the scale of the target contrasts. Otherwise extend postprocessing samples
+or report unresolved descriptors; add MD only if available sampling is inadequate.\\[3pt]
+Thermodynamic proxy & Report raw structural results independently. If a
+calibrated $\sex$ predictor is proposed, use provisional practical targets
+of $0.02k_B$ error in controlled increments and $0.05k_B$ in absolute values,
+with held-out validation. These are project targets, not literature guarantees;
+wide intervals do not establish equivalence.\\[3pt]
+Mechanistic value & Establish whether charge/species-aware probe descriptors
+explain behavior beyond bulk topology, TI, or $s_2$. An unresolved 5\% transport
+contrast remains unresolved even if its structural contrast is clear.\\[3pt]
+Cluster extension & Attempt extrapolation only with validated construction,
+adequate class coverage, and a stable entropy-growth regime. No stable regime
+means no reported thermodynamic entropy from extrapolation.\\
+\bottomrule
+\end{longtable}
+
+The handover should contain a machine-readable per-state/per-replica table;
+paired contrast tables with intervals; graph and chemical-null definitions;
+sample-coverage and estimator-sensitivity plots; TI--topology and
+diffusion--descriptor comparisons; and, if attempted, $H_G(n)$, increments,
+fit-range sensitivity, and explicit extrapolation failures. Include scripts,
+tool versions, frame manifests, and enough graph frequencies to reproduce
+the entropy estimates. A short written assessment should distinguish
+thermodynamic prediction, structural association, and mechanistic interpretation.
+
+The initial effort is postprocessing of existing trajectories. Time the first
+few frames and graph sizes before estimating total CPU/memory cost. Local
+cell classification and chemical-null analysis come first; cluster enumeration
+is the potentially expensive part. No new GPU submission is part of this plan.
+If structure is well resolved but transport is not, prioritize additional
+replicas, longer dense trajectories, and a second box size at fixed physical
+state. Higher concentrations, charge asymmetry, and different nominal sizes
+are later transfer tests; size changes also require a documented ordinary
+versus weighted Voronoi comparison.
+
+\begin{thebibliography}{99}
+\small
+\bibitem{Rosenfeld1977}
+Y. Rosenfeld, ``Relation between the transport coefficients and the internal
+entropy of simple systems,'' \textit{Phys. Rev. A} \textbf{15}, 2545--2549 (1977).
+\href{https://doi.org/10.1103/PhysRevA.15.2545}{doi:10.1103/PhysRevA.15.2545}.
+
+\bibitem{Rosenfeld1995}
+Y. Rosenfeld, E. Nardi, and Z. Zinamon, ``Corresponding States Hard-Sphere Model
+for the Diffusion Coefficients of Binary Dense-Plasma Mixtures,''
+\textit{Phys. Rev. Lett.} \textbf{75}, 2490 (1995).
+\href{https://doi.org/10.1103/PhysRevLett.75.2490}{doi:10.1103/PhysRevLett.75.2490}.
+
+\bibitem{Krekelberg2009}
+W. P. Krekelberg, M. J. Pond, G. Goel, V. K. Shen, J. R. Errington, and
+T. M. Truskett, ``Generalized Rosenfeld scalings for tracer diffusivities in
+not-so-simple fluids: Mixtures and soft particles,'' \textit{Phys. Rev. E}
+\textbf{80}, 061205 (2009).
+\href{https://doi.org/10.1103/PhysRevE.80.061205}{doi:10.1103/PhysRevE.80.061205};
+\href{https://arxiv.org/abs/0910.0280}{accessible preprint}.
+
+\bibitem{Schmitt2025}
+S. Schmitt, H. Hasse, and S. Stephan, ``Entropy scaling for diffusion
+coefficients in fluid mixtures,'' \textit{Nature Communications}
+\textbf{16}, 2611 (2025).
+\href{https://doi.org/10.1038/s41467-025-57780-z}{doi:10.1038/s41467-025-57780-z}.
+
+\bibitem{Wang2023}
+Q. Wang, C. Zhao, J. Wang, Z. Yao, S. Wang, S. G. H. Kumar, S. Ganapathy,
+S. Eustace, X. Bai, B. Li, and M. Wagemaker,
+``High entropy liquid electrolytes for lithium batteries,''
+\textit{Nature Communications} \textbf{14}, 440 (2023).
+\href{https://doi.org/10.1038/s41467-023-36075-1}{doi:10.1038/s41467-023-36075-1}.
+
+\bibitem{He2026}
+L. He, Y. Lin, J. Li, H. Su, H. Liu, C. Yang, and C. Lian,
+``Bridging thermodynamics and ion transport in lithium batteries via molecular
+design of high-entropy electrolytes,'' \textit{Molecular Systems Design \&
+Engineering} \textbf{11}, 681--690 (2026).
+\href{https://doi.org/10.1039/D6ME00060F}{doi:10.1039/D6ME00060F}.
+First published 19 May 2026; abstract-level comparison in this plan.
+
+\bibitem{Yoon2019}
+T. J. Yoon, M. Y. Ha, E. A. Lazar, W. B. Lee, and Y.-W. Lee,
+``Topological extension of the isomorph theory based on the Shannon entropy,''
+\textit{Phys. Rev. E} \textbf{100}, 012118 (2019).
+\href{https://doi.org/10.1103/PhysRevE.100.012118}{doi:10.1103/PhysRevE.100.012118};
+\href{https://arxiv.org/abs/1901.02772}{accessible preprint}.
+
+\bibitem{Lazar2015}
+E. A. Lazar, J. Han, and D. J. Srolovitz, ``A topological framework for local
+structure analysis in condensed matter,'' \textit{Proceedings of the National
+Academy of Sciences USA} \textbf{112}, E5769--E5776 (2015).
+\href{https://doi.org/10.1073/pnas.1505788112}{doi:10.1073/pnas.1505788112};
+\href{https://arxiv.org/abs/1508.05937}{accessible preprint}.
+
+\bibitem{LazarToolkit}
+E. A. Lazar, ``VoroTop: Voronoi Cell Topology Visualization and Analysis
+Toolkit,'' \textit{Modelling and Simulation in Materials Science and
+Engineering} \textbf{26}, 015011 (2018; published online December 2017).
+\href{https://doi.org/10.1088/1361-651X/aa9a01}{doi:10.1088/1361-651X/aa9a01};
+\href{https://arxiv.org/abs/1804.04221}{accessible preprint};
+\href{https://www.vorotop.org/}{software and documentation}.
+
+\bibitem{Zhou2016}
+Y. Zhou and S. T. Milner, ``Structural entropy of glassy systems from graph
+isomorphism,'' \textit{Soft Matter} \textbf{12}, 7281--7288 (2016).
+\href{https://doi.org/10.1039/C6SM01355D}{doi:10.1039/C6SM01355D}.
+Primary source for the cluster-entropy extension.
+
+\bibitem{Abdulkareem2024}
+Abdulkareem U and V. Madhurima, ``Understanding complexity of hydrogen-bonded
+liquids through Voronoi entropy,'' \textit{Chemical Physics Impact}
+\textbf{8}, 100403 (2024; available online 30 November 2023).
+\href{https://doi.org/10.1016/j.chphi.2023.100403}{doi:10.1016/j.chphi.2023.100403}.
+
+\bibitem{Sun2017}
+T. Sun, J. Xian, H. Zhang, Z. Zhang, and Y. Zhang,
+``Two-phase thermodynamic model for computing entropies of liquids reanalyzed,''
+\textit{J. Chem. Phys.} \textbf{147}, 194505 (2017).
+\href{https://doi.org/10.1063/1.5001798}{doi:10.1063/1.5001798};
+\href{https://arxiv.org/abs/1711.02041}{accessible preprint}.
+
+\bibitem{Lai2012}
+P.-K. Lai, C.-M. Hsieh, and S.-T. Lin,
+``Rapid determination of entropy and free energy of mixtures from molecular
+dynamics simulations with the two-phase thermodynamic model,''
+\textit{Phys. Chem. Chem. Phys.} \textbf{14}, 15206--15213 (2012).
+\href{https://doi.org/10.1039/C2CP42011B}{doi:10.1039/C2CP42011B}.
+\end{thebibliography}
+\end{document}
