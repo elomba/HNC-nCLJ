@@ -71,7 +71,7 @@ else
   FFLAGS = $(FFLAGS_OPT) $(MODULE_FLAG)
 endif
 
-.PHONY: all release debug clean distclean test help
+.PHONY: all release debug clean distclean test test-all help
 
 all: $(BIN_DIR)/$(TARGET)
 
@@ -109,6 +109,9 @@ $(BIN_DIR):
 test: all
 	python3 tests/regression.py
 
+test-all: all
+	python3 tests/regression.py --all
+
 clean:
 	rm -rf $(OBJ_DIR) *.mod
 
@@ -121,5 +124,6 @@ help:
 	@echo "  make              - Build optimized release executable (bin/hncr_nclj)"
 	@echo "  make MODE=debug   - Build with debugging flags and runtime checks"
 	@echo "  make test         - Run numerical regression checks in temporary directories"
+	@echo "  make test-all     - Run 3-component and 5-component regression checks"
 	@echo "  make clean        - Remove object and module files"
 	@echo "  make distclean    - Remove build artifacts, binaries, and calculation outputs"

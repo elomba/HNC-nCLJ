@@ -18,7 +18,7 @@ The project has two parts: the HNC integral-equation solver for charged LJ mixtu
 - On this cluster, the Makefile auto-detects OpenBLAS at `/usr/local/modules/x64_v4/software/OpenBLAS/0.3.30-GCC-14.3.0`. Override it with `make LIBS=...`.
 - When adding a new source file, put it in `SRCS` in dependency order and add its explicit module dependencies in the Makefile.
 - The binary writes `Salida.hncr`, `Thermohncr.dat`, `RDFhncr.dat`, `skhnc.dat`, and `lsol.hncr` into the **current directory**, overwriting existing files. Run studies from their own directories.
-- Regression check: `make test` runs `tests/regression.py` in temporary directories and compares against `tests/reference/`. `baseline_results/` is the historical pre-5b5dd5b record, used for structure only. Any numerical change must be explained.
+- Regression checks: `make test` runs the fast 3-component case; `make test-all` also runs the 5-component case. Both use temporary directories and compare against `tests/reference/`; 5C thermodynamics is also checked against `5C/Thermohncr.dat`. `baseline_results/` is the historical pre-5b5dd5b record, used for structure only. Any numerical change must be explained.
 - Mole fractions: the input gives only `NSP-2` of them. The last two follow from electroneutrality. `compsi=.false.` restarts from `solin.hncr`.
 
 ## Studies and data

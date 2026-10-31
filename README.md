@@ -135,15 +135,19 @@ make FC=ifx LIBS="-qmkl"
 make FC=gfortran LIBS="-lflexiblas"
 ```
 
-To run the automated validation test:
+To run the fast 3-component validation test or both regression cases:
 ```bash
 make test
+make test-all
 ```
-This runs the solver in a temporary directory and compares thermodynamics, RDF,
-and structure factors with `tests/reference/`. It also checks the 3-component
-structure against the historical `baseline_results/` data. After an intentional,
-explained numerical change, regenerate the current references with
-`python3 tests/regression.py --update-reference`.
+These run the solver in temporary directories and compare thermodynamics, RDF,
+and structure factors with `tests/reference/`. The 3-component case also checks
+structure against historical `baseline_results/` data. The 5-component case
+also checks thermodynamics against `5C/Thermohncr.dat` and runs only with
+`make test-all` or `python3 tests/regression.py --all`. After an intentional,
+explained numerical change, regenerate the selected references with
+`python3 tests/regression.py --update-reference` (3C only) or
+`python3 tests/regression.py --all --update-reference` (3C and 5C).
 
 To clean build artifacts:
 ```bash

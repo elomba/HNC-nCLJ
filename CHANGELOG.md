@@ -10,12 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **5-component numerical regression**: `make test-all` checks 3C and 5C thermodynamics, RDF, and structure factors; the 5C thermodynamics check also uses the tracked `5C/Thermohncr.dat`. `make test` remains 3C only.
 - **HNC numerical regression test**: `make test` now runs the 3-component solver in a temporary directory and checks thermodynamics, RDF, and structure factors against current references, while retaining historical structure checks against `baseline_results/`.
 - **Agent configuration**: `AGENTS.md` (shared guidance for Codex and Claude Code), `CLAUDE.md` importing it, and the `/rebuild-manuscript` Claude Code skill (`.claude/skills/rebuild-manuscript/`).
 - **Python linting**: correctness-focused `ruff.toml` for the study and analysis scripts.
 - **TI excess-entropy check** in `EntropyComparison/scripts/thermodynamic_integration.py`: `comparison_summary.txt` now tabulates s_ex(HNC) vs s_ex(TI) (max |diff| 0.0025 kB for 3C, 0.0042 kB for 5C, both at rho*=0.01); `comparison_data.csv` gains appended columns `s_ex_ti_3c, s_ex_ti_5c, delta_u_ex, delta_u_c, delta_z`. All pre-existing output is byte-identical.
 
 ### Fixed
+- Regenerated `5C/Thermohncr.dat` with the current solver after the core-radius reference correction in commit `5b5dd5b`. The tracked file was reproduced exactly (maximum absolute deviation 0) by the `5b5dd5b^` binary; relative to the current solver, its maximum deviation was 1.1495 in row 3, column 13 (`mu/kt(1)`). The correction affects `a/nkt`, `s_ex/nk`, `s/nk`, and `mu/kt(1:5)`.
 - All ruff findings in the analysis scripts (loop-variable binding in lambdas, unused variables, bare `except`, raw docstring, explicit `check=False`). No numerical results change; provenance scripts were checked with ruff and `py_compile` but not re-executed.
 
 ---

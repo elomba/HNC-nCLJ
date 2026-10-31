@@ -18,7 +18,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 BINARY = ROOT / "bin/hncr_nclj"
 FILES = ("Thermohncr.dat", "RDFhncr.dat", "skhnc.dat")
-CASES = {"3c": ROOT / "datosLJ.hncr"}
+CASES = {"3c": ROOT / "datosLJ.hncr", "5c": ROOT / "5C/datosLJ.hncr"}
 
 
 def numeric_rows(path):
@@ -90,6 +90,14 @@ def run_case(case, input_path, reference_root, update):
                     compare(output_dir / filename, ROOT / "baseline_results" / filename)
                     for filename in FILES[1:]
                 )
+            elif case == "5c":
+                results.append(
+                    compare(
+                        output_dir / "Thermohncr.dat",
+                        ROOT / "5C/Thermohncr.dat",
+                        thermodynamics=True,
+                    )
+                )
             passed = all(results)
         except (OSError, ValueError) as exc:
             print(f"  FAIL {exc}")
@@ -106,6 +114,11 @@ def main():
         help="regenerate current references after an explained numerical change",
     )
     parser.add_argument(
+        "--all",
+        action="store_true",
+        help="include the slower 5-component regression case",
+    )
+    parser.add_argument(
         "--reference-root",
         type=Path,
         default=ROOT / "tests/reference",
@@ -115,10 +128,11 @@ def main():
     if not BINARY.is_file():
         parser.error(f"missing solver binary {BINARY}; run `make` first")
 
-    passed = all(
+    selected_cases = CASES if args.all else {"3c": CASES["3c"]}
+    passed = all([
         run_case(case, input_path, args.reference_root, args.update_reference)
-        for case, input_path in CASES.items()
-    )
+        for case, input_path in selected_cases.items()
+    ])
     return 0 if passed else 1
 
 
