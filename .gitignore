@@ -44,4 +44,5 @@ log.lammps
 
 # Local simulation runs (not sent to github)
 lammps_study/
+VoronoiEntropyData/
 

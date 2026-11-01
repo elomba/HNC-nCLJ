@@ -325,9 +325,50 @@ This work was supported by the Spanish Ministerio de Ciencia, Innovaci{\'o}n y U
 \label{app:2pt}
 %======================================================================
 
-The two-phase thermodynamic (2PT) method of Lin, Blanco, and Goddard~\cite{Lin2003} estimates the entropy of a liquid from the vibrational density of states, $G(\nu)$, i.e.\ the Fourier transform of the mass-weighted VACF. The spectrum is partitioned into a diffusive, gas-like component, modeled as a hard-sphere gas whose zero-frequency intensity reproduces the self-diffusion coefficient, and a solid-like remainder treated as a collection of harmonic oscillators. The gas-like fraction, or fluidicity $f$, follows from the normalized diffusivity $\Delta$, which compares the actual $G(0)$ with that of a hard-sphere gas at the same density and temperature. The entropy is then the sum of the hard-sphere-gas entropy (Carnahan--Starling) weighted by $f$ and the oscillator entropy integrated over the solid-like spectrum. Because it requires only a short trajectory, 2PT is an attractive alternative to thermodynamic integration. However, the partition is a model: the gas/solid division is not a literal population count, and for mixtures the species partial volumes entering $\Delta$ must be approximated~\cite{Lai2012}. We therefore test 2PT against the integration results of Sec.~\ref{sec:results}, rather than use it as an entropy coordinate.
+The two-phase thermodynamic (2PT) method of Lin, Blanco, and Goddard~\cite{Lin2003} estimates the entropy of a liquid from its vibrational density of states (DoS). The DoS is partitioned into a diffusive, gas-like component, modeled as a hard-sphere gas, and a solid-like remainder treated as a set of harmonic oscillators. Because it requires only a short trajectory, 2PT is an attractive alternative to thermodynamic integration. The partition is, however, a model rather than a literal population count, and in mixtures the species partial volumes must be approximated~\cite{Lai2012}. We therefore test 2PT against the integration results of Sec.~\ref{sec:results}, rather than use it as an entropy coordinate.
 
-We analyzed the final-$100\tau$ velocity records of all 24 replicas with a classical 2PT estimator. The spectral construction follows the revised formulation of Sun \emph{et al.}~\cite{Sun2017}, with the equal-partial-volume mixture approximation of Lai \emph{et al.}~\cite{Lai2012}: each species is assigned $\bar V_i=1/\rho$. The primary gas/solid partition exponent is $\delta=1$, and the published LJ value $\delta=1.5$ is an unfitted sensitivity. No partition, reference volume, or entropy offset is adjusted to match the integration results. The COM-corrected VACF is Gaussian-tapered with width $10\tau$, its spectrum spans the full Nyquist band and is normalized to three modes per particle, and the gas Lorentzian and its entropy tail are integrated analytically. The residual spectrum is kept signed as revised-2PT bookkeeping rather than clipped to a positive solid population.
+\emph{Density of states.} For species $i$, let $C_i(t)=\langle\mathbf v(t)\cdot\mathbf v(0)\rangle/3$ be the per-component VACF, so that $D_i=\int_0^\infty C_i(t)\,dt$. The DoS per particle is
+\begin{equation}
+G_i(\nu)=\frac{12\,m_i}{k_BT}\int_0^\infty C_i(t)\cos(2\pi\nu t)\,dt,
+\label{eq:2pt_dos}
+\end{equation}
+which by equipartition satisfies $\int_0^\infty G_i(\nu)\,d\nu=3$, and whose zero-frequency value is $G_i(0)=12m_iD_i/(k_BT)$.
+
+\emph{Fluidicity.} The gas-like fraction $f_i$ of the degrees of freedom follows from the dimensionless diffusivity
+\begin{equation}
+\Delta_i=\frac{2G_i(0)}{9}\left(\frac{\pi k_BT}{m_i}\right)^{1/2}\rho_{i}^{1/3}\left(\frac{6}{\pi}\right)^{2/3},
+\label{eq:2pt_delta}
+\end{equation}
+which is the ratio of $D_i$ to the Enskog hard-sphere diffusivity at the same density in the zero-pressure limit~\cite{Lin2003}. Here $\rho_i=1/\bar V_i$ is the inverse partial volume of species $i$. Requiring that the gas-like particles behave as hard spheres whose packing fraction $y_i$ and diffusivity are consistent with $\Delta_i$ gives the universal equation
+\begin{equation}
+\begin{split}
+&2\Delta_i^{-9/2}f_i^{15/2}-6\Delta_i^{-3}f_i^{5}-\Delta_i^{-3/2}f_i^{7/2}\\
+&\quad+6\Delta_i^{-3/2}f_i^{5/2}+2f_i-2=0,
+\end{split}
+\label{eq:2pt_fluidicity}
+\end{equation}
+with $y_i=\Delta_i^{-3/2}f_i^{5/2}$. The revised scheme of Sun \emph{et al.}~\cite{Sun2017} generalizes this to $y_i=\Delta_i^{-3/2}f_i^{1+3\delta/2}$ and $f_i^{2/3}=(\Delta_i/2)\,y_i^{2/3}(2-y_i)/(1-y_i)^3$. The exponent $\delta=1$ recovers Eq.~\eqref{eq:2pt_fluidicity}, while $\delta=1.5$ is their LJ value.
+
+\emph{Partition of the spectrum.} The gas component is a Lorentzian with the same zero-frequency intensity,
+\begin{equation}
+G_i^{g}(\nu)=\frac{G_i(0)}{1+\left[\pi G_i(0)\nu/(6f_i)\right]^2},\qquad \int_0^\infty G_i^{g}\,d\nu=3f_i,
+\label{eq:2pt_gas}
+\end{equation}
+and the solid-like spectrum is the remainder, $G_i^{s}=G_i-G_i^{g}$, which carries $3(1-f_i)$ modes.
+
+\emph{Entropy.} Each part is weighted by the appropriate entropy per mode,
+\begin{equation}
+\frac{s_i}{k_B}=\int_0^\infty G_i^{g}(\nu)\,W^{g}_i\,d\nu+\int_0^\infty G_i^{s}(\nu)\,W^{s}(\nu)\,d\nu .
+\label{eq:2pt_entropy}
+\end{equation}
+For classical oscillators, $W^{s}(\nu)=1-\ln(h\nu/k_BT)$. The gas weight is $W^{g}_i=s^{\rm HS}_i/(3k_B)$, with the Carnahan--Starling hard-sphere entropy
+\begin{equation}
+\frac{s^{\rm HS}_i}{k_B}=\frac52+\ln\!\left[\left(\frac{2\pi m_ik_BT}{h^2}\right)^{3/2}\frac{1}{f_i\rho_{i}}\right]+\frac{y_i(3y_i-4)}{(1-y_i)^2}.
+\label{eq:2pt_hs}
+\end{equation}
+The excess entropy is $s_{{\rm ex},i}=s_i-s^{\rm id}(\rho)$, where $s^{\rm id}/k_B=\frac52+\ln[(2\pi m_ik_BT/h^2)^{3/2}/\rho]$ is the ideal-gas value at the total density. Because $\int G_i\,d\nu=3$, Planck's constant cancels between Eqs.~\eqref{eq:2pt_entropy} and~\eqref{eq:2pt_hs} and the ideal reference. The mixture value is $s_{\rm ex}=\sum_ix_is_{{\rm ex},i}$, and the ideal mixing term cancels identically.
+
+\emph{Implementation.} We analyzed the final-$100\tau$ velocity records of all 24 replicas. Following Lai \emph{et al.}~\cite{Lai2012}, every species is assigned the equal partial volume $\bar V_i=1/\rho$. The primary exponent is $\delta=1$, and $\delta=1.5$ is an unfitted sensitivity. No partition, reference volume, or entropy offset is adjusted to match the integration results. The VACF, computed in the common COM frame, is multiplied by a Gaussian taper $e^{-(t/\tau_w)^2}$ with $\tau_w=10\tau$. Its spectrum spans the full Nyquist band and is normalized by the measured $C_i(0)$ to exactly three modes per particle. The Lorentzian of Eq.~\eqref{eq:2pt_gas} and its contribution to Eq.~\eqref{eq:2pt_entropy} are integrated analytically to infinite frequency. Following the revised formulation~\cite{Sun2017}, $G_i^{s}$ is kept signed where it becomes slightly negative, rather than clipped, so that the total number of modes is conserved.
 
 The implementation passes analytic checks, including the fluidicity polynomial, unit invariance, a solvable VACF/Green--Kubo limit, the Lorentzian entropy tail, the dilute-gas limit, and cancellation of the classical reference and of label mixing. Mechanically identical labels give identical 2PT entropies, and state-mean probe spectral diffusivities agree with the MSD coefficients within $2.6\%$.
 
