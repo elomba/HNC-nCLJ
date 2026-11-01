@@ -1,0 +1,2440 @@
+{
+  "completed": {
+    "long_N4000": 0,
+    "N8000": 0
+  },
+  "expected": {
+    "long_N4000": 30,
+    "N8000": 20
+  },
+  "systems": {
+    "long_N4000": {
+      "B3": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "U4": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "H5": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "U6": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "H7": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      }
+    },
+    "N8000": {
+      "B3": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "U4": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "H5": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "U6": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "H7": {
+        "D_net": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_plus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_minus2": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_sign_difference": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "eta": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "D_probe_YH": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "Z": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "u": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      }
+    }
+  },
+  "paired_contrasts": {
+    "long_N4000": {
+      "H5/U4": {
+        "10_50": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "20_100": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "50_200": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "100_500": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "200_1000": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        }
+      },
+      "H7/U6": {
+        "10_50": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "20_100": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "50_200": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "100_500": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "200_1000": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        }
+      },
+      "H5/B3": {
+        "10_50": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "20_100": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "50_200": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "100_500": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "200_1000": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        }
+      },
+      "U4/B3": {
+        "10_50": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "20_100": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "50_200": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "100_500": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "200_1000": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        }
+      }
+    },
+    "N8000": {
+      "H5/U4": {
+        "10_50": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "20_100": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "50_200": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "100_500": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "200_1000": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        }
+      },
+      "H7/U6": {
+        "10_50": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "20_100": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "50_200": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "100_500": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "200_1000": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        }
+      },
+      "H5/B3": {
+        "10_50": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "20_100": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "50_200": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "100_500": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "200_1000": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        }
+      },
+      "U4/B3": {
+        "10_50": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "20_100": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "50_200": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "100_500": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        },
+        "200_1000": {
+          "net": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_plus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          },
+          "probe_minus2": {
+            "n": 0,
+            "mean": null,
+            "CI": null,
+            "ratio_minus_one": null,
+            "ratio_CI": null
+          }
+        }
+      }
+    }
+  },
+  "sign_symmetry": {
+    "long_N4000": {
+      "B3": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "U4": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "H5": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "U6": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "H7": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      }
+    },
+    "N8000": {
+      "B3": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "U4": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "H5": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "U6": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      },
+      "H7": {
+        "10_50": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "20_100": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "50_200": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "100_500": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        },
+        "200_1000": {
+          "n": 0,
+          "mean": null,
+          "CI": null
+        }
+      }
+    }
+  },
+  "pooled_B3_sign_difference": {
+    "estimate": {
+      "n": 3,
+      "mean": 0.01038741055191376,
+      "CI": [
+        0.0029108455547740258,
+        0.017863975549053494
+      ]
+    },
+    "note": "Original 3 replicas pooled with new longer 6 replicas; unequal-length runs"
+  },
+  "finite_size": {
+    "B3": {
+      "net": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_plus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_minus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      }
+    },
+    "U4": {
+      "net": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_plus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_minus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      }
+    },
+    "H5": {
+      "net": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_plus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_minus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      }
+    },
+    "U6": {
+      "net": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_plus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_minus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      }
+    },
+    "H7": {
+      "net": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_plus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      },
+      "probe_minus2": {
+        "raw": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        },
+        "YH": {
+          "n_a": 0,
+          "n_b": 0,
+          "ratio_minus_one": null,
+          "ratio_CI": null
+        }
+      }
+    }
+  },
+  "contrast_size_agreement": {
+    "H5/U4": {
+      "same_direction": null,
+      "N4000": {
+        "n": 0,
+        "mean": null,
+        "CI": null,
+        "ratio_minus_one": null,
+        "ratio_CI": null
+      },
+      "N8000": {
+        "n": 0,
+        "mean": null,
+        "CI": null,
+        "ratio_minus_one": null,
+        "ratio_CI": null
+      }
+    },
+    "H7/U6": {
+      "same_direction": null,
+      "N4000": {
+        "n": 0,
+        "mean": null,
+        "CI": null,
+        "ratio_minus_one": null,
+        "ratio_CI": null
+      },
+      "N8000": {
+        "n": 0,
+        "mean": null,
+        "CI": null,
+        "ratio_minus_one": null,
+        "ratio_CI": null
+      }
+    }
+  },
+  "combined_N4000_secondary": {
+    "contrasts": {
+      "H5/U4": {
+        "net": {
+          "n": 3,
+          "mean": 0.09045159912562321,
+          "CI": [
+            0.08582056405602353,
+            0.09508263419522289
+          ],
+          "ratio_minus_one": 0.0946685234457287,
+          "ratio_CI": [
+            0.08961079542119614,
+            0.09974972830518032
+          ]
+        },
+        "probe": {
+          "n": 3,
+          "mean": 0.046967292829468765,
+          "CI": [
+            0.005989988095772815,
+            0.08794459756316472
+          ],
+          "ratio_minus_one": 0.048087728534979994,
+          "ratio_CI": [
+            0.006007963948257635,
+            0.09192762490110153
+          ]
+        }
+      },
+      "H7/U6": {
+        "net": {
+          "n": 3,
+          "mean": 0.08040888433283637,
+          "CI": [
+            0.07058506467024257,
+            0.09023270399543017
+          ],
+          "ratio_minus_one": 0.08373009735266981,
+          "ratio_CI": [
+            0.07313585149555149,
+            0.09442893206042122
+          ]
+        },
+        "probe": {
+          "n": 3,
+          "mean": 0.05072619865341165,
+          "CI": [
+            -0.06341876601043833,
+            0.16487116331726162
+          ],
+          "ratio_minus_one": 0.05203480529921596,
+          "ratio_CI": [
+            -0.061449641605963896,
+            0.1792411794022198
+          ]
+        }
+      },
+      "H5/B3": {
+        "net": {
+          "n": 3,
+          "mean": 0.2439628195336645,
+          "CI": [
+            0.22635070487385045,
+            0.26157493419347855
+          ],
+          "ratio_minus_one": 0.27629687629423244,
+          "ratio_CI": [
+            0.25401537747383857,
+            0.29897427551473404
+          ]
+        },
+        "probe": {
+          "n": 3,
+          "mean": 0.18275056831587985,
+          "CI": [
+            0.13368647776009973,
+            0.23181465887165997
+          ],
+          "ratio_minus_one": 0.2005149242726355,
+          "ratio_CI": [
+            0.14303439675645535,
+            0.2608860131340508
+          ]
+        }
+      },
+      "U4/B3": {
+        "net": {
+          "n": 3,
+          "mean": 0.1535112204080413,
+          "CI": [
+            0.13991156845345798,
+            0.16711087236262462
+          ],
+          "ratio_minus_one": 0.16592086915661505,
+          "ratio_CI": [
+            0.15017208286376516,
+            0.18188529645953042
+          ]
+        },
+        "probe": {
+          "n": 3,
+          "mean": 0.13578327548641111,
+          "CI": [
+            0.10989641392468853,
+            0.16167013704813368
+          ],
+          "ratio_minus_one": 0.14543362314786257,
+          "ratio_CI": [
+            0.11616244558326312,
+            0.17547243255620368
+          ]
+        }
+      }
+    },
+    "note": "Original 3 plus new 6 independent paired replicas; unequal-length runs"
+  }
+}

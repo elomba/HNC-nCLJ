@@ -14,7 +14,7 @@ if [[ ${#documents[@]} -eq 0 ]]; then
 fi
 for document in "${documents[@]}"; do
     case "$document" in
-        paper_pre|entropy_theory|voronoi_entropy_work_plan|entropy_diffusion_prior_work|md_pair_entropy_work_plan) ;;
+        paper_pre_v1|paper_pre|entropy_theory|voronoi_entropy_work_plan|entropy_diffusion_prior_work|md_pair_entropy_work_plan) ;;
         *) echo "Unknown document: $document" >&2; exit 1 ;;
     esac
     for pass in 1 2 3; do
