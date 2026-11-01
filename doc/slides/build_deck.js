@@ -1,6 +1,7 @@
 // Builds component_entropy_results.pptx (6 slides) from the study results.
 // Run: cd doc/slides && node build_deck.js
 const path = require("path");
+const fs = require("fs");
 const pptxgen = require("pptxgenjs");
 const SKILL = process.env.PPTX_SKILL;
 const { applyTheme } = require(path.join(SKILL, "scripts/apply_theme.js"));
@@ -134,6 +135,124 @@ s.addText("U4 → M5 → H5 keep charged composition, ionic strength and the mea
   { x: 6.0, y: 5.55, w: 6.75, h: 0.8, fontSize: 14, italic: true, color: C.accent1, margin: 0, valign: "top",
     isTextBox: true, objectName: "matched amplitude note" });
 s.addNotes("The controls are the core of the design. L5 is mechanically identical to U4 and only adds a label, so it tests whether the number of components matters by itself. M5 and H5 change the distribution of solvent attractions at fixed mean bare amplitude, fixed ionic strength and fixed charged composition. B3/B5 and U6/H7 repeat the comparison with and without monovalent background. Excess entropy is always relative to the ideal mixture of the same composition, so ideal mixing is excluded.");
+
+// ---------- 2b. Particle species ----------
+s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
+s.addText("Seven kinds of particles, one size", { placeholder: "title" });
+const SP = {
+  A: { fill: "8FA3AD", line: "8FA3AD", txt: "" },
+  B: { fill: "C7DCE1", line: "9DB7BE", txt: "" },
+  B1: { fill: "FFFFFF", line: "9DB7BE", txt: "", dash: "dash" },
+  B2: { fill: "3F7480", line: "3F7480", txt: "" },
+  P2: { fill: HEX.accent3, line: HEX.accent3, txt: "2+" },
+  M2: { fill: HEX.accent4, line: HEX.accent4, txt: "2−" },
+  P1: { fill: "E8A08E", line: "E8A08E", txt: "+" },
+  M1: { fill: "A9BCDB", line: "A9BCDB", txt: "−" },
+};
+function particle(slide, key, x, y, d, name) {
+  const p = SP[key];
+  slide.addShape(pres.shapes.OVAL, { x, y, w: d, h: d, fill: { color: p.fill },
+    line: { color: p.line, width: 1.25, dashType: p.dash || "solid" }, objectName: name });
+  if (p.txt) slide.addText(p.txt, { x, y, w: d, h: d, align: "center", valign: "middle", margin: 0,
+    fontSize: d > 0.4 ? 14 : 10, bold: true, color: HEX.lt1, isTextBox: true, objectName: name + " label" });
+}
+const legend = [
+  [["A"], "Solvent A", "q = 0, ε = 1", "all mixtures, 54–94%"],
+  [["B"], "Weak solvent B", "q = 0, ε = 0.25", "U4, L5, U6: 30%"],
+  [["B1", "B2"], "Split solvent B₁ / B₂", "q = 0, ε = 0.01 / 0.81 (H)\nor 0.0625 / 0.5625 (M)", "M5, H5, H7: 15% each"],
+  [["P2", "M2"], "Divalent probe ions", "q = ±2, ε = 1", "all mixtures: 3% each"],
+  [["P1", "M1"], "Monovalent background", "q = ±1, ε = 1", "B5, U6, H7: 5% each"],
+];
+legend.forEach(([keys, name, prop, where], i) => {
+  const y = 1.45 + i * 0.98;
+  keys.forEach((k, j) => particle(s, k, 0.6 + j * 0.62, y + 0.12, 0.52, `legend ${i + 1} particle ${j + 1}`));
+  s.addText(name, { x: 1.95, y: y, w: 2.9, h: 0.4, fontSize: 16, bold: true, color: C.text1, margin: 0,
+    isTextBox: true, objectName: `legend ${i + 1} name` });
+  s.addText(prop, { x: 1.95, y: y + 0.38, w: 2.9, h: 0.5, fontSize: 13, color: C.text1, margin: 0, valign: "top",
+    isTextBox: true, objectName: `legend ${i + 1} properties` });
+  s.addText(where, { x: 4.85, y: y + 0.05, w: 2.3, h: 0.7, fontSize: 13, italic: true, color: C.accent1, margin: 0,
+    valign: "top", isTextBox: true, objectName: `legend ${i + 1} where` });
+});
+s.addText("All particles: σ = 1, m = 1;  εᵢⱼ = √(εᵢεⱼ);  Coulomb with Bjerrum length 0.5σ at T* = 2",
+  { x: 0.6, y: 6.4, w: 6.6, h: 0.5, fontSize: 13, color: C.text1, margin: 0, valign: "top", isTextBox: true,
+    objectName: "species footnote" });
+// cartoon snapshot of H7 (2D, schematic)
+const BX = 7.65, BY = 1.45, BW = 5.1, BH = 4.85, D = 0.4;
+s.addShape(pres.shapes.RECTANGLE, { x: BX, y: BY, w: BW, h: BH, fill: { color: HEX.lt2 },
+  line: { color: "B9C9CF", width: 1 }, objectName: "snapshot box" });
+let seed = 7;
+const rand = () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
+const counts = [["P2", 3], ["M2", 3], ["P1", 4], ["M1", 4], ["B1", 12], ["B2", 12], ["A", 43]];
+const placed = [];
+counts.forEach(([k, n]) => {
+  for (let c = 0; c < n; c++) {
+    for (let tries = 0; tries < 5000; tries++) {
+      const x = BX + 0.08 + rand() * (BW - D - 0.16), y = BY + 0.08 + rand() * (BH - D - 0.16);
+      if (placed.every(([px, py]) => (px - x) ** 2 + (py - y) ** 2 > (D * 1.04) ** 2)) {
+        placed.push([x, y]); particle(s, k, x, y, D, `snapshot ${k} ${c + 1}`); break;
+      }
+    }
+  }
+});
+s.addText("Cartoon of H7 (2D sketch with roughly its proportions; not simulation data)", { x: BX, y: 6.4, w: BW, h: 0.5,
+  fontSize: 12, italic: true, color: C.accent5, margin: 0, valign: "top", isTextBox: true, objectName: "snapshot caption" });
+s.addNotes("All species have the same size and mass, so the mixtures differ only in charge and in the strength of the LJ attraction epsilon. The divalent probes are the particles whose mobility we follow. The weak solvent B lowers the average attraction; splitting it into a very weak B1 and a strong B2 keeps the mean amplitude but makes the interactions more diverse. The open dashed circle is the almost non-attractive B1. The picture on the right is a 2D cartoon with roughly H7 proportions, not a simulation snapshot.");
+
+// ---------- 2c. HNC primer ----------
+s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
+s.addText("HNC for charged mixtures in four steps", { placeholder: "title" });
+const hnc = [
+  ["Pair structure", "gᵢⱼ(r),  hᵢⱼ = gᵢⱼ − 1",
+    "Probability of finding a j particle at distance r from an i particle, relative to a random mixture"],
+  ["Ornstein–Zernike equation", "hᵢⱼ = cᵢⱼ + Σₖ ρₖ cᵢₖ ⊗ hₖⱼ",
+    "Total correlation = direct part + indirect part relayed through every species k (a p × p matrix equation in k space)"],
+  ["HNC closure (Morita–Hiroike)", "gᵢⱼ = exp(−βuᵢⱼ + hᵢⱼ − cᵢⱼ)",
+    "Second relation that closes the system; it neglects the bridge diagrams and is accurate for ions"],
+  ["Charges (Allnatt; Lomba–Høye)", [{ text: "cᵢⱼ → −λ" }, { text: "B", options: { subscript: true } }, { text: " qᵢqⱼ / r" }],
+    "Coulomb tails decay too slowly to Fourier transform: subtract the screened (Debye) tail analytically and solve for short-ranged parts"],
+];
+hnc.forEach(([h, eq, txt], i) => {
+  const y = 1.4 + i * 1.33;
+  s.addShape(pres.shapes.OVAL, { x: 0.6, y: y + 0.03, w: 0.5, h: 0.5, fill: { color: C.accent1 }, line: { color: C.accent1 },
+    objectName: `hnc step ${i + 1} dot` });
+  s.addText(String(i + 1), { x: 0.6, y: y + 0.03, w: 0.5, h: 0.5, align: "center", valign: "middle", fontSize: 15, bold: true,
+    color: C.background1, margin: 0, isTextBox: true, objectName: `hnc step ${i + 1} number` });
+  s.addText(h, { x: 1.3, y, w: 2.9, h: 0.55, fontSize: 16, bold: true, color: C.text1, margin: 0, valign: "middle",
+    isTextBox: true, objectName: `hnc step ${i + 1} head` });
+  s.addText(eq, { x: 4.25, y, w: 3.3, h: 0.55, fontFace: "Cambria", fontSize: 17, color: C.accent3, margin: 0,
+    valign: "middle", isTextBox: true, objectName: `hnc step ${i + 1} equation` });
+  s.addText(txt, { x: 1.3, y: y + 0.58, w: 6.25, h: 0.65, fontSize: 14, color: C.text1, margin: 0, valign: "top",
+    isTextBox: true, objectName: `hnc step ${i + 1} text` });
+});
+// real HNC g(r) for B3 from the solver output
+const rdf = fs.readFileSync(path.join(ROOT, "ComponentEntropyStudy_20261030/hnc/fine/baseline_3C/RDFhncr.dat"), "utf8")
+  .trim().split("\n").map((l) => l.trim().split(/\s+/).map(Number)).filter((r) => r[0] >= 0.8 && r[0] <= 3.5);
+const sub = rdf.filter((_, k) => k % 4 === 0);
+const xs = sub.map((r) => r[0]);
+s.addChart(pres.charts.SCATTER, [
+  { name: "r", values: xs },
+  { name: "2+ … solvent", values: sub.map((r) => r[2]) },
+  { name: "2+ … 2+", values: sub.map((r) => r[3]) },
+  { name: "2+ … 2−", values: sub.map((r) => r[5]) },
+], {
+  x: 7.85, y: 1.3, w: 4.95, h: 3.9, lineSize: 2, lineDataSymbol: "none",
+  chartColors: [HEX.accent1, HEX.accent3, HEX.accent4],
+  showLegend: true, legendPos: "t", legendFontSize: 12, legendFontFace: "+mn-lt", legendColor: HEX.dk1,
+  showTitle: true, title: "HNC g(r) in B3 (T* = 2, ρ* = 0.7)", titleFontSize: 14, titleColor: HEX.dk1, titleFontFace: "+mn-lt",
+  valAxisMinVal: 0, valAxisMaxVal: 5.5, catAxisMinVal: 0.5, catAxisMaxVal: 3.5, catAxisMajorUnit: 0.5, valAxisMajorUnit: 1,
+  catAxisLabelColor: HEX.dk1, catAxisLabelFontSize: 11, catAxisLabelFontFace: "+mn-lt",
+  valAxisLabelColor: HEX.dk1, valAxisLabelFontSize: 11, valAxisLabelFontFace: "+mn-lt",
+  showCatAxisTitle: true, catAxisTitle: "r / σ", catAxisTitleFontSize: 12, catAxisTitleColor: HEX.dk1, catAxisTitleFontFace: "+mn-lt",
+  showValAxisTitle: true, valAxisTitle: "g(r)", valAxisTitleFontSize: 12, valAxisTitleColor: HEX.dk1, valAxisTitleFontFace: "+mn-lt",
+  valGridLine: { color: "DCE4E8", size: 0.75 }, catGridLine: { style: "none" }, objectName: "hnc rdf chart",
+});
+card(s, { x: 7.85, y: 5.35, w: 4.95, h: 1.45, name: "hnc thermo card" });
+s.addText([
+  { text: "Why it is useful here: ", options: { bold: true } },
+  { text: "in HNC the free energy follows in closed form from g and c, so sₑₓ = uₑₓ − aₑₓ costs one solution per mixture, enough to screen dozens of compositions" },
+], { x: 8.05, y: 5.45, w: 4.55, h: 1.25, fontSize: 14, color: C.text1, margin: 0, valign: "top", isTextBox: true,
+  objectName: "hnc thermo text" });
+s.addNotes("For students: g(r) is the quantity measured by scattering and computed by simulation. The Ornstein-Zernike equation is exact but introduces a second unknown, the direct correlation function c; a closure relation is needed. The hypernetted-chain closure of Morita and Hiroike sums a large class of diagrams and works well for ionic systems. For charged particles, c behaves like the Coulomb potential at large distances, which cannot be Fourier transformed numerically; following Allnatt, the screened long-range part is treated analytically and only short-ranged functions are discretized, as implemented in the Lomba-Hoye algorithm. The chart is a real HNC result for the B3 mixture: oppositely charged probes form strong contact pairs (peak near 5), like-charged probes avoid each other, and the solvent structure is that of a dense LJ liquid. Finally, HNC gives the excess free energy in closed form, so the excess entropy of each candidate mixture comes from a single solution.");
 
 // ---------- 3. Transport ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
