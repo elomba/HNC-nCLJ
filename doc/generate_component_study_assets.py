@@ -108,4 +108,33 @@ shutil.copy2(source_fig,OUT/'component_pair_entropy_benchmark.pdf')
 shutil.copy2(DOC.parent/'MDPairEntropyAssessment'/'results'/'pair_entropy_species_diffusion.pdf',OUT/'component_pair_entropy_species_diffusion.pdf')
 for ext in ['pdf','png']:
     shutil.copy2(ROOT/f'two_pt_rehabilitation/entropy_validation.{ext}',OUT/f'component_2pt_validation.{ext}')
+delta_fit_file=ROOT/'two_pt_rehabilitation/delta_fit.json'
+if delta_fit_file.exists():
+    dfit=json.loads(delta_fit_file.read_text())
+    drows=[]
+    for label in ['M5/U4','H5/U4','H7/U6','H5/B3','H7/B5','B5/B3']:
+        comparison=dfit['increments'][label]
+        quarter=comparison['methods']['1.25']
+        fitted=comparison['methods']['fitted']
+        drows.append([label,f"{comparison['TI']['mean']:+.5f}",
+                      f"{quarter['delta']['mean']:+.5f}",fmt(quarter['bias'],5),
+                      f"{fitted['delta']['mean']:+.5f}",fmt(fitted['bias'],5)])
+    global_fit=dfit['global_fit']
+    interval=global_fit['replica_index_fits']['CI']
+    metrics=dfit['metrics']
+    caption=(r'Post-hoc global revised-2PT partition-exponent calibration. '
+             r'Paired excess-entropy increments are in $k_B$ per particle; bias is 2PT minus TI, '
+             r'with nominal 95\% Student-$t$ intervals across three replica pairs. '
+             f"The seven-state unweighted fit gives $\\delta^*={global_fit['delta_star']:.5f}$; "
+             f"replica-index 95\\% interval [{interval[0]:.5f},{interval[1]:.5f}]. "
+             f"RMS absolute-state bias is {metrics['1.0']['RMS_absolute_state_bias']:.5f}, "
+             f"{metrics['1.25']['RMS_absolute_state_bias']:.5f}, and "
+             f"{metrics['fitted']['RMS_absolute_state_bias']:.5f} for $\\delta=1$, "
+             r'$\delta=1.25$, and fitted $\delta^*$, respectively. '
+             r'This calibration was not prespecified and uses the same TI states shown here.')
+    save_table('component_study_2pt_delta_fit.tex',caption,'tab:2pt_delta_fit','lrrrrr',
+               r'Comparison & TI $\Delta s_{\rm ex}$ & 2PT $\delta=1.25$ & Bias [95\% CI] & 2PT $\delta^*$ & Bias [95\% CI]',drows)
+    for ext in ['pdf','png']:
+        shutil.copy2(ROOT/f'two_pt_rehabilitation/entropy_validation_delta_fit.{ext}',
+                     OUT/f'component_2pt_validation_delta_fit.{ext}')
 print('Generated pair-entropy tables and figure alongside the existing manuscript assets.')

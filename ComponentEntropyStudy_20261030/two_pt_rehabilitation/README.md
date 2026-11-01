@@ -17,3 +17,13 @@ python3 ComponentEntropyStudy_20261030/two_pt_rehabilitation/summarize_rehabilit
 The trajectory extraction needs NumPy, SciPy and netCDF4; plotting also needs Matplotlib. All raw-data analysis can run on a CPU. No new MD or GPU allocation is necessary. `--only <composition-name>` and `--replica <1|2|3>` select a subset; `--force-cache` recomputes cached VACFs. Change the cache version or force regeneration if modifying the particle selection or autocorrelation estimator.
 
 Uncertainty intervals use three independent replicas. Time-record halves and overlapping correlation origins are not additional replicas. The primary model and study-specific tolerances were recorded before the first baseline evaluation, and no parameter was fitted to TI.
+
+## Post-hoc global delta calibration
+
+The exploratory [global exponent fit](delta_fit.md) calibrates the revised-2PT partition exponent against the existing TI results for seven distinct states, excluding the exact U4/L5 mechanical duplicate from fitting. The full [JSON results](delta_fit.json), [bias curves](delta_fit.pdf), and [three-panel entropy validation](entropy_validation_delta_fit.pdf) include replica uncertainty and leave-one-state-out checks. This calibration was not prespecified in `protocol.json` and does not alter the primary delta=1 analysis or its stored results.
+
+Run from the repository root after the rehabilitation cache exists:
+
+```bash
+OPENBLAS_NUM_THREADS=1 python3 ComponentEntropyStudy_20261030/two_pt_rehabilitation/fit_delta.py
+```
