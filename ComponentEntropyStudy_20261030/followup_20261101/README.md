@@ -1,6 +1,6 @@
 # Dense transport follow-up (2026-11-01)
 
-**Status:** Running. Smoke jobs 101256–101265 and 101267 (retry of a node-level MPI start failure, 101261) passed on 2026-11-01. Production submitted 2026-11-01: 30 long_N4000 jobs (101298–101327) and 20 N8000 jobs (101348–101367); IDs per replica in `submissions.jsonl`.
+**Status:** Completed. All 50 production jobs (30 long_N4000, 20 N8000) finished on 2026-11-02 and were verified and analyzed; see `results/report.md` and `results/summary.json`. Controlled probe responses at 20–100 tau: H5/U4 +5.06% [3.99, 6.13], H7/U6 +5.90% [4.67, 7.14]; unchanged at N=8000. The B3 charge-sign asymmetry of the original replicas is not reproduced. Manuscript tables: `doc/component_study_followup_*.tex`.
 
 The completed component/entropy study left three transport questions open: the approximately 5% H5/U4 and H7/U6 divalent-probe increases vary with the MSD fitting window; the B3 charge-sign difference conflicts with the sign symmetry of its Hamiltonian; and finite-size effects have not been checked.
 

@@ -1,4 +1,4 @@
-// Builds component_entropy_results.pptx (6 slides) from the study results.
+// Builds component_entropy_results.pptx (9 slides) from the study results.
 // Run: cd doc/slides && node build_deck.js
 const path = require("path");
 const fs = require("fs");
@@ -278,18 +278,54 @@ s.addChart(pres.charts.BAR, [
 card(s, { x: 8.5, y: 1.45, w: 4.25, h: 5.25, name: "transport findings card" });
 s.addText(bullets([
   [{ text: "Full designs: ", bold: true }, { text: "Δs_ex ≈ +0.30 kB, probes +18–20%; each sign accelerates separately" }],
-  [{ text: "Controlled diversity: ", bold: true }, { text: "Δs_ex = +0.103 kB, mean +8–9%, probes ≈ +5% (window-sensitive)" }],
+  [{ text: "Controlled diversity: ", bold: true }, { text: "Δs_ex = +0.103 kB, mean +8–9%, probes +5–6% (resolved by longer runs, next slide)" }],
   [{ text: "Labels only (L5/U4): ", bold: true }, { text: "identical diffusion in every replica" }],
   [{ text: "Salt only (B5/B3): ", bold: true }, { text: "Δs_ex slightly negative, no resolved speedup" }],
 ], { gap: 18 }), { x: 8.8, y: 1.75, w: 3.7, h: 4.75, fontSize: 17, color: C.text1, valign: "top", margin: 0,
   isTextBox: true, objectName: "transport findings" });
-s.addNotes("Percent changes are exponentiated mean paired log ratios over three matched replicas. The large design changes are robust. The controlled diversification at matched mean amplitude gives a probe response of about 5 percent, roughly half the mean-fluid response; its significance depends on the MSD fitting window and is unresolved with monovalent salt. Six longer replicas (5000 tau) and an N = 8000 set are running to settle this and the residual B3 charge-sign asymmetry.");
+s.addNotes("Percent changes are exponentiated mean paired log ratios over three matched replicas. The large design changes are robust. The controlled diversification at matched mean amplitude gives a probe response of about 5 percent, roughly half the mean-fluid response. With three replicas its interval was wide and window dependent; the six longer replicas on the next slide resolve it.");
+
+// ---------- 3b. Extended sampling ----------
+s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
+s.addText("Longer runs resolve a +5–6% ion response", { placeholder: "title" });
+const ecats = ["D_net", "D_probe", "D(+2)", "D(−2)"];
+s.addChart(pres.charts.BAR, [
+  { name: "H5/U4 (no salt)", labels: ecats, values: [8.95, 5.06, 6.02, 4.10] },
+  { name: "H7/U6 (with ±1 salt)", labels: ecats, values: [9.17, 5.90, 5.36, 6.44] },
+], {
+  x: 0.5, y: 1.35, w: 7.6, h: 4.6, barDir: "col", barGrouping: "clustered", barGapWidthPct: 60,
+  chartColors: [HEX.accent1, HEX.accent2],
+  showValue: true, dataLabelPosition: "outEnd", dataLabelFontSize: 11, dataLabelColor: HEX.dk1, dataLabelFormatCode: "0.0",
+  dataLabelFontFace: "+mn-lt",
+  showLegend: true, legendPos: "t", legendFontSize: 13, legendFontFace: "+mn-lt", legendColor: HEX.dk1,
+  catAxisLabelColor: HEX.dk1, catAxisLabelFontSize: 13, catAxisLabelFontFace: "+mn-lt",
+  valAxisLabelColor: HEX.dk1, valAxisLabelFontSize: 12, valAxisLabelFontFace: "+mn-lt",
+  valAxisTitle: "Change in self-diffusion (%)", showValAxisTitle: true, valAxisTitleFontSize: 13,
+  valAxisTitleColor: HEX.dk1, valAxisTitleFontFace: "+mn-lt", valAxisMinVal: 0, valAxisMaxVal: 11,
+  valGridLine: { color: "DCE4E8", size: 0.75 }, catGridLine: { style: "none" },
+  showTitle: true, title: "Controlled diversification, 6 replicas × 5000 τ, N = 4000", titleFontSize: 15,
+  titleColor: HEX.dk1, titleFontFace: "+mn-lt", objectName: "extended diffusion chart",
+});
+s.addText("Probe 95% CIs: H5/U4 [+4.0, +6.1]%, H7/U6 [+4.7, +7.1]%. H7/U6 is stable in every MSD window; H5/U4 drops to ≈ +3% beyond 100 τ, so it is quoted as +3 to +5%.",
+  { x: 0.5, y: 6.05, w: 7.6, h: 0.85, fontSize: 14, color: C.text1, margin: 0, valign: "top", isTextBox: true,
+    objectName: "extended chart caption" });
+const ext = [
+  ["−7%", "shear viscosity η (Green–Kubo), U4 → H5 and U6 → H7"],
+  ["+1% vs −2 to −3%", "D_net·η stays put (Stokes–Einstein); D_probe·η falls: probes only partly carried along"],
+  ["+5.3% / +6.0%", "same probe contrasts at N = 8000; D shifts +0.8–1.3%, as Yeh–Hummer predicts"],
+];
+ext.forEach(([v, l], i) => {
+  const y = 1.45 + i * 1.8;
+  card(s, { x: 8.5, y, w: 4.25, h: 1.6, name: `extended stat ${i + 1} card` });
+  stat(s, { x: 8.7, y: y + 0.1, w: 3.9, value: v, label: l, name: `extended stat ${i + 1}`, size: 28 });
+});
+s.addNotes("Six new matched replicas of B3, U4, H5, U6 and H7, each 5000 tau long, and four replicas at N = 8000. At the primary 20-100 tau window, the probes speed up by 5.1 percent without salt and 5.9 percent with monovalent background, and each sign accelerates separately. The H5/U4 value falls to about 3 percent at long fitting windows because the U4 probes become diffusive slowly, so we quote 3 to 5 percent there; H7/U6 is window independent. The Green-Kubo viscosity explains the difference between mean and probes: diversification lowers eta by about 7 percent and the mean diffusion follows almost exactly, whereas the probe product D eta drops by 2-3 percent, pointing to local solvation. Doubling the box raises all diffusivities by about 1 percent, matching the Yeh-Hummer hydrodynamic correction, and leaves the contrasts unchanged. The old B3 charge-sign asymmetry is not reproduced: -0.0011 [-0.0036, 0.0015].");
 
 // ---------- 4. Entropy coordinate ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
 s.addText("TI entropy tracks mobility; HNC and s₂ follow", { placeholder: "title" });
 s.addImage({ path: FIG.scaling, x: 0.5, y: 1.55, w: 8.4, h: 3.36, altText: "Rosenfeld-reduced mean and probe self-diffusion versus MD excess entropy for the seven distinct mixtures", objectName: "rosenfeld figure" });
-s.addText("Descriptive Rosenfeld fits (3–4 mixtures, R² > 0.99): B_net ≈ 0.8, B_probe ≈ 0.6. Controlled local probe slope ≈ 0.5, about half the mean-fluid value. Absolute HNC entropies are 0.06–0.09 kB too low; increments are much better.",
+s.addText("Descriptive Rosenfeld fits (3–4 mixtures, R² > 0.99): B_net ≈ 0.8, B_probe ≈ 0.6. Controlled local probe slopes ≈ 0.6 × the mean-fluid value. Absolute HNC entropies are 0.06–0.09 kB too low; increments are much better.",
   { x: 0.5, y: 5.2, w: 8.4, h: 1.2, fontSize: 15, color: C.text1, margin: 0, valign: "top", isTextBox: true,
     objectName: "rosenfeld caption" });
 const st = [
@@ -368,7 +404,7 @@ road.forEach(([h, b], i) => {
   s.addText(b, { x: x + 0.65, y: 4.9, w: 2.3, h: 0.9, fontSize: 14, color: C.text1, margin: 0, valign: "top",
     isTextBox: true, objectName: `road ${i + 1} body` });
 });
-s.addText("In progress: 6 longer replicas (5000 τ) and N = 8000 runs of B3, U4, H5, U6, H7 to settle the ≈5% controlled ion effect",
+s.addText("Next physics test: probe–solvent coordination, association lifetimes and exchange kinetics — does weaker local caging control the ion mobility?",
   { x: 0.6, y: 6.15, w: 12.1, h: 0.45, fontSize: 15, italic: true, color: C.accent1, margin: 0, isTextBox: true,
     objectName: "in progress note" });
 s.addNotes("For complex electrolytes, TI over a full isotherm for every candidate is too expensive. A practical route: screen with HNC, compute TI only for a few anchor states, and use a cheaper estimator to rank the rest. 2PT is usable now once delta is calibrated, but it borrows information from diffusion. The Voronoi cluster entropy is open: the data package is ready, and it must reproduce the TI ordering, the controlled increments and the label null. Because it uses structure only, it would give an entropy coordinate independent of transport. Finally, conductivity enhancement must be measured from the charge-current autocorrelation; self-diffusion and Nernst-Einstein estimates miss ion correlations.");

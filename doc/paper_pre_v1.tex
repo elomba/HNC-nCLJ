@@ -24,8 +24,8 @@
 }
 
 % Publication version (v1) derived from paper_pre.tex, which is kept unchanged.
-% Numeric tables are generated; see MANUSCRIPT_DATA.md. Pending: extended-sampling
-% and N=8000 results (ComponentEntropyStudy_20261030/followup_20261101).
+% Numeric tables are generated; see MANUSCRIPT_DATA.md. Extended-sampling and N=8000
+% results: ComponentEntropyStudy_20261030/followup_20261101.
 
 \begin{document}
 
@@ -38,7 +38,7 @@
 \date{\today}
 
 \begin{abstract}
-Does increasing the number of mixture components raise the excess entropy of a liquid and accelerate the divalent ions dissolved in it? We address this question for charged Lennard-Jones mixtures at $T^*=2$, $\rho^*=0.7$ that contain fixed fractions, 0.03 per sign, of $+2/-2$ probe ions. Hypernetted-chain (HNC) integral-equation theory is used to screen 35 candidate compositions, and eight selected mixtures are studied by independently replicated molecular dynamics. The excess entropy is obtained by thermodynamic integration over 19 densities with a fixed shifted LJ cutoff and a Debye--H\"uckel dilute endpoint; transport is measured in a single common center-of-mass frame. Solvent designs selected for high excess entropy raise it by approximately $0.30k_B$ per particle and increase divalent self-diffusion by 18--20\% relative to the baseline electrolytes, with both ion signs accelerating. A controlled diversification, which preserves the charged composition and the mean bare LJ pair amplitude, raises the excess entropy by $0.103k_B$ and the mean self-diffusion by 8--9\%, while the probe ions respond more weakly, by approximately 5\%, an effect whose statistical significance depends on the MSD fitting window. Splitting a solvent into mechanically identical labels changes the ideal mixing entropy but leaves diffusion exactly unchanged, and adding monovalent salt alone does not accelerate the probes. Pair entropy computed from the MD correlations accounts for about 80\% of the excess entropy and of its controlled increments. The results identify faster-ion, higher-excess-entropy mixtures and a positive Rosenfeld-like trend for both the mean and the probe diffusion, but establish neither a causal effect of component count nor a universal species scaling law.
+Does increasing the number of mixture components raise the excess entropy of a liquid and accelerate the divalent ions dissolved in it? We address this question for charged Lennard-Jones mixtures at $T^*=2$, $\rho^*=0.7$ that contain fixed fractions, 0.03 per sign, of $+2/-2$ probe ions. Hypernetted-chain (HNC) integral-equation theory is used to screen 35 candidate compositions, and eight selected mixtures are studied by independently replicated molecular dynamics. The excess entropy is obtained by thermodynamic integration over 19 densities with a fixed shifted LJ cutoff and a Debye--H\"uckel dilute endpoint; transport is measured in a single common center-of-mass frame. Solvent designs selected for high excess entropy raise it by approximately $0.30k_B$ per particle and increase divalent self-diffusion by 18--20\% relative to the baseline electrolytes, with both ion signs accelerating. A controlled diversification, which preserves the charged composition and the mean bare LJ pair amplitude, raises the excess entropy by $0.103k_B$ and the mean self-diffusion by 8--9\%, while the probe ions respond more weakly. Six additional matched replicas of $5000\tau$ resolve this probe response as $+5.1\%$ without and $+5.9\%$ with monovalent background, unchanged in systems twice as large. The mean self-diffusion follows the accompanying drop in shear viscosity, whereas the divalent ions are only partly carried along. Splitting a solvent into mechanically identical labels changes the ideal mixing entropy but leaves diffusion exactly unchanged, and adding monovalent salt alone does not accelerate the probes. Pair entropy computed from the MD correlations accounts for about 80\% of the excess entropy and of its controlled increments. The results identify faster-ion, higher-excess-entropy mixtures and a positive Rosenfeld-like trend for both the mean and the probe diffusion, but establish neither a causal effect of component count nor a universal species scaling law.
 \end{abstract}
 \maketitle
 
@@ -205,6 +205,21 @@ Unwrapped positions are recorded every $0.5\tau$ for the full dense production r
 
 Uncertainty comes from independent replicas, not overlapping MSD origins. Composition effects use paired entropy differences and paired $\ln(D_a/D_b)$, with nominal 95\% Student-$t$ intervals. Percent changes and interval endpoints follow by exponentiation. No multiple-comparison correction is applied, and finite-size and estimator biases are outside these intervals. L5 is an exact mechanical duplicate of U4 and is never counted as an independent state in scaling fits.
 
+\subsection{Extended Sampling and Box-Size Campaigns}
+\label{sec:followup_methods}
+
+Two further dense-state campaigns test the controlled ion response. The first adds six new independent replicas of B3, U4, H5, U6, and H7 at $N=4000$, matched across compositions within each replica, with $5000\tau$ of production after $200\tau$ of equilibration. The second repeats the same five states with $N=8000$ (240 probes of each sign) in four matched replicas of the same length. Interactions, cutoffs, PPPM accuracy, thermostat, and timestep are unchanged. Positions are stored every $1\tau$. The MSD is fitted over the three windows above and additionally over 100--500$\tau$ and 200--1000$\tau$. The off-diagonal and traceless diagonal pressure-tensor components, sampled every $0.01\tau$, give the shear viscosity
+\begin{equation}
+\eta=\frac{V}{k_BT}\int_0^\infty\langle P_{\alpha\beta}(0)P_{\alpha\beta}(t)\rangle\,dt,
+\label{eq:gk_viscosity}
+\end{equation}
+averaged over the five independent components. Its running integral changes by less than 1.5\% between 5 and $20\tau$. The viscosity enters the hydrodynamic finite-size correction of Yeh and Hummer~\cite{YehHummer2004},
+\begin{equation}
+D_\infty=D_L+\frac{2.837297\,k_BT}{6\pi\eta L},
+\label{eq:yeh_hummer}
+\end{equation}
+where $L$ is the box length.
+
 %======================================================================
 \section{Results and Discussion}
 \label{sec:results}
@@ -256,7 +271,33 @@ M5 and H5 have the same mole fractions and ideal mixing entropy as L5, but diffe
 
 The largest design changes clearly increase divalent-ion mobility. H5/B3 gives $+20.05\%$, interval $[14.30,26.09]\%$, and H7/B5 gives $+17.79\%$, interval $[11.17,24.81]\%$. Both signs increase separately: $+16.8\%$ for $+2$ and $+23.4\%$ for $-2$ in H5/B3, and $+18.0\%$ and $+17.6\%$ in H7/B5, with all four paired intervals excluding zero. These comparisons also alter the mean interaction strength and local friction, so the entropy is a correlate rather than an isolated causal variable.
 
-The controlled diversification gives a smaller response. U4$\to$H5 preserves charged composition, ionic strength, masses, nominal diameters, and mean bare pair amplitude. Mean diffusion increases by $9.47\%$, interval $[8.96,9.97]\%$, whereas probe diffusion increases by $4.81\%$, interval $[0.60,9.19]\%$. With monovalent background, U6$\to$H7 increases mean diffusion by $8.37\%$, interval $[7.31,9.44]\%$, and probe diffusion by $5.20\%$, interval $[-6.14,17.92]\%$. The moderate split raises mean diffusion by $2.99\%$ with an unresolved $1.48\%$ probe increase. The ions respond less strongly than the solvent-dominated mean.
+The controlled diversification gives a smaller response. U4$\to$H5 preserves charged composition, ionic strength, masses, nominal diameters, and mean bare pair amplitude. Mean diffusion increases by $9.47\%$, interval $[8.96,9.97]\%$, whereas probe diffusion increases by $4.81\%$, interval $[0.60,9.19]\%$. With monovalent background, U6$\to$H7 increases mean diffusion by $8.37\%$, interval $[7.31,9.44]\%$, and probe diffusion by $5.20\%$, interval $[-6.14,17.92]\%$. The moderate split raises mean diffusion by $2.99\%$ with an unresolved $1.48\%$ probe increase. The ions respond less strongly than the solvent-dominated mean, but with three replicas the size of their response remains uncertain. The extended sampling below resolves it.
+
+\subsection{Extended Sampling: The Controlled Ion Response}
+\label{sec:followup_results}
+
+The six long replicas resolve the controlled probe response (Table~\ref{tab:followup_contrasts}). In the primary window, U4$\to$H5 increases probe diffusion by $5.06\%$, interval $[3.99,6.13]\%$, and U6$\to$H7 by $5.90\%$, interval $[4.67,7.14]\%$. Both signs accelerate separately in both comparisons. The point estimates agree with the original three-replica values, while the intervals are several times narrower. The probes respond about 0.6 times as strongly as the mean fluid, which accelerates by $8.95\%$ and $9.17\%$, respectively.
+
+\input{component_study_followup_contrasts}
+
+The H7/U6 response is stable over all five fitting windows, from $5.5$ to $5.9\%$, and remains resolved up to 200--1000$\tau$ (Table~\ref{tab:followup_windows} and Fig.~\ref{fig:followup_windows}). The H5/U4 response decreases from $5.4\%$ in the shortest window to about $2.7\%$ beyond $100\tau$. This drift comes from U4, whose probe diffusivity rises by about 2\% between the shortest and longest windows, while that of H5 and the mean diffusivities of all states are window independent. The probes in the uniform weak solvent therefore reach the diffusive regime more slowly. We report the controlled H5/U4 response as $+3$ to $+5\%$, positive in every window. The longest windows contain the fewest independent time intervals and have correspondingly wide intervals.
+
+\input{component_study_followup_windows}
+
+\begin{figure}[tb]
+\centering
+\includegraphics[width=\linewidth]{figures/component_followup_windows.pdf}
+\caption{Controlled probe-diffusion changes and nominal paired 95\% intervals as a function of the MSD fitting window. Filled circles: six long $N=4000$ replicas; open circles: the original three replicas; diamonds: $N=8000$ (primary window).}
+\label{fig:followup_windows}
+\end{figure}
+
+The shear viscosity explains the different responses of the mean fluid and the probes (Table~\ref{tab:followup_states}). Diversification lowers $\eta$ by 7.6\% from U4 to H5 and by 7.1\% from U6 to H7. The mean self-diffusion follows almost exactly: $D_{\rm net}\eta$ changes by only $+0.7\%$ and $+1.4\%$, consistent with Stokes--Einstein behavior of the bulk. The probe product $D_{\rm probe}\eta$ instead decreases by 2.9\% and 1.7\%. Interaction diversity makes the solvent more fluid, and the divalent ions are only partly carried along by this change; their local solvation partly decouples them from the bulk viscosity.
+
+\input{component_study_followup_states}
+
+Box size does not affect these conclusions (Table~\ref{tab:followup_size}). At $N=8000$, all diffusivities are 0.8--1.3\% larger than at $N=4000$, close to the 1.2--1.4\% predicted by Eq.~\eqref{eq:yeh_hummer} from the measured viscosities. After that correction, the two sizes agree within about 0.4\%. The controlled probe responses are unchanged: $+5.30\%$, interval $[3.96,6.66]\%$, for H5/U4 and $+6.04\%$, interval $[4.84,7.25]\%$, for H7/U6 at $N=8000$. The thermodynamics is equally insensitive to system size: the compressibility factor and the potential energy per particle of all five states agree between the two sizes within 0.03\%. The mean $N=8000$ shear viscosities differ from the $N=4000$ values by at most 3.3\%, well inside their own 95\% intervals (half-widths of 5--14\% from four replicas, since the Green--Kubo noise does not decrease with $N$). Apart from the expected hydrodynamic shift of the diffusivities, doubling the system size therefore produces no relevant change in any structural, thermodynamic, or transport result reported here.
+
+\input{component_study_followup_size}
 
 \subsection{Rosenfeld-Like Correlation and Its Limits}
 
@@ -281,25 +322,14 @@ give $B_{\rm net}=0.80$ and $B_{\rm probe}=0.62$ for B3/U4/M5/H5, and $0.78$ and
 \label{fig:pair_entropy_species_diffusion}
 \end{figure*}
 
-The controlled local response differs from the family fits. For H5/U4, $\Delta\ln D/\Delta(s_{\rm ex}/k_B)$ is approximately $0.88$ for the mean and $0.46$ for the probes; H7/U6 gives approximately $0.78$ and $0.49$. The probe response is thus weaker than the mean response under the same intervention. Mean self-diffusion assigns only 6\% weight to the divalent particles and cannot determine their mobility. The results support a restricted entropy--mobility association for both observables, while neither component count nor a single bulk entropy determines species mobility.
+The controlled local response differs from the family fits. With the long replicas, $\Delta\ln D/\Delta(s_{\rm ex}/k_B)$ for H5/U4 is approximately $0.83$ for the mean and $0.48$ for the probes; H7/U6 gives approximately $0.85$ and $0.56$. The probe response is thus weaker than the mean response under the same intervention. Mean self-diffusion assigns only 6\% weight to the divalent particles and cannot determine their mobility. The results support a restricted entropy--mobility association for both observables, while neither component count nor a single bulk entropy determines species mobility.
 
 \subsection{Estimator Sensitivity and Homogeneity}
 \label{sec:sensitivity}
 
-The controlled ion point estimates remain positive, approximately 4--6\%, across the MSD windows (Table~\ref{tab:new_windows} and Fig.~\ref{fig:new_windows}), but H5/U4 loses nominal significance over 50--200$\tau$ and H7/U6 is unresolved in all three windows. The approximately 5\% ion effect is therefore a robust trend in sign but not a converged precise enhancement. VACF integrals over the final $100\tau$ support the broad mobility ordering but are too short to resolve an effect of this size independently.
+Charge-sign symmetry is a convergence diagnostic. All five states studied in the extended campaign are invariant under global charge reversal, so the long-time self-diffusion of the two signs must coincide. In the original three replicas, B3 gave $D_{+2}-D_{-2}=0.0104$, interval $[0.0029,0.0179]$. The six long replicas give $-0.0011$, interval $[-0.0036,0.0015]$, and the pooled nine replicas give $+0.0028$, interval $[-0.0020,0.0075]$. The earlier asymmetry was therefore a sampling effect. In the other states the sign difference is consistent with zero in every window. The only exception is H5 in the three shortest windows, with $0.0037$ ($1.5\%$) in the primary window. These windows reuse the same trajectories, so they are not independent tests. The difference is small and vanishes in the two longest windows, so we regard it as a residual sampling fluctuation without multiplicity correction.
 
-\input{component_study_windows}
-
-\begin{figure}[tb]
-\centering
-\includegraphics[width=\linewidth]{figures/component_window_sensitivity.pdf}
-\caption{Controlled divalent-ion diffusion changes and nominal paired 95\% intervals for alternative MSD windows. Point estimates remain positive, but their significance depends on the window and on the monovalent background.}
-\label{fig:new_windows}
-\end{figure}
-
-Charge-sign symmetry provides an additional convergence diagnostic. The B3 Hamiltonian is invariant under global charge reversal, so the long-time self-diffusion of the two probe signs must coincide. The primary-window estimate nevertheless gives $D_{+2}-D_{-2}=0.0104$, nominal replica interval $[0.0029,0.0179]$, whereas all other states have sign-difference intervals containing zero. Both probe species have identical masses and LJ parameters, random positions, one all-particle thermostat, and a common COM frame, so the asymmetry cannot be physical and must reflect finite sampling of slow ionic rearrangements, or an undetected numerical artifact. It does not affect the large baseline contrasts, for which each sign accelerates separately, but it indicates that replica intervals for single-sign diffusion of a few percent should be read as lower bounds on the uncertainty.
-
-Switching from cubic to shape-preserving interpolation changes the dense-state entropy by at most $0.00032k_B$, and retaining all or 75\% of production instead of the final half changes it by at most $0.00165k_B$. These sensitivities are small relative to the $0.103k_B$ diversification increments, although they do not bound the error below the lowest simulated density or finite-size effects in a single box size. Low-wavevector species concentration fluctuations remain of order unity, approximately 0.48--1.80 for individual replica/species values, with no enhancement indicating incipient demixing; a single box size and the present trajectory lengths cannot exclude slower segregation.
+Switching from cubic to shape-preserving interpolation changes the dense-state entropy by at most $0.00032k_B$, and retaining all or 75\% of production instead of the final half changes it by at most $0.00165k_B$. These sensitivities are small relative to the $0.103k_B$ diversification increments, although they do not bound the error below the lowest simulated density. Low-wavevector species concentration fluctuations remain of order unity, approximately 0.48--1.80 for individual replica/species values, with no enhancement indicating incipient demixing.
 
 %======================================================================
 \section{Conclusions}
@@ -309,11 +339,11 @@ The replicated calculations establish a positive excess-entropy--mobility associ
 \begin{enumerate}
 \item \textbf{Component count alone has no transport effect.} An exact label-only split raises the formal ideal mixing entropy while leaving diffusion identical. Monovalent salt addition slightly lowers the excess entropy and gives no resolved divalent speedup.
 \item \textbf{HNC-guided interaction changes produce higher-excess-entropy, faster-ion liquids.} MD confirms entropy increases of approximately $0.30k_B$ and divalent diffusion gains of 18--20\% relative to the baselines, with both signs accelerating. HNC predicts the entropy increments to within about 7\%. These are design comparisons, not isolated entropy interventions.
-\item \textbf{Controlled diversification gives a weaker ion response.} At fixed charged composition and mean bare pair amplitude, the excess entropy rises by approximately $0.103k_B$, mean diffusion by 8--9\%, and probe diffusion by approximately 5\%. The ion effect is positive in every MSD window, but its statistical significance depends on the window and is not resolved with monovalent background.
-\item \textbf{Rosenfeld-like trends extend to both probe signs but do not establish a universal law.} Separate fits of $D_{+2}$ and $D_{-2}$ against either the excess entropy or the MD pair entropy have positive slopes within the selected families, while the controlled local slopes for the probes are about half those of the mean.
+\item \textbf{Controlled diversification gives a weaker ion response.} At fixed charged composition and mean bare pair amplitude, the excess entropy rises by approximately $0.103k_B$, mean diffusion by 8--9\%, and probe diffusion by $5$--$6\%$, resolved with and without monovalent background and independent of box size. The mean diffusion tracks the accompanying drop in shear viscosity, whereas the probes are only partly carried along.
+\item \textbf{Rosenfeld-like trends extend to both probe signs but do not establish a universal law.} Separate fits of $D_{+2}$ and $D_{-2}$ against either the excess entropy or the MD pair entropy have positive slopes within the selected families, while the controlled local slopes for the probes are about 0.6 times those of the mean.
 \item \textbf{Pair entropy captures most, but not all, of the excess entropy.} The all-species $s_2$ accounts for approximately 80\% of $s_{\rm ex}$ and of its controlled increments, leaving a composition-dependent beyond-pair residual of about $-0.32$ to $-0.36k_B$ per particle.
 \end{enumerate}
-Longer independent sampling and larger systems are needed to fix the size of the controlled ion response, together with the charge-sign symmetry of B3. Probe--solvent coordination, association lifetimes, and exchange kinetics, together with higher divalent concentrations and several state points at fixed composition, would test whether weaker local caging rather than a bulk entropy coordinate controls the ion mobility.
+The partial decoupling of the probes from the bulk viscosity points to local solvation as the controlling factor. Probe--solvent coordination, association lifetimes, and exchange kinetics, together with higher divalent concentrations and several state points at fixed composition, would test whether weaker local caging rather than a bulk entropy coordinate controls the ion mobility.
 
 \begin{acknowledgments}
 This work was supported by the Spanish Ministerio de Ciencia, Innovaci{\'o}n y Universidades and CSIC. Computational resources provided by the Scientific Computing Center at IQF-CSIC are gratefully acknowledged.
@@ -491,6 +521,11 @@ J. Chem. Phys. \textbf{87}, 2282 (1987).
 \bibitem{Plimpton1995}
 S. Plimpton,
 J. Comput. Phys. \textbf{117}, 1 (1995).
+
+\bibitem{YehHummer2004}
+I.-C. Yeh and G. Hummer,
+J. Phys. Chem. B \textbf{108}, 15873 (2004),
+\href{https://doi.org/10.1021/jp0477147}{doi:10.1021/jp0477147}.
 
 \bibitem{Lin2003}
 S.-T. Lin, M. Blanco, and W.~A. Goddard III,

@@ -138,3 +138,184 @@ if delta_fit_file.exists():
         shutil.copy2(ROOT/f'two_pt_rehabilitation/entropy_validation_delta_fit.{ext}',
                      OUT/f'component_2pt_validation_delta_fit.{ext}')
 print('Generated pair-entropy tables and figure alongside the existing manuscript assets.')
+
+
+def followup_percent(value):
+    """Format an already transformed ratio minus one and its confidence limits."""
+    point = value.get('ratio_minus_one')
+    if point is None:
+        return '—'
+    interval = value.get('ratio_CI')
+    if interval is None:
+        return f'${100 * point:+.2f}$'
+    return rf'${100 * point:+.2f}\;[{100 * interval[0]:+.2f},{100 * interval[1]:+.2f}]$'
+
+
+def followup_estimate(value, digits=5):
+    """Format an absolute estimate, with an interval when replicas allow one."""
+    point = value['mean']
+    if point is None:
+        return '—'
+    interval = value['CI']
+    if interval is None:
+        return f'${point:.{digits}f}$'
+    return rf'${point:.{digits}f}\;[{interval[0]:.{digits}f},{interval[1]:.{digits}f}]$'
+
+
+def followup_product(rows, diffusion):
+    """Average the product within replicas, preserving D/eta covariance."""
+    values = np.array([row['transport'][diffusion] * row['transport']['eta']['plateau']
+                       for row in rows])
+    return f'${values.mean():.5f}$'
+
+
+def followup_probe_window(rows, window):
+    """Compute the mean probe diffusivity from each replica's window fit."""
+    values = []
+    for row in rows:
+        transport = row['transport']
+        fit = transport['fitting_windows'][window]
+        if fit is not None:
+            labels = transport['labels']
+            values.append((fit[labels.index('probe_plus2')] +
+                           fit[labels.index('probe_minus2')]) / 2)
+    return f'${np.mean(values):.5f}$' if values else '—'
+
+
+FOLLOWUP=ROOT/'followup_20261101'
+followup_path=FOLLOWUP/'results/summary.json'
+if followup_path.exists():
+    followup=json.loads(followup_path.read_text())
+    long=followup['systems']['long_N4000']
+    large=followup['systems']['N8000']
+    paired=followup['paired_contrasts']
+    windows_order=['10_50','20_100','50_200','100_500','200_1000']
+    codes=[('B3','baseline_3C'),('U4','weak_f030_e025'),
+           ('H5','dispersion_split_d040'),('U6','mono_weak_uniform6C'),
+           ('H7','mono_weak_split7C')]
+    replicas={code:[json.loads(path.read_text()) for path in sorted(
+        (FOLLOWUP/'md/long_N4000'/name).glob('replica_*/replica_result.json'))]
+        for code,name in codes}
+
+    contrast_rows=[]
+    for comparison in ['H5/U4','H7/U6','H5/B3','U4/B3']:
+        data=paired['long_N4000'][comparison]['20_100']
+        contrast_rows.append([comparison]+[followup_percent(data[key])
+            for key in ['net','probe','probe_plus2','probe_minus2']])
+    save_table('component_study_followup_contrasts.tex',
+               r'Long $N=4000$ paired diffusion changes at the primary 20--100$\tau$ MSD fitting window. '
+               r'Six independent matched replicas of 5000$\tau$ each; brackets are nominal 95\% '
+               r'paired Student-$t$ intervals (five degrees of freedom), without multiplicity correction. '
+               r'Changes are $100[\exp(\overline{\ln(D_a/D_b)})-1]$ in percent.',
+               'tab:followup_contrasts','lrrrr',
+               r'Comparison & $D_{\rm net}$ [CI] (\%) & $D_{\rm probe}$ [CI] (\%) & '
+               r'$D_{+2}$ [CI] (\%) & $D_{-2}$ [CI] (\%)',contrast_rows)
+
+    window_rows=[]
+    for window in windows_order:
+        window_rows.append([window.replace('_', '--')+r'$\tau$']+
+            [followup_percent(paired['long_N4000'][comparison][window]['probe'])
+             for comparison in ['H5/U4','H7/U6']]+
+            [followup_probe_window(replicas[code],window) for code in ['U4','H5']])
+    save_table('component_study_followup_windows.tex',
+               r'Long $N=4000$ probe-diffusion changes by MSD fitting window, with nominal '
+               r'95\% paired Student-$t$ intervals from six matched replicas. The 20--100$\tau$ '
+               r'window is primary. U4 and H5 columns are means of six absolute replica diffusivities '
+               r'in LJ units and show the source of the H5/U4 window dependence.',
+               'tab:followup_windows','lrrrr',
+               r'Window & H5/U4 (\%) [CI] & H7/U6 (\%) [CI] & '
+               r'U4 $D_{\rm probe}$ & H5 $D_{\rm probe}$',window_rows)
+
+    state_rows=[]
+    for code,_ in codes:
+        data=long[code]
+        state_rows.append([code]+[followup_estimate(data[key]) for key in
+            ['D_net','D_probe','D_sign_difference','eta']]+[
+            followup_product(replicas[code],key) for key in ['D_net','D_probe']]+[
+            followup_estimate(data['D_probe_YH'])])
+    save_table('component_study_followup_states.tex',
+               r'Long $N=4000$ absolute transport properties at $T=2$, $\rho=0.7$ '
+               r'from six independent 5000$\tau$ replicas. Brackets are nominal 95\% '
+               r'Student-$t$ intervals; $\eta$ is the stress-correlation plateau. '
+               r'$D\eta$ is formed within each replica before averaging. The last column '
+               r'applies the Yeh--Hummer correction to each probe diffusivity. All values use LJ units.',
+               'tab:followup_states','lrrrrrrr',
+               r'State & $D_{\rm net}$ [CI] & $D_{\rm probe}$ [CI] & '
+               r'$D_{+2}-D_{-2}$ [CI] & $\eta$ [CI] & '
+               r'$D_{\rm net}\eta$ & $D_{\rm probe}\eta$ & $D_{\rm probe}^{\rm YH}$ [CI]',
+               state_rows)
+
+    size_rows=[]
+    length_difference=(4000/0.7)**(-1/3)-(8000/0.7)**(-1/3)
+    for code,_ in codes:
+        for observable,key in [(r'$D_{\rm net}$','net'),(r'$D_{\rm probe}$','probe')]:
+            name='D_'+key
+            small=long[code][name]['mean']
+            eta=long[code]['eta']['mean']
+            predicted=2*2.837297/(6*np.pi*eta)*length_difference/small
+            finite=followup['finite_size'][code][key]
+            large_mean=large[code][name]['mean']
+            size_rows.append([code,observable,
+                f'${small:.5f}$',f'${large_mean:.5f}$' if large_mean is not None else '—',
+                followup_percent(finite['raw']),f'${100*predicted:+.2f}$',
+                followup_percent(finite['YH'])])
+    for comparison in ['H5/U4','H7/U6']:
+        size_rows.append([comparison,r'$\Delta D_{\rm probe}$ (\%)',
+            followup_percent(paired['long_N4000'][comparison]['20_100']['probe']),
+            followup_percent(paired['N8000'][comparison]['20_100']['probe']),
+            '—','—','—'])
+    save_table('component_study_followup_size.tex',
+               r'Finite-size transport comparison at $T=2$, $\rho=0.7$, with six $N=4000$ '
+               r'and up to four $N=8000$ replicas per state. Absolute diffusivities are means '
+               r'in LJ units. Raw and Yeh--Hummer-corrected size ratios are percent changes '
+               r'with unpaired Welch 95\% intervals. The predicted size ratio uses the '
+               r'$N=4000$ viscosity and $\Delta D=2(2.837297)/(6\pi\eta)'
+               r'(1/L_{4000}-1/L_{8000})$, $L_N=(N/0.7)^{1/3}$. '
+               r'The final two rows instead give paired probe changes within each size, '
+               r'with Student-$t$ 95\% intervals. Missing results are shown as em dashes.',
+               'tab:followup_size','llrrrrr',
+               r'State & Observable & $N=4000$ & $N=8000$ & '
+               r'Raw ratio (\%) [CI] & YH predicted (\%) & YH ratio (\%) [CI]',size_rows)
+
+    fig,ax=plt.subplots(figsize=(7.3,4.4),layout='constrained')
+    for comparison,color,offset in [('H5/U4','#2166ac',-.15),('H7/U6','#b2182b',.15)]:
+        for source,positions,marker,filled,label in [
+            (paired['long_N4000'][comparison],range(5),'o',True,
+             f'{comparison}: six long $N=4000$ replicas'),
+            (G['window_contrasts'][comparison],range(3),'o',False,
+             f'{comparison}: three original $N=4000$ replicas'),
+            (paired['N8000'][comparison],[1],'D',True,
+             f'{comparison}: $N=8000$')]:
+            points=[]
+            for position in positions:
+                value=source[windows_order[position]]
+                if source is G['window_contrasts'][comparison]:
+                    estimate=value
+                    point=100*np.expm1(estimate['mean'])
+                    ci=100*np.expm1(estimate['CI'])
+                else:
+                    estimate=value['probe']
+                    if estimate['ratio_minus_one'] is None:
+                        continue
+                    point=100*estimate['ratio_minus_one']
+                    ci=100*np.asarray(estimate['ratio_CI']) if estimate['ratio_CI'] else None
+                points.append((position,point,ci))
+            if not points:
+                continue
+            # Separate the three estimates of each comparison within a window.
+            x=np.array([p[0] for p in points],dtype=float)+offset+(.09 if marker=='D' else 0 if filled else -.09)
+            y=np.array([p[1] for p in points])
+            lower=np.array([p[2][0] for p in points])
+            upper=np.array([p[2][1] for p in points])
+            ax.errorbar(x,y,yerr=[y-lower,upper-y],fmt=marker,color=color,
+                        markerfacecolor=color if filled else 'white',
+                        markersize=6,capsize=3,linestyle='none',label=label,alpha=1 if filled else .7)
+    ax.axhline(0,color='black',lw=.8)
+    ax.set_xticks(range(5),['10–50','20–100','50–200','100–500','200–1000'])
+    ax.set(xlabel=r'MSD fitting window ($\tau$)',ylabel='Probe diffusion change (%)')
+    ax.grid(axis='y',alpha=.2)
+    fig.legend(frameon=False,fontsize=8,ncol=2,loc='outside lower center')
+    for ext in ['pdf','png']:
+        fig.savefig(OUT/f'component_followup_windows.{ext}',dpi=220)
+    plt.close(fig)
+    print('Generated follow-up transport tables and fitting-window figure.')
