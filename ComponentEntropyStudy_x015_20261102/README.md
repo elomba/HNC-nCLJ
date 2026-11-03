@@ -144,6 +144,12 @@ Paired 95% Student-t intervals over four matched replicas (`results/report.md`).
   diversification: NE predicts +5.2% (H5/U4) and +6.1% (H7/U6); measured
   σ −1.3% [−10.4, 8.6] and +4.0% [−9.7, 19.8], consistent but unresolved.
 
+- **Rosenfeld-like fits** (`rosenfeld_fits`, `local_slopes`): B_net 0.80 (B3/U4/M5/H5)
+  and 0.82 (B5/U6/H7), B_probe 0.59 in both (x=0.03: 0.62, 0.55); B_σ 0.43 and
+  0.53 (noisy). Local slopes H5/U4 0.81/0.49, H7/U6 0.84/0.56 (mean/probe).
+- **Sign symmetry and homogeneity:** D_+2 − D_-2 within −0.0009 to +0.0025, all
+  CIs include zero; low-k concentration fluctuations 0.53–1.57.
+
 Conclusion: every x=0.03 conclusion holds at x(±2)=0.075; ionic conductivity
 follows carrier number and ion self-diffusion with a composition-independent
 inverse Haven ratio of about 0.73.

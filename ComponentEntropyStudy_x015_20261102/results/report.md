@@ -101,6 +101,46 @@ Differences are x=0.075 minus x=0.03; D_probe and eta differences are percentage
 | H7 | Z | 2.4574 [2.4565, 2.4584] | 2.4774 [2.4769, 2.4779] | -0.019981 |
 | H7 | u | -1.3256 [-1.3258, -1.3254] | -1.2437 [-1.2438, -1.2436] | -0.081894 |
 
+## Charge-sign symmetry and homogeneity
+
+| State | D_+2 - D_-2 | S_cc range |
+|---|---:|---:|
+| B3 | 0.00078752 [-0.0023688, 0.0039438] | 0.546–1.262 |
+| B5 | -0.00085022 [-0.0036833, 0.0019829] | 0.599–1.344 |
+| U4 | 0.001113 [-0.0013016, 0.0035276] | 0.527–1.349 |
+| L5 | 0.001113 [-0.0013016, 0.0035276] | 0.527–1.257 |
+| M5 | 0.0024908 [-0.0020804, 0.007062] | 0.560–1.359 |
+| H5 | -0.00027371 [-0.0018734, 0.001326] | 0.560–1.566 |
+| U6 | 2.1056e-05 [-0.0038654, 0.0039075] | 0.554–1.413 |
+| H7 | -0.00093468 [-0.0049108, 0.0030414] | 0.575–1.434 |
+
+Low-k concentration fluctuations overall: 0.527–1.566.
+
+## Rosenfeld-like family fits
+
+Unweighted fits of ln(mean metric) against mean s_ex (L5 excluded).
+
+| Family | Metric | B | R² |
+|---|---|---:|---:|
+| no_salt | D_net | 0.801 | 1.0000 |
+| no_salt | D_probe | 0.591 | 0.9960 |
+| no_salt | D_+2 | 0.588 | 0.9918 |
+| no_salt | D_-2 | 0.593 | 0.9982 |
+| no_salt | sigma | 0.430 | 0.8311 |
+| no_salt | sigma_NE | 0.591 | 0.9960 |
+| mono_salt | D_net | 0.817 | 0.9999 |
+| mono_salt | D_probe | 0.592 | 0.9997 |
+| mono_salt | D_+2 | 0.594 | 0.9990 |
+| mono_salt | D_-2 | 0.590 | 1.0000 |
+| mono_salt | sigma | 0.532 | 0.9871 |
+| mono_salt | sigma_NE | 0.594 | 0.9997 |
+
+| Contrast | local slope D_net | D_probe | sigma_NE |
+|---|---:|---:|---:|
+| H5/U4 | 0.810 | 0.492 | 0.492 |
+| H7/U6 | 0.835 | 0.561 | 0.567 |
+| M5/U4 | 0.816 | 0.560 | 0.560 |
+
 ## x=0.03 reference
 
 EOS: ComponentEntropyStudy_20261030/results/summary.json (3 replicas, 1000 tau dense).

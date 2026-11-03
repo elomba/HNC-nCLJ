@@ -1,4 +1,4 @@
-// Builds component_entropy_results.pptx (10 slides) from the study results.
+// Builds component_entropy_results.pptx (12 slides) from the study results.
 // Run: cd doc/slides && node build_deck.js
 const path = require("path");
 const fs = require("fs");
@@ -8,7 +8,7 @@ const { applyTheme } = require(path.join(SKILL, "scripts/apply_theme.js"));
 
 const ROOT = path.resolve(__dirname, "../..");
 const FIG = {
-  scaling: path.join(ROOT, "doc/figures/component_entropy_diffusion.png"),
+  scaling: path.join(ROOT, "doc/figures/component_x015_entropy_diffusion.png"),
   twopt: path.join(ROOT, "doc/figures/component_2pt_validation_delta_fit.png"),
 };
 
@@ -82,7 +82,7 @@ function bullets(items, opts = {}) {
 pres.addSection({ title: "Results" });
 let s = pres.addSlide({ masterName: "TITLE_DARK", sectionTitle: "Results" });
 s.addText("Excess entropy and divalent-ion mobility in multicomponent charged LJ mixtures", { placeholder: "title" });
-s.addText("HNC screening · replicated MD · thermodynamic integration, pair entropy and 2PT", { placeholder: "body" });
+s.addText("HNC screening · replicated MD · thermodynamic integration, pair entropy and 2PT · two divalent concentrations", { placeholder: "body" });
 const chips = [
   ["+0.30 kB", "excess entropy gained by HNC-selected solvent designs"],
   ["+18–20%", "divalent-ion self-diffusion, both signs"],
@@ -359,12 +359,82 @@ s.addText("x(+2)=x(−2)=0.075 (total 0.15), N=4000, 4 matched replicas × 3000�
     margin: 0, isTextBox: true, objectName: "high salt study note" });
 s.addNotes("The high-divalent campaign repeats all eight mixtures with four matched replicas of 3000 tau. Its probe diffusion contrasts closely reproduce the lower-concentration results. The controlled entropy increment stays 0.103 kB; absolute excess entropy shifts by about -0.016 kB. The pooled Green-Kubo to Nernst-Einstein conductivity ratio is 0.727 [0.708, 0.746] across 28 replicas. Diversification lowers viscosity by about 9 percent while the conductivity contrast includes zero.");
 
+// ---------- 3d. Conductivity at x(±2) = 0.075 ----------
+// Values read from ComponentEntropyStudy_x015_20261102/results/summary.json.
+const X015 = JSON.parse(fs.readFileSync(path.join(ROOT, "ComponentEntropyStudy_x015_20261102/results/summary.json"), "utf8"));
+const xStates = ["B3", "B5", "U4", "M5", "H5", "U6", "H7"];
+const xm = (code, key) => X015.systems[code].metrics[key].mean;
+s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
+s.addText("Conductivity follows carriers: σ ≈ 0.73 σ_NE", { placeholder: "title" });
+s.addChart(pres.charts.BAR, [
+  { name: "σ Green–Kubo (5–10 τ plateau)", labels: xStates, values: xStates.map((c) => xm(c, "sigma")) },
+  { name: "σ_NE Nernst–Einstein", labels: xStates, values: xStates.map((c) => xm(c, "sigma_NE")) },
+], {
+  x: 0.5, y: 1.45, w: 7.6, h: 4.85, barDir: "col", barGrouping: "clustered", barGapWidthPct: 55,
+  chartColors: [HEX.accent1, HEX.accent2],
+  showValue: true, dataLabelPosition: "outEnd", dataLabelFontSize: 10, dataLabelColor: HEX.dk1,
+  dataLabelFormatCode: "0.000", dataLabelFontFace: "+mn-lt",
+  showLegend: true, legendPos: "t", legendFontSize: 13, legendFontFace: "+mn-lt", legendColor: HEX.dk1,
+  catAxisLabelColor: HEX.dk1, catAxisLabelFontSize: 13, catAxisLabelFontFace: "+mn-lt",
+  valAxisLabelColor: HEX.dk1, valAxisLabelFontSize: 12, valAxisLabelFontFace: "+mn-lt", valAxisLabelFormatCode: "0.00",
+  valAxisTitle: "Ionic conductivity (reduced units)", showValAxisTitle: true, valAxisTitleFontSize: 13,
+  valAxisTitleColor: HEX.dk1, valAxisTitleFontFace: "+mn-lt", valAxisMinVal: 0, valAxisMaxVal: 0.07,
+  valGridLine: { color: "DCE4E8", size: 0.75 }, catGridLine: { style: "none" },
+  objectName: "conductivity chart",
+});
+const pooled = X015.pooled_inverse_Haven;
+const condStats = [
+  [pooled.mean.toFixed(3), `pooled σ/σ_NE, 28 replicas, CI ${pooled.CI[0].toFixed(2)}–${pooled.CI[1].toFixed(2)}; same in every state`],
+  ["+18.8%", "B5/B3: extra ±1 carriers (NE predicts +17.7%)"],
+  ["+5–6%", "diversification via NE; Green–Kubo change unresolved (±10%)"],
+  ["2–5 τ", "Green–Kubo plateau; 2–20 τ cutoffs agree"],
+];
+condStats.forEach(([value, label], i) => {
+  const x = 8.4 + (i % 2) * 2.25, y = 1.45 + Math.floor(i / 2) * 2.45;
+  card(s, { x, y, w: 2.1, h: 2.3, name: `conductivity stat ${i + 1} card` });
+  stat(s, { x: x + 0.15, y: y + 0.16, w: 1.8, value, label, name: `conductivity stat ${i + 1}`, size: 24 });
+});
+s.addText("σ = (3Vk_BT)⁻¹∫⟨J(0)·J(t)⟩dt with J = Σ qᵢvᵢ; σ_NE = (ρ/k_BT) Σ xᵢqᵢ²Dᵢ. x(±2) = 0.075, 4 replicas × 3000 τ",
+  { x: 0.55, y: 6.45, w: 12.2, h: 0.4, fontSize: 13, italic: true, color: C.accent5,
+    margin: 0, isTextBox: true, objectName: "conductivity note" });
+s.addNotes("Conductivity from the Green-Kubo integral of the total charge current, recorded every 0.01 tau over 3000 tau. The running integral plateaus within 2 to 5 tau. Correlated motion of opposite charges lowers it to 0.73 of the Nernst-Einstein value built from the measured self-diffusion, and this ratio does not change with composition. So conductivity follows carrier number and ion diffusion: monovalent salt raises it by 19 percent, while diversification can raise it at most by the 5 to 6 percent gain in ion self-diffusion, which four Green-Kubo replicas cannot resolve.");
+
+// ---------- 3e. State properties at x(±2) = 0.075 ----------
+s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
+s.addText("High-divalent mixtures: state properties", { placeholder: "title" });
+const th = (txt) => ({ text: txt, options: { bold: true, color: HEX.lt1, fill: { color: HEX.dk2 }, align: "center" } });
+const td = (txt) => ({ text: txt, options: { align: "center" } });
+const propRows = [[th("State"), th("s_ex/k_B"), th("Z"), th("u/ε"), th("D_net"), th("D_probe"), th("η"), th("σ"), th("σ/σ_NE")]];
+xStates.forEach((c) => {
+  propRows.push([{ text: c, options: { bold: true, align: "center" } },
+    td(xm(c, "s_ex").toFixed(3)), td(xm(c, "Z").toFixed(3)), td(xm(c, "u").toFixed(3)),
+    td(xm(c, "D_net").toFixed(4)), td(xm(c, "D_probe").toFixed(4)), td(xm(c, "eta").toFixed(3)),
+    td(xm(c, "sigma").toFixed(4)), td(xm(c, "inv_Haven").toFixed(3))]);
+});
+s.addTable(propRows, { x: 0.6, y: 1.4, w: 12.1, colW: [1.0, 1.45, 1.2, 1.3, 1.45, 1.45, 1.25, 1.45, 1.55],
+  fontSize: 14, color: HEX.dk1, border: { type: "solid", pt: 0.75, color: "C9D6DB" }, fill: { color: HEX.lt1 },
+  rowH: 0.46, valign: "middle", objectName: "x015 property table" });
+const shiftCards = [
+  ["−0.016 k_B", "s_ex in every state vs x(±2) = 0.03 (HNC predicts the same)"],
+  ["−0.02 / −0.08", "Z and u per particle: more Coulomb cohesion"],
+  ["−0.5 to −1.3%", "D_probe; η unchanged within its CI: dynamics barely affected"],
+];
+shiftCards.forEach(([value, label], i) => {
+  const x = 0.6 + i * 4.1;
+  card(s, { x, y: 5.3, w: 3.85, h: 1.3, name: `shift card ${i + 1}` });
+  stat(s, { x: x + 0.2, y: 5.36, w: 3.5, value, label, name: `shift stat ${i + 1}`, size: 22 });
+});
+s.addText("Means over 4 replicas; D from the 20–100 τ MSD window, η and σ Green–Kubo. L5 ≡ U4 (label-only split).",
+  { x: 0.6, y: 6.7, w: 12.1, h: 0.3, fontSize: 12, italic: true, color: C.accent5, margin: 0,
+    isTextBox: true, objectName: "property table note" });
+s.addNotes("Absolute dense-state properties at x(+2)=x(-2)=0.075. Compared with x=0.03, the added divalent ions lower the excess entropy by 0.016 kB in every state, as HNC predicted, lower Z by 0.02 and the potential energy by about 0.08, but change the probe diffusion by only about 1 percent and leave the viscosity unchanged within its uncertainty. Charge-sign symmetry holds in every state and the low-k concentration fluctuations stay between 0.53 and 1.57, with no sign of demixing.");
+
 // ---------- 4. Entropy coordinate ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
 s.addText("TI entropy tracks mobility; HNC and s₂ follow", { placeholder: "title" });
-s.addImage({ path: FIG.scaling, x: 0.5, y: 1.55, w: 8.4, h: 3.36, altText: "Rosenfeld-reduced mean and probe self-diffusion versus MD excess entropy for the seven distinct mixtures", objectName: "rosenfeld figure" });
-s.addText("Descriptive Rosenfeld fits (3–4 mixtures, R² > 0.99): B_net ≈ 0.8, B_probe ≈ 0.6. Controlled local probe slopes ≈ 0.6 × the mean-fluid value. Absolute HNC entropies are 0.06–0.09 kB too low; increments are much better.",
-  { x: 0.5, y: 5.2, w: 8.4, h: 1.2, fontSize: 15, color: C.text1, margin: 0, valign: "top", isTextBox: true,
+s.addImage({ path: FIG.scaling, x: 0.4, y: 1.6, w: 8.7, h: 2.68, altText: "Rosenfeld-reduced mean and probe self-diffusion and ionic conductivity versus MD excess entropy at both divalent concentrations", objectName: "rosenfeld figure" });
+s.addText("Descriptive Rosenfeld fits (3–4 mixtures, R² > 0.99): B_net ≈ 0.8, B_probe ≈ 0.6; at x(±2) = 0.075: B_net 0.80–0.82, B_probe 0.59, local probe slopes 0.49–0.56 vs 0.81–0.84 for the mean. Absolute HNC entropies are 0.06–0.09 kB too low; increments are much better.",
+  { x: 0.5, y: 4.6, w: 8.4, h: 1.6, fontSize: 15, color: C.text1, margin: 0, valign: "top", isTextBox: true,
     objectName: "rosenfeld caption" });
 const st = [
   ["≤ 7%", "HNC error on the controlled entropy increments"],

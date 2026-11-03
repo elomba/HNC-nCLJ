@@ -369,8 +369,8 @@ state_codes=['B3','B5','U4','M5','H5','U6','H7']
 state_rows=[]
 for code in state_codes:
     metrics=X['systems'][code]['metrics']
-    state_rows.append([code]+[x015_absolute(metrics[key]) for key in
-                              ['s_ex','D_probe','eta','sigma','sigma_NE','inv_Haven']])
+    state_rows.append([code]+[x015_absolute(metrics[key],digits) for key,digits in
+                              [('s_ex',4),('D_probe',4),('eta',3),('sigma',4),('sigma_NE',4),('inv_Haven',3)]])
 pooled=X['pooled_inverse_Haven']
 save_table('component_study_x015_conductivity.tex',
            r'Absolute-state means and 95\% confidence intervals at '
@@ -428,4 +428,86 @@ for ax,title,ylabel in zip(axs,['(a) Probe diffusion','(b) Conductivity'],
     ax.legend(frameon=False)
 fig.savefig(OUT/'component_x015_contrasts.pdf')
 plt.close(fig)
-print('Generated high-divalent-fraction tables and contrast figure.')
+# High-divalent compositions, absolute states, Rosenfeld fits and scaling figure.
+X015_COMPS={c['code']:c for c in json.loads((X015.parent/'selected.json').read_text())}
+x015_comp=[]
+for code,_ in ORDER:
+    c=X015_COMPS[code];neutral=[s for s in c['species'] if s['q']==0];weak=neutral[1:]
+    distinct=len({(s['q'],s['eps']) for s in c['species']})
+    xmono=next((s['x'] for s in c['species'] if s['q']==1),0)
+    x015_comp.append([code,f"{len(c['species'])}/{distinct}",f"{neutral[0]['x']:.2f}",
+                      '+'.join(f"{s['x']:.2f}" for s in weak) if weak else '---',
+                      ', '.join(f"{s['eps']:g}" for s in weak) if weak else '---',
+                      f"{xmono:g}",f"{c['I']:.2f}"])
+save_table('component_study_x015_compositions.tex',
+           r'High-divalent MD systems. Every mixture contains $x_{+2}=x_{-2}=0.075$ (300 ions of each sign at $N=4000$) and has unit masses and nominal diameters. The primary neutral solvent and all ions have $\varepsilon=1$. Relative to Table~\ref{tab:new_compositions}, only the primary-solvent fraction is reduced, by 0.09; secondary fractions, their $\varepsilon$ values, and $x_{\pm1}$ are unchanged. $I=\frac12\sum_i x_iq_i^2$.',
+           'tab:x015_compositions','lcccccc',
+           r'State & Labels/distinct & $x_{\varepsilon=1,\,q=0}$ & Secondary fractions & Secondary $\varepsilon$ & $x_{\pm1}$ & $I$',x015_comp)
+
+x015_state_rows=[]
+for code,_ in ORDER:
+    if code=='L5':continue
+    metrics=X['systems'][code]['metrics']
+    x015_state_rows.append([code,x015_absolute(metrics['s_ex'],4),x015_absolute(metrics['Z'],3),
+                            x015_absolute(metrics['u'],3)]+
+                           [x015_absolute(metrics[key],4) for key in ['D_net','D_+2','D_-2']]+
+                           [x015_absolute(metrics['eta'],3)])
+save_table('component_study_x015_states.tex',
+           r'Dense-state results at $x_{+2}=x_{-2}=0.075$, $T^*=2$, $\rho^*=0.7$, $N=4000$: means and nominal 95\% Student-$t$ intervals over four replicas. $s_{\rm ex}$ from thermodynamic integration, $Z$ the compressibility factor, $u$ the potential energy per particle in units of $\varepsilon$, self-diffusion from the 20--100$\tau$ MSD window (no finite-size correction), and $\eta$ the Green--Kubo shear viscosity. L5 is identical to U4 in every transport quantity and is omitted.',
+           'tab:x015_states','lrrrrrrr',
+           r'State & $s_{\rm ex}/k_B$ & $Z$ & $u$ & $D_{\rm net}$ & $D_{+2}$ & $D_{-2}$ & $\eta$',x015_state_rows)
+
+FAMILY_NAMES={'no_salt':'B3/U4/M5/H5','mono_salt':'B5/U6/H7'}
+OLD_CODES={code:name for code,name in ORDER}
+def old_fit(codes,key):
+    x=[S['systems'][OLD_CODES[c]]['s_ex']['mean'] for c in codes]
+    y=np.log([S['systems'][OLD_CODES[c]][key]['mean'] for c in codes])
+    slope,intercept=np.polyfit(x,y,1);r2=np.corrcoef(x,y)[0,1]**2
+    return slope,r2
+FIT_LABELS=[('D_net',r'$D_{\rm net}$'),('D_probe',r'$D_{\rm probe}$'),('D_+2',r'$D_{+2}$'),
+            ('D_-2',r'$D_{-2}$'),('sigma',r'$\sigma$'),('sigma_NE',r'$\sigma_{\rm NE}$')]
+x015_fit_rows=[]
+for family,codes in [('no_salt',['B3','U4','M5','H5']),('mono_salt',['B5','U6','H7'])]:
+    for key,label in FIT_LABELS:
+        fit=X['rosenfeld_fits'][family][key]
+        if key in ('D_net','D_probe'):
+            slope,r2=old_fit(codes,key);old=[f"{slope:.2f}",f"{r2:.3f}"]
+        else:
+            old=['---','---']
+        x015_fit_rows.append([FAMILY_NAMES[family],label,f"{fit['B']:.2f}",f"{fit['R2']:.3f}"]+old)
+save_table('component_study_x015_rosenfeld.tex',
+           r'Unweighted family fits of $\ln Y=\ln A+B\,s_{\rm ex}/k_B$ to composition means, for self-diffusion and ionic conductivity. The Rosenfeld reduction is a common constant at fixed $\rho$, $T$, and mass and does not affect $B$. The fits contain only three or four means and do not include uncertainty in either coordinate, so $R^2$ is descriptive. The $x_{\pm2}=0.03$ slopes use the original three-replica campaign; conductivity was not measured there. L5 is omitted.',
+           'tab:x015_rosenfeld','llrrrr',
+           r'Family & $Y$ & $B$ (0.075) & $R^2$ (0.075) & $B$ (0.03) & $R^2$ (0.03)',x015_fit_rows)
+
+factor=.7**(1/3)/np.sqrt(2)
+fig,axs=plt.subplots(1,3,figsize=(13,4),layout='constrained')
+for ax,key,title in zip(axs,['D_net','D_probe','sigma'],['Mean self-diffusion','Divalent-ion self-diffusion','Ionic conductivity']):
+    for family,codes in [('no_salt',['B3','U4','M5','H5']),('mono_salt',['B5','U6','H7'])]:
+        color='#b2182b' if family=='mono_salt' else '#2166ac';marker='s' if family=='mono_salt' else 'o'
+        scale=1 if key=='sigma' else factor
+        for code in codes:
+            m=X['systems'][code]['metrics'];x=m['s_ex']['mean'];y=m[key]['mean']*scale
+            xe=np.diff(m['s_ex']['CI'])[0]/2;ye=np.diff(m[key]['CI'])[0]*scale/2
+            ax.errorbar(x,y,xerr=xe,yerr=ye,fmt=marker,color=color,capsize=3)
+            ax.annotate(code,(x,y),xytext=(6,-12) if family=='mono_salt' else (-16,7),textcoords='offset points',fontsize=8,color=color)
+            if key=='sigma':
+                ne=m['sigma_NE'];ax.errorbar(x,ne['mean'],yerr=np.diff(ne['CI'])[0]/2,fmt=marker,
+                                             color=color,markerfacecolor='white',capsize=2,alpha=.8)
+            else:
+                old=S['systems'][OLD_CODES[code]];ox=old['s_ex']['mean'];oy=old[key]['mean']*scale
+                oxe=np.diff(old['s_ex']['CI'])[0]/2;oye=np.diff(old[key]['CI'])[0]*scale/2
+                ax.errorbar(ox,oy,xerr=oxe,yerr=oye,fmt=marker,color=color,markerfacecolor='white',capsize=2,alpha=.8)
+        fit=X['rosenfeld_fits'][family][key]
+        xs=np.array([X['systems'][c]['metrics']['s_ex']['mean'] for c in codes]);grid=np.linspace(xs.min(),xs.max(),50)
+        ax.plot(grid,scale*np.exp(fit['intercept']+fit['B']*grid),'--',color=color,lw=1)
+    ylabel=r'$\sigma$ (reduced units)' if key=='sigma' else r'$D^R=D\rho^{1/3}/\sqrt{T}$'
+    ax.set(xlabel=r'$s_{\rm ex}/k_B$',ylabel=ylabel,title=title);ax.set_yscale('log');ax.margins(x=.1,y=.12);ax.grid(alpha=.2)
+from matplotlib.lines import Line2D
+handles=[Line2D([],[],marker='o',color='#2166ac',ls='none',label='no salt, $x_{\\pm2}=0.075$'),
+         Line2D([],[],marker='s',color='#b2182b',ls='none',label='with salt, $x_{\\pm2}=0.075$'),
+         Line2D([],[],marker='o',color='gray',markerfacecolor='white',ls='none',label='open: $x_{\\pm2}=0.03$ (a, b); $\\sigma_{\\rm NE}$ (c)')]
+axs[0].legend(handles=handles,frameon=False,fontsize=8,loc='upper left')
+for ext in ['pdf','png']:fig.savefig(OUT/f'component_x015_entropy_diffusion.{ext}',dpi=220)
+plt.close(fig)
+print('Generated high-divalent-fraction tables and figures.')

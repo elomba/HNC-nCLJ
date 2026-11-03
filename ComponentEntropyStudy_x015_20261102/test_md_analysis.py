@@ -7,7 +7,7 @@ from pathlib import Path
 
 from analyze_md import (charge_current, conductivity, conductivity_integral,
                         entropy, nernst_einstein)
-from summarize_md import metric, pooled_inverse_haven, ratio_contrast
+from summarize_md import log_linear_fit, metric, pooled_inverse_haven, ratio_contrast
 
 
 def main():
@@ -55,6 +55,10 @@ def main():
         (Path(directory) / 'checkpoint.250000.restart').touch()
         assert subprocess.run(['bash', '-c', guard], cwd=directory, check=False,
                               capture_output=True).returncode == 2
+    s = np.array([-2.0, -1.8, -1.7])
+    fit = log_linear_fit(s, 0.3 * np.exp(0.6 * s))
+    assert np.isclose(fit['B'], 0.6) and np.isclose(fit['intercept'], np.log(0.3))
+    assert np.isclose(fit['R2'], 1.0)
     print('MD analysis synthetic tests passed')
 
 

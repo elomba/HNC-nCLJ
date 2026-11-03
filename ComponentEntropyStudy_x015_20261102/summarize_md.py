@@ -72,6 +72,55 @@ def pooled_inverse_haven(by):
                      if code != 'L5' for row in reps.values()])
 
 
+FAMILIES = {'no_salt': ['B3', 'U4', 'M5', 'H5'], 'mono_salt': ['B5', 'U6', 'H7']}
+FIT_METRICS = ['D_net', 'D_probe', 'D_+2', 'D_-2', 'sigma', 'sigma_NE']
+LOCAL_SLOPES = ['H5/U4', 'H7/U6', 'M5/U4']
+
+
+def log_linear_fit(x, y):
+    """Unweighted least squares of ln(y) against x; returns slope B, intercept, R^2."""
+    x, logy = np.asarray(x, float), np.log(np.asarray(y, float))
+    slope, intercept = np.polyfit(x, logy, 1)
+    residual = logy - (intercept + slope * x)
+    total = np.sum((logy - logy.mean()) ** 2)
+    r2 = 1 - np.sum(residual ** 2) / total if total > 0 else 1.0
+    return {'B': float(slope), 'intercept': float(intercept), 'R2': float(r2)}
+
+
+def rosenfeld_fits(systems):
+    """Family fits of ln(mean metric) vs mean s_ex; the Rosenfeld factor is a common constant."""
+    return {family: {key: log_linear_fit([systems[c]['metrics']['s_ex']['mean'] for c in codes],
+                                         [systems[c]['metrics'][key]['mean'] for c in codes])
+                     for key in FIT_METRICS}
+            for family, codes in FAMILIES.items()}
+
+
+def local_slopes(contrasts):
+    """Controlled slopes ln(1+percent/100)/Delta s_ex for matched pairs."""
+    return {label: {key: float(np.log1p(contrasts[label]['metrics'][key]['percent'] / 100)
+                               / contrasts[label]['metrics']['s_ex']['mean'])
+                    for key in ('D_net', 'D_probe', 'sigma_NE')}
+            for label in LOCAL_SLOPES}
+
+
+def sign_differences(by):
+    return {code: estimate([row['transport']['D_species']['probe_plus2']
+                            - row['transport']['D_species']['probe_minus2']
+                            for row in by.get(code, {}).values()])
+            for code in STATES}
+
+
+def concentration_fluctuations(by):
+    states = {}
+    for code in STATES:
+        values = [v for row in by.get(code, {}).values()
+                  for v in row['transport']['concentration_fluctuations'].values()]
+        states[code] = {'min': float(min(values)), 'max': float(max(values))} if values else None
+    pooled = [v for v in states.values() if v]
+    return {'states': states, 'overall': {'min': min(v['min'] for v in pooled),
+                                          'max': max(v['max'] for v in pooled)}}
+
+
 def format_stat(stat, field='mean', ci='CI', digits=5, scale=1):
     if stat is None or stat.get(field) is None:
         return '—'
@@ -198,6 +247,10 @@ def aggregate():
                'x003_comparison': comparison,
                'x003_contrast_comparison': cross_comparison,
                'pooled_inverse_Haven': pooled_inverse_haven(by),
+               'sign_difference': sign_differences(by),
+               'concentration_fluctuations': concentration_fluctuations(by),
+               'rosenfeld_fits': rosenfeld_fits(systems),
+               'local_slopes': local_slopes(contrasts),
                'source_files': {'EOS': str(OLD / 'results/summary.json'),
                                 'followup': str(OLD / 'followup_20261101/results/summary.json')}}
     out = ROOT / 'results'
@@ -263,6 +316,23 @@ def aggregate():
             difference = f'{diff:.5g}{suffix}' if diff is not None else '—'
             lines.append(f"| {code} | {key} | {format_stat(entry['x075'])} | "
                          f"{format_stat(entry['x003'])} | {difference} |")
+    lines += ['', '## Charge-sign symmetry and homogeneity', '',
+              '| State | D_+2 - D_-2 | S_cc range |', '|---|---:|---:|']
+    for code in STATES:
+        cf = summary['concentration_fluctuations']['states'][code]
+        lines.append(f"| {code} | {format_stat(summary['sign_difference'][code])} | "
+                     f"{cf['min']:.3f}–{cf['max']:.3f} |")
+    overall = summary['concentration_fluctuations']['overall']
+    lines += ['', f"Low-k concentration fluctuations overall: {overall['min']:.3f}–{overall['max']:.3f}.",
+              '', '## Rosenfeld-like family fits', '',
+              'Unweighted fits of ln(mean metric) against mean s_ex (L5 excluded).', '',
+              '| Family | Metric | B | R² |', '|---|---|---:|---:|']
+    for family, fits in summary['rosenfeld_fits'].items():
+        for key, fit in fits.items():
+            lines.append(f"| {family} | {key} | {fit['B']:.3f} | {fit['R2']:.4f} |")
+    lines += ['', '| Contrast | local slope D_net | D_probe | sigma_NE |', '|---|---:|---:|---:|']
+    for label, slopes in summary['local_slopes'].items():
+        lines.append(f"| {label} | {slopes['D_net']:.3f} | {slopes['D_probe']:.3f} | {slopes['sigma_NE']:.3f} |")
     lines += ['', '## x=0.03 reference', '',
               'EOS: ComponentEntropyStudy_20261030/results/summary.json (3 replicas, 1000 tau dense).',
               'Transport: ComponentEntropyStudy_20261030/followup_20261101/results/summary.json '
