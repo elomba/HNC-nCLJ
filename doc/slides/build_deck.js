@@ -1,4 +1,4 @@
-// Builds component_entropy_results.pptx (9 slides) from the study results.
+// Builds component_entropy_results.pptx (10 slides) from the study results.
 // Run: cd doc/slides && node build_deck.js
 const path = require("path");
 const fs = require("fs");
@@ -321,6 +321,44 @@ ext.forEach(([v, l], i) => {
 });
 s.addNotes("Six new matched replicas of B3, U4, H5, U6 and H7, each 5000 tau long, and four replicas at N = 8000. At the primary 20-100 tau window, the probes speed up by 5.1 percent without salt and 5.9 percent with monovalent background, and each sign accelerates separately. The H5/U4 value falls to about 3 percent at long fitting windows because the U4 probes become diffusive slowly, so we quote 3 to 5 percent there; H7/U6 is window independent. The Green-Kubo viscosity explains the difference between mean and probes: diversification lowers eta by about 7 percent and the mean diffusion follows almost exactly, whereas the probe product D eta drops by 2-3 percent, pointing to local solvation. Doubling the box raises all diffusivities by about 1 percent, matching the Yeh-Hummer hydrodynamic correction, and leaves the contrasts unchanged. The old B3 charge-sign asymmetry is not reproduced: -0.0011 [-0.0036, 0.0015].");
 
+// ---------- 3c. Higher divalent concentration ----------
+s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
+s.addText("Tripling the divalent salt leaves the conclusions intact", { placeholder: "title" });
+// Paired values from ComponentEntropyStudy_x015_20261102/results/report.md.
+const saltCats = ["H5/U4", "H7/U6", "H5/B3", "U4/B3"];
+s.addChart(pres.charts.BAR, [
+  { name: "x(±2) = 0.03", labels: saltCats, values: [5.06, 5.90, 18.66, 12.95] },
+  { name: "x(±2) = 0.075", labels: saltCats, values: [5.18, 6.01, 19.09, 13.23] },
+], {
+  x: 0.5, y: 1.45, w: 7.5, h: 4.85, barDir: "col", barGrouping: "clustered", barGapWidthPct: 65,
+  chartColors: [HEX.accent1, HEX.accent2],
+  showValue: true, dataLabelPosition: "outEnd", dataLabelFontSize: 11, dataLabelColor: HEX.dk1,
+  dataLabelFormatCode: "0.0", dataLabelFontFace: "+mn-lt",
+  showLegend: true, legendPos: "t", legendFontSize: 13, legendFontFace: "+mn-lt", legendColor: HEX.dk1,
+  catAxisLabelColor: HEX.dk1, catAxisLabelFontSize: 13, catAxisLabelFontFace: "+mn-lt",
+  valAxisLabelColor: HEX.dk1, valAxisLabelFontSize: 12, valAxisLabelFontFace: "+mn-lt",
+  valAxisTitle: "Paired D_probe change (%)", showValAxisTitle: true, valAxisTitleFontSize: 13,
+  valAxisTitleColor: HEX.dk1, valAxisTitleFontFace: "+mn-lt", valAxisMinVal: 0, valAxisMaxVal: 22,
+  valGridLine: { color: "DCE4E8", size: 0.75 }, catGridLine: { style: "none" },
+  objectName: "high divalent concentration chart",
+});
+const saltStats = [
+  ["+0.103 kB", "Δs_ex(H5−U4) at both concentrations"],
+  ["−0.016 kB", "s_ex shift as HNC predicted"],
+  ["0.73", "σ_GK / σ_NE in every state (95% CI 0.71–0.75)"],
+  ["η −9%", "Diversification; σ unchanged within ±10%"],
+];
+saltStats.forEach(([value, label], i) => {
+  const x = 8.35 + (i % 2) * 2.25, y = 1.48 + Math.floor(i / 2) * 2.15;
+  card(s, { x, y, w: 2.1, h: 1.9, name: `salt stat ${i + 1} card` });
+  stat(s, { x: x + 0.15, y: y + 0.16, w: 1.8, value, label,
+    name: `salt stat ${i + 1}`, size: i === 2 ? 19 : 25 });
+});
+s.addText("x(+2)=x(−2)=0.075 (total 0.15), N=4000, 4 matched replicas × 3000τ, ρ*=0.7, T*=2",
+  { x: 0.55, y: 6.48, w: 12.2, h: 0.37, fontSize: 14, italic: true, color: C.accent5,
+    margin: 0, isTextBox: true, objectName: "high salt study note" });
+s.addNotes("The high-divalent campaign repeats all eight mixtures with four matched replicas of 3000 tau. Its probe diffusion contrasts closely reproduce the lower-concentration results. The controlled entropy increment stays 0.103 kB; absolute excess entropy shifts by about -0.016 kB. The pooled Green-Kubo to Nernst-Einstein conductivity ratio is 0.727 [0.708, 0.746] across 28 replicas. Diversification lowers viscosity by about 9 percent while the conductivity contrast includes zero.");
+
 // ---------- 4. Entropy coordinate ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
 s.addText("TI entropy tracks mobility; HNC and s₂ follow", { placeholder: "title" });
@@ -362,6 +400,9 @@ s.addNotes("2PT needs only one short dense trajectory instead of a 19-density is
 // ---------- 6. Outlook ----------
 s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Results" });
 s.addText("Next: fast entropy estimators for electrolytes", { placeholder: "title" });
+s.addText("Conclusions hold at x(±2)=0.075; conductivity is set by carrier number and D (σ ≈ 0.73 σ_NE), not by diversification",
+  { x: 0.6, y: 6.62, w: 12.1, h: 0.31, fontSize: 12, bold: true, color: C.accent1,
+    margin: 0, isTextBox: true, objectName: "high salt conclusion" });
 const cols = [
   ["2PT, velocity based", "Ready", C.accent6, [
     "Calibrated δ ≈ 1.2–1.25 for this model family",
@@ -391,7 +432,7 @@ const road = [
   ["HNC screen", "candidate mixtures"],
   ["TI anchors", "2–3 states to calibrate and validate"],
   ["2PT / Voronoi", "rank many candidates"],
-  ["Conductivity", "Green–Kubo current, not only self-diffusion"],
+  ["Conductivity", "Green–Kubo current: σ ≈ 0.73 σ_NE at x(±2)=0.075"],
 ];
 road.forEach(([h, b], i) => {
   const x = 0.6 + i * 3.1;

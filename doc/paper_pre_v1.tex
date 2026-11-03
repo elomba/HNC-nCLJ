@@ -38,7 +38,7 @@
 \date{\today}
 
 \begin{abstract}
-Does increasing the number of mixture components raise the excess entropy of a liquid and accelerate the divalent ions dissolved in it? We address this question for charged Lennard-Jones mixtures at $T^*=2$, $\rho^*=0.7$ that contain fixed fractions, 0.03 per sign, of $+2/-2$ probe ions. Hypernetted-chain (HNC) integral-equation theory is used to screen 35 candidate compositions, and eight selected mixtures are studied by independently replicated molecular dynamics. The excess entropy is obtained by thermodynamic integration over 19 densities with a fixed shifted LJ cutoff and a Debye--H\"uckel dilute endpoint; transport is measured in a single common center-of-mass frame. Solvent designs selected for high excess entropy raise it by approximately $0.30k_B$ per particle and increase divalent self-diffusion by 18--20\% relative to the baseline electrolytes, with both ion signs accelerating. A controlled diversification, which preserves the charged composition and the mean bare LJ pair amplitude, raises the excess entropy by $0.103k_B$ and the mean self-diffusion by 8--9\%, while the probe ions respond more weakly. Six additional matched replicas of $5000\tau$ resolve this probe response as $+5.1\%$ without and $+5.9\%$ with monovalent background, unchanged in systems twice as large. The mean self-diffusion follows the accompanying drop in shear viscosity, whereas the divalent ions are only partly carried along. Splitting a solvent into mechanically identical labels changes the ideal mixing entropy but leaves diffusion exactly unchanged, and adding monovalent salt alone does not accelerate the probes. Pair entropy computed from the MD correlations accounts for about 80\% of the excess entropy and of its controlled increments. The results identify faster-ion, higher-excess-entropy mixtures and a positive Rosenfeld-like trend for both the mean and the probe diffusion, but establish neither a causal effect of component count nor a universal species scaling law.
+Does increasing the number of mixture components raise the excess entropy of a liquid and accelerate the divalent ions dissolved in it? We address this question for charged Lennard-Jones mixtures at $T^*=2$, $\rho^*=0.7$ that contain fixed fractions, 0.03 per sign, of $+2/-2$ probe ions. Hypernetted-chain (HNC) integral-equation theory is used to screen 35 candidate compositions, and eight selected mixtures are studied by independently replicated molecular dynamics. The excess entropy is obtained by thermodynamic integration over 19 densities with a fixed shifted LJ cutoff and a Debye--H\"uckel dilute endpoint; transport is measured in a single common center-of-mass frame. Solvent designs selected for high excess entropy raise it by approximately $0.30k_B$ per particle and increase divalent self-diffusion by 18--20\% relative to the baseline electrolytes, with both ion signs accelerating. A controlled diversification, which preserves the charged composition and the mean bare LJ pair amplitude, raises the excess entropy by $0.103k_B$ and the mean self-diffusion by 8--9\%, while the probe ions respond more weakly. Six additional matched replicas of $5000\tau$ resolve this probe response as $+5.1\%$ without and $+5.9\%$ with monovalent background, unchanged in systems twice as large. The mean self-diffusion follows the accompanying drop in shear viscosity, whereas the divalent ions are only partly carried along. Repeating the study at 0.075 per sign, a total divalent fraction of 0.15, reproduces all entropy and diffusion contrasts within their uncertainties. The Green--Kubo ionic conductivity is a composition-independent 73\% of its Nernst--Einstein value, so it follows the number of carriers and their self-diffusion. Splitting a solvent into mechanically identical labels changes the ideal mixing entropy but leaves diffusion exactly unchanged, and adding monovalent salt alone does not accelerate the probes. Pair entropy computed from the MD correlations accounts for about 80\% of the excess entropy and of its controlled increments. The results identify faster-ion, higher-excess-entropy mixtures and a positive Rosenfeld-like trend for both the mean and the probe diffusion, but establish neither a causal effect of component count nor a universal species scaling law.
 \end{abstract}
 \maketitle
 
@@ -155,7 +155,7 @@ The integrand vanishes as $g_{ij}\to1$, so the integral converges rapidly. $s_2$
 
 \subsection{Composition Design and Controls}
 
-All mixtures contain $x_{+2}=x_{-2}=0.03$, with equal masses and nominal diameters, at $T^*=2$ and $\rho^*=0.7$. Table~\ref{tab:new_compositions} defines the eight states. B3 is a probe electrolyte in a single neutral LJ solvent, and B5 adds 5\% of each monovalent sign to it.
+All mixtures contain $x_{+2}=x_{-2}=0.03$, with equal masses and nominal diameters, at $T^*=2$ and $\rho^*=0.7$. Table~\ref{tab:new_compositions} defines the eight states. B3 is a probe electrolyte in a single neutral LJ solvent, and B5 adds 5\% of each monovalent sign to it. A second campaign at $x_{+2}=x_{-2}=0.075$ is described in Sec.~\ref{sec:x015_methods}.
 
 \input{component_study_compositions}
 
@@ -219,6 +219,18 @@ D_\infty=D_L+\frac{2.837297\,k_BT}{6\pi\eta L},
 \label{eq:yeh_hummer}
 \end{equation}
 where $L$ is the box length.
+
+\subsection{Higher Divalent Concentration and Ionic Conductivity}
+\label{sec:x015_methods}
+
+To test whether the conclusions hold at ion contents closer to those of electrolytes, the whole design was repeated with $x_{+2}=x_{-2}=0.075$, a total divalent fraction of 0.15 (300 ions of each sign at $N=4000$). The primary-solvent fraction of every composition is reduced by 0.09, while all secondary-solvent and monovalent fractions and all LJ parameters are kept. Equation~\eqref{eq:matched_amplitude} therefore still holds for U4, L5, M5, and H5, and U6 and H7 again form a matched pair. All 35 HNC candidates were rescreened and converged. The HNC solutions also converged at all 19 densities of the integration path, with positive low-wavevector structure-factor eigenvalues. At $\rho^*=0.7$, HNC solutions for H5 and H7 continue down to $T^*=1.25$ and for M5 to $T^*\simeq1.1$, below which the closure fails under the stronger divalent coupling. This is a limit of the HNC solution, not a phase boundary. All MD remains at $T^*=2$.
+
+The eight states were simulated in four matched replicas with the 19-density protocol of Sec.~\ref{sec:simulation}. The only change is that the dense run has $3000\tau$ of production. Positions are stored every $1\tau$, and the pressure tensor and the total charge current $\mathbf J=\sum_i q_i\mathbf v_i$ every $0.01\tau$. The Green--Kubo ionic conductivity is
+\begin{equation}
+\sigma=\frac{1}{3Vk_BT}\int_0^\infty\langle\mathbf J(0)\cdot\mathbf J(t)\rangle\,dt,
+\label{eq:gk_conductivity}
+\end{equation}
+in reduced LJ units. Both $\sigma$ and $\eta$ are taken as the mean of their running integrals between 5 and $10\tau$. The conductivity is compared with the Nernst--Einstein value $\sigma_{\rm NE}=(\rho/k_BT)\sum_ix_iq_i^2D_i$, built from the measured self-diffusion coefficients. Their ratio $\sigma/\sigma_{\rm NE}$, the inverse Haven ratio, measures the cross correlations between the motions of different ions.
 
 %======================================================================
 \section{Results and Discussion}
@@ -299,6 +311,30 @@ Box size does not affect these conclusions (Table~\ref{tab:followup_size}). At $
 
 \input{component_study_followup_size}
 
+\subsection{Higher Divalent Concentration}
+\label{sec:x015_results}
+
+Raising the divalent fraction to 0.075 per sign leaves the entropy and diffusion contrasts essentially unchanged (Tables~\ref{tab:x015_contrasts} and \ref{tab:x015_comparison}, Fig.~\ref{fig:x015_contrasts}). The controlled diversification raises the excess entropy by $0.1027k_B$ (H5/U4) and $0.1041k_B$ (H7/U6), compared with $0.1032k_B$ and $0.1033k_B$ at $x_{\pm2}=0.03$. Relative to the baselines, H5 and H7 gain $0.3014k_B$ and $0.3015k_B$. HNC gives $0.1108k_B$ and $0.3306k_B$ for the H5 increments, again 8--10\% too large, and its absolute entropies are again more negative than MD, by 0.064--0.093$k_B$. The label-only control remains exact: L5 and U4 have identical transport in every replica and $\Delta s_{\rm ex}=+0.0002k_B$, interval $[-0.0012,0.0015]k_B$. Monovalent salt addition again lowers the excess entropy slightly, by $0.0034k_B$, and leaves the probe diffusion unchanged ($+0.12\%$).
+
+\input{component_study_x015_contrasts}
+
+The controlled probe response is the same as at the lower concentration. U4$\to$H5 increases probe diffusion by $5.18\%$, interval $[3.65,6.73]\%$, and U6$\to$H7 by $6.01\%$, interval $[4.63,7.41]\%$, against $5.06\%$ and $5.90\%$ at $x_{\pm2}=0.03$. Both signs again accelerate separately, by 4.9 and 5.5\% for H5/U4 and by 5.8 and 6.2\% for H7/U6. The mean fluid accelerates by 8.7 and 9.1\%, so the probes again respond about 0.6 times as strongly. The moderate split M5 now resolves a small probe gain of $1.70\%$, interval $[0.94,2.47]\%$. The design comparisons H5/B3 and H7/B5 give $+19.1\%$ and $+19.5\%$, with intervals $[17.2,21.1]\%$ and $[17.3,21.6]\%$. Diversification lowers the viscosity by $9.2\%$, interval $[4.9,13.3]\%$, from U4 to H5. Within this uncertainty, the mean diffusion again follows the viscosity ($D_{\rm net}\eta$ changes by $-1.3\%$), while the probes lag ($D_{\rm probe}\eta$ changes by $-4.5\%$). The H7/U6 viscosity change of $-5.7\%$ is not resolved with four replicas.
+
+\input{component_study_x015_comparison}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/component_x015_contrasts.pdf}
+\caption{Paired contrasts at $x_{+2}=x_{-2}=0.075$ (four matched replicas, $3000\tau$, $N=4000$) with nominal 95\% intervals. (a) Probe self-diffusion, with the $x_{\pm2}=0.03$ long-run values where available. (b) Green--Kubo conductivity and its Nernst--Einstein estimate.}
+\label{fig:x015_contrasts}
+\end{figure*}
+
+The additional ions shift all states nearly uniformly. The excess entropy decreases by $0.016k_B$ per particle in every state, which HNC also predicts. The compressibility factor falls by 0.020 and the potential energy per particle by 0.078--0.082. The probe diffusivities drop by only 0.5--1.3\%, and the viscosities are unchanged within their uncertainties. The ions differ from the primary solvent only in charge, so at $T^*=2$ the added Coulomb coupling barely affects the dynamics.
+
+Table~\ref{tab:x015_conductivity} reports the ionic conductivity. The running Green--Kubo integral reaches its plateau within 2--$5\tau$, and its values at 2, 5, 10, and $20\tau$ agree within their uncertainties. In every state, $\sigma/\sigma_{\rm NE}$ lies between 0.69 and 0.74. Pooled over the 28 independent replicas, it is $0.727$, interval $[0.708,0.746]$. Correlated motion of oppositely charged ions therefore lowers the conductivity by about 27\% relative to independent carriers, by the same amount in every composition: no paired change in $\sigma/\sigma_{\rm NE}$ is resolved. The conductivity thus follows the number of carriers and their self-diffusion. Adding monovalent salt raises it by $18.8\%$, interval $[6.6,32.4]\%$ (B5/B3), compared with $17.7\%$ from Nernst--Einstein. The controlled diversification predicts $+5.2\%$ and $+6.1\%$ from Nernst--Einstein. The measured changes, $-1.3\%$, interval $[-10.4,8.6]\%$, and $+4.0\%$, interval $[-9.7,19.8]\%$, are consistent with these predictions, but Green--Kubo conductivity from four replicas cannot resolve a change of this size. For electrolyte design, the conductivity gain available from interaction diversity at fixed mean pair amplitude is therefore bounded by the 5--6\% gain in ion self-diffusion. Changing the solvent interaction strength itself gives 13--19\%.
+
+\input{component_study_x015_conductivity}
+
 \subsection{Rosenfeld-Like Correlation and Its Limits}
 
 Figure~\ref{fig:new_scaling} shows a positive entropy--mobility trend for both the mean and the divalent probes. All masses, temperatures, and densities are equal, so $D_i^R=D_i\rho^{1/3}/\sqrt{T}$ differs from $D_i$ by a common constant. Unweighted fits of composition means to
@@ -342,8 +378,9 @@ The replicated calculations establish a positive excess-entropy--mobility associ
 \item \textbf{Controlled diversification gives a weaker ion response.} At fixed charged composition and mean bare pair amplitude, the excess entropy rises by approximately $0.103k_B$, mean diffusion by 8--9\%, and probe diffusion by $5$--$6\%$, resolved with and without monovalent background and independent of box size. The mean diffusion tracks the accompanying drop in shear viscosity, whereas the probes are only partly carried along.
 \item \textbf{Rosenfeld-like trends extend to both probe signs but do not establish a universal law.} Separate fits of $D_{+2}$ and $D_{-2}$ against either the excess entropy or the MD pair entropy have positive slopes within the selected families, while the controlled local slopes for the probes are about 0.6 times those of the mean.
 \item \textbf{Pair entropy captures most, but not all, of the excess entropy.} The all-species $s_2$ accounts for approximately 80\% of $s_{\rm ex}$ and of its controlled increments, leaving a composition-dependent beyond-pair residual of about $-0.32$ to $-0.36k_B$ per particle.
+\item \textbf{The conclusions hold at an electrolyte-like divalent content.} At $x_{\pm2}=0.075$ (total 0.15), the entropy increments, the 5--6\% controlled probe response, and the 19\% design gains agree with the $x_{\pm2}=0.03$ values within their uncertainties. The ionic conductivity is a composition-independent $0.73$ of its Nernst--Einstein value, so diversification raises it no more than it raises the ion self-diffusion.
 \end{enumerate}
-The partial decoupling of the probes from the bulk viscosity points to local solvation as the controlling factor. Probe--solvent coordination, association lifetimes, and exchange kinetics, together with higher divalent concentrations and several state points at fixed composition, would test whether weaker local caging rather than a bulk entropy coordinate controls the ion mobility.
+The partial decoupling of the probes from the bulk viscosity points to local solvation as the controlling factor. Probe--solvent coordination, association lifetimes, and exchange kinetics, together with several state points at fixed composition, would test whether weaker local caging rather than a bulk entropy coordinate controls the ion mobility.
 
 \begin{acknowledgments}
 This work was supported by the Spanish Ministerio de Ciencia, Innovaci{\'o}n y Universidades and CSIC. Computational resources provided by the Scientific Computing Center at IQF-CSIC are gratefully acknowledged.

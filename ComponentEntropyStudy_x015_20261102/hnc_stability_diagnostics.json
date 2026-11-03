@@ -1,0 +1,66 @@
+[
+  {
+    "name": "baseline_3C",
+    "status": "converged",
+    "chi": 6.4055,
+    "min_eigenvalue_low_k": 0.000669999999999991,
+    "max_eigenvalue_low_k": 0.2945826241617061,
+    "max_S_cc_low_k": 0.15219
+  },
+  {
+    "name": "mono_f010",
+    "status": "converged",
+    "chi": 6.3968,
+    "min_eigenvalue_low_k": 0.0005418907841759288,
+    "max_eigenvalue_low_k": 0.3227198905934981,
+    "max_S_cc_low_k": 0.20982
+  },
+  {
+    "name": "weak_f030_e025",
+    "status": "converged",
+    "chi": 6.496,
+    "min_eigenvalue_low_k": 0.0006599999999999928,
+    "max_eigenvalue_low_k": 0.5266772213233739,
+    "max_S_cc_low_k": 0.29622
+  },
+  {
+    "name": "dispersion_split_d000",
+    "status": "converged",
+    "chi": 6.496,
+    "min_eigenvalue_low_k": 0.0006600000000000111,
+    "max_eigenvalue_low_k": 0.43763219572635137,
+    "max_S_cc_low_k": 0.29622
+  },
+  {
+    "name": "dispersion_split_d025",
+    "status": "converged",
+    "chi": 6.253,
+    "min_eigenvalue_low_k": 0.000669999999999992,
+    "max_eigenvalue_low_k": 0.43542537103751655,
+    "max_S_cc_low_k": 0.29579
+  },
+  {
+    "name": "dispersion_split_d040",
+    "status": "converged",
+    "chi": 5.7035,
+    "min_eigenvalue_low_k": 0.0006599999999999943,
+    "max_eigenvalue_low_k": 0.4137647003709181,
+    "max_S_cc_low_k": 0.28981
+  },
+  {
+    "name": "mono_weak_uniform6C",
+    "status": "converged",
+    "chi": 6.4878,
+    "min_eigenvalue_low_k": 0.0005359125866316525,
+    "max_eigenvalue_low_k": 0.4671025856472775,
+    "max_S_cc_low_k": 0.2809
+  },
+  {
+    "name": "mono_weak_split7C",
+    "status": "converged",
+    "chi": 5.6954,
+    "min_eigenvalue_low_k": 0.0005339019891402313,
+    "max_eigenvalue_low_k": 0.3693623198986692,
+    "max_S_cc_low_k": 0.2767
+  }
+]

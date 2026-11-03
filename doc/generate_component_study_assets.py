@@ -319,3 +319,113 @@ if followup_path.exists():
         fig.savefig(OUT/f'component_followup_windows.{ext}',dpi=220)
     plt.close(fig)
     print('Generated follow-up transport tables and fitting-window figure.')
+
+# Completed high-divalent-fraction campaign: keep its assets alongside earlier results.
+X015=DOC.parent/'ComponentEntropyStudy_x015_20261102'/'results'
+X=json.loads((X015/'summary.json').read_text())
+XH=json.loads((X015/'hnc_summary.json').read_text())
+assert X['completed_replicas']==X['expected_replicas']==32
+
+
+def x015_estimate(value,digits=4):
+    if value is None:
+        return '—'
+    return fmt(value,digits)
+
+
+def x015_absolute(value,digits=5):
+    """Unsigned mean [CI] for absolute-state quantities."""
+    m,(lo,hi)=value['mean'],value['CI']
+    return f"${m:.{digits}f}\\;[{lo:.{digits}f},{hi:.{digits}f}]$"
+
+
+def x015_percent(value):
+    if value is None or value.get('percent_CI') is None:
+        return '—'
+    return fmt({'mean':value['percent'],'CI':value['percent_CI']})
+
+
+xlabels=['H5/U4','M5/U4','L5/U4','H7/U6','H5/B3','H7/B5','U4/B3','B5/B3']
+xrows=[]
+for label in xlabels:
+    metrics=X['paired_contrasts'][label]['metrics']
+    hnc=XH['contrasts'].get(label.replace('/','-'))
+    xrows.append([label,x015_estimate(metrics['s_ex']),
+                  f"${hnc['new']:+.4f}$" if hnc else '—']+
+                 [x015_percent(metrics[key]) for key in ['D_net','D_probe','eta','sigma']])
+save_table('component_study_x015_contrasts.tex',
+           r'Paired contrasts at $x_{+2}=x_{-2}=0.075$, $N=4000$, '
+           r'four matched replicas of $3000\tau$ each, $\rho^*=0.7$, $T^*=2$. '
+           r'Brackets give 95\% confidence intervals. Percentages are '
+           r'$100[\exp(\overline{\ln(A/B)})-1]$; $\sigma$ is the Green--Kubo '
+           r'conductivity from the 5--10$\tau$ plateau. HNC entropy increments '
+           r'are evaluated at the same divalent fraction.',
+           'tab:x015_contrasts','lrrrrrr',
+           r'Contrast & MD $\Delta s_{\rm ex}/k_B$ [CI] & HNC $\Delta s_{\rm ex}/k_B$ & '
+           r'$D_{\rm net}$ (\%) [CI] & $D_{\rm probe}$ (\%) [CI] & '
+           r'$\eta$ (\%) [CI] & $\sigma$ (\%) [CI]',xrows)
+
+state_codes=['B3','B5','U4','M5','H5','U6','H7']
+state_rows=[]
+for code in state_codes:
+    metrics=X['systems'][code]['metrics']
+    state_rows.append([code]+[x015_absolute(metrics[key]) for key in
+                              ['s_ex','D_probe','eta','sigma','sigma_NE','inv_Haven']])
+pooled=X['pooled_inverse_Haven']
+save_table('component_study_x015_conductivity.tex',
+           r'Absolute-state means and 95\% confidence intervals at '
+           r'$x_{+2}=x_{-2}=0.075$. Conductivity $\sigma$ uses the '
+           r'Green--Kubo 5--10$\tau$ plateau. L5 is omitted because it is '
+           r'mechanically identical to U4. Across the 28 replicas of the seven '
+           rf'distinct states, pooled $\sigma/\sigma_{{\rm NE}}={pooled["mean"]:.3f}$ '
+           rf'[{pooled["CI"][0]:.3f},{pooled["CI"][1]:.3f}].',
+           'tab:x015_conductivity','lrrrrrr',
+           r'State & $s_{\rm ex}/k_B$ [CI] & $D_{\rm probe}$ [CI] & '
+           r'$\eta$ [CI] & $\sigma$ [CI] & $\sigma_{\rm NE}$ [CI] & '
+           r'$\sigma/\sigma_{\rm NE}$ [CI]',state_rows)
+
+comparison_rows=[]
+for label in ['H5/U4','H7/U6','H5/B3','U4/B3']:
+    sources=X['x003_contrast_comparison']['contrasts'][label]
+    comparison_rows.append([label]+[x015_estimate(sources[x].get('s_ex')) for x in ['x003','x075']]+
+                           [x015_percent(sources[x].get(key)) for key in ['D_net','D_probe']
+                            for x in ['x003','x075']])
+save_table('component_study_x015_comparison.tex',
+           r'Paired changes at $x_{+2}=x_{-2}=0.03$ and 0.075; '
+           r'brackets are 95\% confidence intervals. The 0.03 results use '
+           r'the completed earlier campaign. A dash means the paired estimate '
+           r'is unavailable. Diffusion percentages use exponentiated mean log ratios.',
+           'tab:x015_comparison','lrrrrrr',
+           r'Contrast & $\Delta s_{\rm ex}$ 0.03 & $\Delta s_{\rm ex}$ 0.075 & '
+           r'$D_{\rm net}$ 0.03 (\%) & $D_{\rm net}$ 0.075 (\%) & '
+           r'$D_{\rm probe}$ 0.03 (\%) & $D_{\rm probe}$ 0.075 (\%)',comparison_rows)
+
+figure_labels=['H5/U4','M5/U4','H7/U6','H5/B3','H7/B5','U4/B3','B5/B3']
+fig,axs=plt.subplots(1,2,figsize=(12,4.5),layout='constrained')
+positions=np.arange(len(figure_labels))
+for index,label in enumerate(figure_labels):
+    metrics=X['paired_contrasts'][label]['metrics']
+    old=X['x003_contrast_comparison']['contrasts'].get(label,{}).get('x003',{})
+    for ax,key,offset,color,marker,source,legend in [
+        (axs[0],'D_probe',-.13,'#2166ac','o',metrics,'x = 0.075'),
+        (axs[0],'D_probe',+.13,'#2166ac','o',old,'x = 0.03'),
+        (axs[1],'sigma',-.13,'#2166ac','o',metrics,r'$\sigma$'),
+        (axs[1],'sigma_NE',+.13,'#b2182b','s',metrics,r'$\sigma_{\rm NE}$')]:
+        value=source.get(key)
+        if not value or value.get('percent_CI') is None:
+            continue
+        point=value['percent'];lo,hi=value['percent_CI']
+        filled=source is metrics
+        ax.errorbar(index+offset,point,yerr=[[point-lo],[hi-point]],fmt=marker,
+                    color=color,markerfacecolor=color if filled else 'white',
+                    capsize=3,linestyle='none',label=legend if index==0 else None)
+for ax,title,ylabel in zip(axs,['(a) Probe diffusion','(b) Conductivity'],
+                          ['Paired $D_{\\rm probe}$ change (%)','Paired conductivity change (%)']):
+    ax.axhline(0,color='black',lw=.8)
+    ax.set_xticks(positions,figure_labels,rotation=35,ha='right')
+    ax.set(xlabel='Paired contrast',ylabel=ylabel,title=title)
+    ax.grid(axis='y',alpha=.2)
+    ax.legend(frameon=False)
+fig.savefig(OUT/'component_x015_contrasts.pdf')
+plt.close(fig)
+print('Generated high-divalent-fraction tables and contrast figure.')

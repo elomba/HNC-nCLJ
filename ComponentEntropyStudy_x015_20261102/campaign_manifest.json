@@ -1,0 +1,18 @@
+{
+  "x_probe": 0.075,
+  "screen_attempted": 35,
+  "screen_converged": 35,
+  "fine_attempted": 8,
+  "fine_converged": 8,
+  "selected": [
+    "baseline_3C",
+    "mono_f010",
+    "weak_f030_e025",
+    "dispersion_split_d000",
+    "dispersion_split_d025",
+    "dispersion_split_d040",
+    "mono_weak_uniform6C",
+    "mono_weak_split7C"
+  ],
+  "additional_above_selected": []
+}

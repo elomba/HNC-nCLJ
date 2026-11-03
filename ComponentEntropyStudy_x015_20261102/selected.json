@@ -1,0 +1,442 @@
+[
+  {
+    "name": "baseline_3C",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.85,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Original 3C probe electrolyte",
+    "family": "baseline",
+    "n_components": 3,
+    "I": 0.3,
+    "ion_fraction": 0.15,
+    "mixing_entropy": 0.5266811648899827,
+    "q2": 0.6,
+    "q4": 2.4,
+    "mean_sqrt_epsilon": 1.0,
+    "code": "B3"
+  },
+  {
+    "name": "mono_f010",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.75,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Symmetric monovalent salt",
+    "family": "monovalent",
+    "n_components": 5,
+    "I": 0.35,
+    "ion_fraction": 0.25,
+    "mixing_entropy": 0.9038748565111087,
+    "q2": 0.7,
+    "q4": 2.5,
+    "mean_sqrt_epsilon": 1.0,
+    "code": "B5"
+  },
+  {
+    "name": "weak_f030_e025",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.55,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_solvent",
+        "q": 0,
+        "x": 0.3,
+        "eps": 0.25,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Weak neutral solvent",
+    "family": "weak_solvent",
+    "n_components": 4,
+    "I": 0.3,
+    "ion_fraction": 0.15,
+    "mixing_entropy": 1.078542266530246,
+    "q2": 0.6,
+    "q4": 2.4,
+    "mean_sqrt_epsilon": 0.8500000000000001,
+    "code": "U4"
+  },
+  {
+    "name": "dispersion_split_d000",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.55,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_A",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.25,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_B",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.25,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Same neutral fraction and mean sqrt(epsilon) as weak_f030_e025; delta=0 is label-only",
+    "family": "matched_dispersion",
+    "n_components": 5,
+    "I": 0.3,
+    "ion_fraction": 0.15,
+    "mixing_entropy": 1.2864864206982296,
+    "q2": 0.6,
+    "q4": 2.4,
+    "mean_sqrt_epsilon": 0.8500000000000001,
+    "code": "L5"
+  },
+  {
+    "name": "dispersion_split_d025",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.55,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_A",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.0625,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_B",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.5625,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Same neutral fraction and mean sqrt(epsilon) as weak_f030_e025; delta=0 is label-only",
+    "family": "matched_dispersion",
+    "n_components": 5,
+    "I": 0.3,
+    "ion_fraction": 0.15,
+    "mixing_entropy": 1.2864864206982296,
+    "q2": 0.6,
+    "q4": 2.4,
+    "mean_sqrt_epsilon": 0.85,
+    "code": "M5"
+  },
+  {
+    "name": "dispersion_split_d040",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.55,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_A",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.009999999999999995,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_B",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.81,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Same neutral fraction and mean sqrt(epsilon) as weak_f030_e025; delta=0 is label-only",
+    "family": "matched_dispersion",
+    "n_components": 5,
+    "I": 0.3,
+    "ion_fraction": 0.15,
+    "mixing_entropy": 1.2864864206982296,
+    "q2": 0.6,
+    "q4": 2.4,
+    "mean_sqrt_epsilon": 0.8500000000000001,
+    "code": "H5"
+  },
+  {
+    "name": "mono_weak_uniform6C",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.45000000000000007,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_solvent",
+        "q": 0,
+        "x": 0.3,
+        "eps": 0.25,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Monovalent-background counterpart at fixed I=.17 and divalent fractions; mean LJ amplitude matched across uniform/split",
+    "family": "monovalent_dispersion",
+    "n_components": 6,
+    "I": 0.35,
+    "ion_fraction": 0.25,
+    "mixing_entropy": 1.4086336067680512,
+    "q2": 0.7,
+    "q4": 2.5,
+    "mean_sqrt_epsilon": 0.8500000000000001,
+    "code": "U6"
+  },
+  {
+    "name": "mono_weak_split7C",
+    "species": [
+      {
+        "label": "solvent",
+        "q": 0,
+        "x": 0.45000000000000007,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_A",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.01,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "weak_B",
+        "q": 0,
+        "x": 0.15,
+        "eps": 0.81,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_plus1",
+        "q": 1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "background_minus1",
+        "q": -1,
+        "x": 0.05,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_plus2",
+        "q": 2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      },
+      {
+        "label": "probe_minus2",
+        "q": -2,
+        "x": 0.075,
+        "eps": 1.0,
+        "mass": 1.0,
+        "sigma": 1.0
+      }
+    ],
+    "description": "Monovalent-background counterpart at fixed I=.17 and divalent fractions; mean LJ amplitude matched across uniform/split",
+    "family": "monovalent_dispersion",
+    "n_components": 7,
+    "I": 0.35,
+    "ion_fraction": 0.25,
+    "mixing_entropy": 1.6165777609360346,
+    "q2": 0.7,
+    "q4": 2.5,
+    "mean_sqrt_epsilon": 0.8500000000000001,
+    "code": "H7"
+  }
+]

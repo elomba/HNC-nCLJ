@@ -1,0 +1,50 @@
+[
+  {
+    "name": "x15_B3_r1_smoke",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_x015_20261102/smoke/baseline_3C/replica_1",
+    "composition": "baseline_3C",
+    "replica": 1
+  },
+  {
+    "name": "x15_B5_r1_smoke",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_x015_20261102/smoke/mono_f010/replica_1",
+    "composition": "mono_f010",
+    "replica": 1
+  },
+  {
+    "name": "x15_U4_r1_smoke",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_x015_20261102/smoke/weak_f030_e025/replica_1",
+    "composition": "weak_f030_e025",
+    "replica": 1
+  },
+  {
+    "name": "x15_L5_r1_smoke",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_x015_20261102/smoke/dispersion_split_d000/replica_1",
+    "composition": "dispersion_split_d000",
+    "replica": 1
+  },
+  {
+    "name": "x15_M5_r1_smoke",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_x015_20261102/smoke/dispersion_split_d025/replica_1",
+    "composition": "dispersion_split_d025",
+    "replica": 1
+  },
+  {
+    "name": "x15_H5_r1_smoke",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_x015_20261102/smoke/dispersion_split_d040/replica_1",
+    "composition": "dispersion_split_d040",
+    "replica": 1
+  },
+  {
+    "name": "x15_U6_r1_smoke",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_x015_20261102/smoke/mono_weak_uniform6C/replica_1",
+    "composition": "mono_weak_uniform6C",
+    "replica": 1
+  },
+  {
+    "name": "x15_H7_r1_smoke",
+    "directory": "/sif/users/e.lomba/EntropicFLuids/ComponentEntropyStudy_x015_20261102/smoke/mono_weak_split7C/replica_1",
+    "composition": "mono_weak_split7C",
+    "replica": 1
+  }
+]
