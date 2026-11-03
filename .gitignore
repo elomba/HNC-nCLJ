@@ -46,3 +46,6 @@ log.lammps
 lammps_study/
 VoronoiEntropyData/
 
+
+# Office lock files
+~$*

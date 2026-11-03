@@ -1,5 +1,6 @@
 // Builds component_entropy_results.pptx (12 slides) from the study results.
-// Run: cd doc/slides && node build_deck.js
+// Run: cd doc/slides && node build_deck.js && python3 apply_overrides.py
+// apply_overrides.py restores hand-edited slides kept in overrides/ (slide 4: native PowerPoint equations).
 const path = require("path");
 const fs = require("fs");
 const pptxgen = require("pptxgenjs");
